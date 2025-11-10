@@ -1,3 +1,39 @@
+.hero {
+    /* Tentukan tinggi section */
+    height: 90vh; /* 90% dari tinggi layar. Sesuaikan jika perlu */
+
+    /* * PENTING: Path ke gambar Anda.
+     * Kita pakai ../ untuk "keluar" dari folder 'css' 
+     * lalu masuk ke folder 'storage'.
+     */
+    background-image: url('../storage/bms.png'); 
+    
+    /* Properti agar gambar pas dan terlihat bagus */
+    background-size: cover;       /* Gambar akan menutupi seluruh area */
+    background-position: center;  /* Gambar diposisikan di tengah */
+
+    /* Pengaturan untuk menata teks di dalamnya */
+    display: flex;
+    /* align-items: center;  Menengahkan teks secara vertikal */
+    padding: 150px 5% 0;        /* Memberi jarak dari atas dan 5% kiri/kanan */
+}
+
+/* Style untuk container teks di dalam hero */
+.hero-content {
+    max-width: 550px; /* Batasi lebar teks agar tidak terlalu panjang */
+}
+
+/* Style untuk teks Judul (H1) */
+.hero-content h1 {
+    color: white;
+    font-size: 48px;  /* Ukuran font (sesuaikan) */
+    font-weight: bold;
+    line-height: 1.3; /* Jarak antar baris */
+
+    /* Efek bayangan agar teks mudah dibaca di atas gambar */
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+}
+
 /* Pengaturan Dasar */
 body, html {
     margin: 0;
@@ -69,6 +105,9 @@ body, html {
     height: 50px; 
     width: auto;
     flex-shrink: 0; /* Mencegah logo menyusut jika teks terlalu panjang */
+    
+    /* REVISI: Menambahkan bayangan pada logo */
+    filter: drop-shadow(1px 1px 3px rgba(0, 0, 0, 0.7));
 }
 
 /* 3. Buat style untuk teks logo */
@@ -77,12 +116,20 @@ body, html {
     font-weight: bold;      
     color: white;           /* Warna teks awal (putih) */
     line-height: 1.4;       /* Jarak antar baris */
-    transition: color 0.3s ease-in-out; /* Transisi untuk ganti warna */
+    
+    /* REVISI: Menambahkan transisi untuk bayangan */
+    transition: color 0.3s ease-in-out, text-shadow 0.3s ease-in-out;
+    
+    /* REVISI: Menambahkan bayangan pada teks logo */
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
 }
 
 /* 4. Ubah warna teks saat header di-scroll (menggantikan .logo strong) */
 #main-header.scrolled .logo .logo-text {
     color: #333; /* Warna teks saat di-scroll (hitam) */
+    
+    /* REVISI: Menghapus bayangan saat di-scroll */
+    text-shadow: none;
 }
 
 .nav-links {
@@ -101,7 +148,12 @@ body, html {
     color: white;
     font-weight: bold;
     font-size: 14px;
-    transition: color 0.3s ease-in-out;
+    
+    /* REVISI: Menambahkan transisi untuk bayangan */
+    transition: color 0.3s ease-in-out, text-shadow 0.3s ease-in-out;
+    
+    /* REVISI: Menambahkan bayangan pada link menu */
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
 }
 
 .lang-btn {
@@ -144,26 +196,12 @@ body, html {
     background: none; 
 }
 
-/* Teks Logo menjadi hitam */
-#main-header.scrolled .logo strong {
-    color: #333;
-}
-
 /* Teks link navigasi menjadi hitam */
 #main-header.scrolled .nav-links a {
     color: #333;
-}
-
-
-/* * KONTEN HALAMAN (Tidak Berubah)
- */
-
-.hero {
-    height: 60vh; 
-    /* Ganti URL dengan gambar Anda */
-    background-image: url('https://images.unsplash.com/photo-1542332213-9b5a5a32deb7?q=80&w=2070'); 
-    background-size: cover;
-    background-position: center;
+    
+    /* REVISI: Menghapus bayangan saat di-scroll */
+    text-shadow: none;
 }
 
 .content {
