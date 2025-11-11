@@ -1,0 +1,209 @@
+.hero {
+    /* Tentukan tinggi section */
+    height: 90vh; /* 90% dari tinggi layar. Sesuaikan jika perlu */
+
+    /* * PENTING: Path ke gambar Anda.
+     * Kita pakai ../ untuk "keluar" dari folder 'css' 
+     * lalu masuk ke folder 'storage'.
+     */
+    background-image: url('../storage/bms.png'); 
+    
+    /* Properti agar gambar pas dan terlihat bagus */
+    background-size: cover;       /* Gambar akan menutupi seluruh area */
+    background-position: center;  /* Gambar diposisikan di tengah */
+
+    /* Pengaturan untuk menata teks di dalamnya */
+    display: flex;
+    /* align-items: center;  Menengahkan teks secara vertikal */
+    padding: 150px 5% 0;        /* Memberi jarak dari atas dan 5% kiri/kanan */
+}
+
+/* Style untuk container teks di dalam hero */
+.hero-content {
+    max-width: 550px; /* Batasi lebar teks agar tidak terlalu panjang */
+}
+
+/* Style untuk teks Judul (H1) */
+.hero-content h1 {
+    color: white;
+    font-size: 48px;  /* Ukuran font (sesuaikan) */
+    font-weight: bold;
+    line-height: 1.3; /* Jarak antar baris */
+
+    /* Efek bayangan agar teks mudah dibaca di atas gambar */
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+}
+
+/* Pengaturan Dasar */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+}
+
+/* * HEADER / NAVBAR 
+ */
+
+/* Posisi Header (Fixed di atas) */
+#main-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    /* Transisi agar perubahan warna background mulus */
+    transition: background-color 0.3s ease-in-out;
+}
+
+/* 1. STATE AWAL (TRANSPARAN DENGAN GRADASI) */
+
+/* Baris atas (Stock) */
+.top-bar {
+    /* Diposisikan absolut ke kanan atas */
+    position: absolute;
+    top: 0;
+    right: 20px; /* Jarak dari kanan */
+    z-index: 1002; /* Di atas main-nav */
+    
+    /* Styling kotak putih */
+    background-color: white;
+    color: #333; /* Teks hitam */
+    padding: 8px 12px;
+    font-size: 12px;
+    border-radius: 0 0 8px 8px; /* Sudut bulat di bawah */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    
+    /* Transisi untuk perubahan posisi & style */
+    transition: all 0.3s ease-in-out;
+}
+
+/* Navigasi Utama */
+.main-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 38px 40px;
+    z-index: 1001;
+
+    /* Latar belakang gradasi biru transparan */
+    /* Dari biru semi-transparan di atas ke transparan penuh di bawah */
+    background: linear-gradient(to bottom, rgba(0, 106, 192, 0.7), transparent);
+    
+    /* Transisi untuk menghapus gradasi */
+    transition: background 0.3s ease-in-out;
+}
+
+.logo {
+    display: flex;          /* Membuat item di dalamnya (img dan span) berdampingan */
+    align-items: center;    /* Menyejajarkan logo dan teks secara vertikal (di tengah) */
+    gap: 12px;              /* Memberi jarak 12px antara logo dan teks */
+}
+
+/* 2. Atur ukuran logo (Anda sudah punya ini) */
+.logo img {
+    height: 50px; 
+    width: auto;
+    flex-shrink: 0; /* Mencegah logo menyusut jika teks terlalu panjang */
+    
+    /* REVISI: Menambahkan bayangan pada logo */
+    filter: drop-shadow(1px 1px 3px rgba(0, 0, 0, 0.7));
+}
+
+/* 3. Buat style untuk teks logo */
+.logo .logo-text {
+    font-size: 13px;        /* Ukuran font (sesuaikan) */
+    font-weight: bold;      
+    color: white;           /* Warna teks awal (putih) */
+    line-height: 1.4;       /* Jarak antar baris */
+    
+    /* REVISI: Menambahkan transisi untuk bayangan */
+    transition: color 0.3s ease-in-out, text-shadow 0.3s ease-in-out;
+    
+    /* REVISI: Menambahkan bayangan pada teks logo */
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+}
+
+/* 4. Ubah warna teks saat header di-scroll (menggantikan .logo strong) */
+#main-header.scrolled .logo .logo-text {
+    color: #333; /* Warna teks saat di-scroll (hitam) */
+    
+    /* REVISI: Menghapus bayangan saat di-scroll */
+    text-shadow: none;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links li {
+    margin: 0 15px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+    
+    /* REVISI: Menambahkan transisi untuk bayangan */
+    transition: color 0.3s ease-in-out, text-shadow 0.3s ease-in-out;
+    
+    /* REVISI: Menambahkan bayangan pada link menu */
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+}
+
+.lang-btn {
+    background-color: #e60000; /* Merah */
+    color: white;
+    padding: 8px 12px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+/* 2. STATE SAAT DI-SCROLL (.scrolled) */
+
+/* Background header menjadi putih */
+#main-header.scrolled {
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Bayangan di bawah */
+}
+
+/* Top bar menjadi abu-abu muda, teks hitam */
+#main-header.scrolled .top-bar {
+    /* Kembali ke posisi normal (relative) */
+    position: relative;
+    right: 0; /* Reset posisi */
+    
+    background-color: #f5f5f5;
+    color: #333;
+    
+    /* Style kembali normal */
+    border-radius: 0;
+    box-shadow: none;
+    padding: 8px 40px; /* Padding penuh */
+    text-align: right;
+}
+
+/* Navigasi utama kehilangan gradasinya */
+#main-header.scrolled .main-nav {
+    /* Hapus gradasi, biarkan background putih dari parent */
+    background: none; 
+}
+
+/* Teks link navigasi menjadi hitam */
+#main-header.scrolled .nav-links a {
+    color: #333;
+    
+    /* REVISI: Menghapus bayangan saat di-scroll */
+    text-shadow: none;
+}
+
+.content {
+    padding: 40px;
+}
