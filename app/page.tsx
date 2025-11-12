@@ -1,29 +1,83 @@
 // app/page.tsx
 'use client';
 
+import { useEffect, useState } from 'react';
 import styles from './page.module.css';
 import Image from 'next/image';
 import Link from 'next/link';
 
 export default function HomePage() {
+  const [currentTime, setCurrentTime] = useState(new Date());
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const formatDate = (date: Date) => {
+    return date.toLocaleDateString('id-ID', {
+      weekday: 'long',
+    });
+  };
+
+  const formatDMY = (date: Date) => {
+    return date.toLocaleDateString('id-ID', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+    });
+  };
+
+  const formatTime = (date: Date) => {
+    return date.toLocaleTimeString('id-ID', {
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+    });
+  };
+
+  const dayName = currentTime.toLocaleDateString('id-ID', { weekday: 'long' });
+
   return (
     <>
       {/* HERO — MULAI LANGSUNG DARI ATAS */}
       <section className={styles.hero}>
         <div className={styles.heroOverlay}></div>
+
         <div className={styles.heroContent}>
-          <h1 className={styles.heroTitle}>
-            Menjawab Kebutuhan Informasi Warga Banyumas
-          </h1>
-          <p className={styles.heroSubtitle}>
-            Temukan informasi publik terkini dari Pemerintah Kabupaten Banyumas.
-          </p>
+          {/* TEXT KIRI */}
+          <div className={styles.heroText}>
+            <h1 className={styles.heroTitle}>
+              Menjawab Kebutuhan Informasi Warga Banyumas
+            </h1>
+            <p className={styles.heroSubtitle}>
+              Temukan informasi publik terkini dari Pemerintah Kabupaten Banyumas.
+            </p>
+          </div>
 
-          <form className={styles.heroSearch}>
-            <input type="text" placeholder="Cari artikel, berita, atau layanan..." />
-            <button type="submit">Cari</button>
-          </form>
+          {/* ROW: SEARCH (KIRI) + JAM (KANAN) */}
+          <div className={styles.heroRow}>
+            {/* KIRI: SEARCH TRANSPARAN */}
+            <div className={styles.heroSearchContainer}>
+              <form className={styles.heroSearch}>
+                <input type="text" placeholder="Cari artikel, berita, atau layanan..." />
+                <button type="submit">Cari</button>
+              </form>
+            </div>
 
+            {/* KANAN: WIDGET JAM DIGITAL */}
+            <div className={`${styles.dateTimeWidget} ${styles.visible}`}>
+              <div className={styles.time}>{formatTime(currentTime)}</div>
+              <div className={styles.day}>Hari Ini</div>
+              <div className={styles.date}>{formatDate(currentTime)}</div>
+              <div className={styles.dmy}>{formatDMY(currentTime)}</div>
+              
+            </div>
+          </div>
+
+          {/* LAYANAN UNGGULAN */}
           <div className={styles.heroWidget}>
             <strong>Layanan Publik Unggulan:</strong>
             <div className={styles.widgetLinks}>

@@ -19,18 +19,6 @@
   transition: all 0.20s ease-in-out;
 }
 
-/* GRADASI BIRU → PUTIH (UNTUK WARNA GELAP DI BAWAH) */
-.header.darkMode {
-  background: linear-gradient(to right, #57a8ff, #ffffff);
-  color: #003366;
-}
-
-/* GRADASI BIRU ASLI (DEFAULT) */
-.header.lightMode {
-  background: linear-gradient(to right, #007bff, #0056b3);
-  color: white;
-}
-
 /* SAAT SCROLL: FULL WIDTH */
 .header.scrolled {
   left: 0;
@@ -100,15 +88,12 @@
   width: 100%;
 }
 
-/* WARNA TEXT NAV SAAT DARK MODE */
-.header.darkMode .nav a,
-.header.darkMode .nav a::after {
-  color: #003366;
-  background: #003366;
-}
-
-.header.darkMode .nav a:hover {
-  opacity: 0.7;
+/* ===== TOMBOL BAHASA & BURGER (KANAN) ===== */
+.rightControls {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem; /* Jarak antara ID dan burger */
+  flex-direction: row;
 }
 
 /* ===== TOMBOL BAHASA ===== */
@@ -117,22 +102,17 @@
   color: white;
   border: none;
   border-radius: 20px;
-  padding: 0.6rem 1.2rem;
+  padding: 0.5rem 1rem;
   font-weight: bold;
   font-size: 0.9rem;
   cursor: pointer;
   transition: transform 0.2s ease, background-color 0.2s ease;
+  white-space: nowrap;
 }
 
 .langButton:hover {
   transform: scale(1.05);
   background-color: #b30021;
-}
-
-/* DARK MODE: TOMBOL BAHASA */
-.header.darkMode .langButton {
-  background-color: #d90429;
-  color: white;
 }
 
 /* ===== BURGER MENU (MOBILE) ===== */
@@ -162,11 +142,6 @@
 
 .burger.open span:nth-child(3) {
   transform: rotate(-45deg) translate(7px, -6px);
-}
-
-/* DARK MODE: BURGER */
-.header.darkMode .burger span {
-  background: #003366;
 }
 
 /* ===== MOBILE MENU ===== */
@@ -213,6 +188,15 @@
 
   .burger {
     display: flex;
+  }
+  /* DI HP: TOMBOL BAHASA TETAP DI KANAN, SEBELAH BURGER */
+  .rightControls {
+    gap: 0.5rem;
+  }
+
+  .langButton {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
   }
 }
 
