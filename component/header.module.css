@@ -1,61 +1,46 @@
 /* components/header.module.css */
 
+/* ===== HEADER UTAMA (FIXED + FLOATING) ===== */
 .header {
-  position: sticky;
+  position: fixed;
+  top: 0;
+  left: 1rem;
+  right: 1rem;
   z-index: 1000;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0.75rem 1.5rem;
   color: white;
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
-  border: none; 
-  
-  /* 2. Ganti dengan Gradasi Solid (bukan semi-transparan) */
-  background: linear-gradient(to right, #007bff, #0150a5); 
-  
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); 
-
-  /* --- AKHIR REVISI --- */
-
-
-  /* --- STYLE POSISI AWAL (MENGAMBANG) --- */
-  top: 1rem;
-  left: 1rem;
-  right: 1rem;
-  border-radius: 50px; /* Sangat bulat */
-
-  /* --- EFEK TRANSISI --- */
-  transition: all 0.3s ease-in-out;
+  background: linear-gradient(to right, #007bff, #0056b3);
+  border-radius: 50px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  transform: translateY(1rem);
+  transition: all 0.20s ease-in-out;
 }
 
-/* Style .scrolled sekarang sudah cocok dengan .header,
-  jadi transisinya akan mulus dari bulat (floating) 
-  menjadi lurus (scrolled) tanpa ganti warna.
-*/
+/* GRADASI BIRU → PUTIH (UNTUK WARNA GELAP DI BAWAH) */
+.header.darkMode {
+  background: linear-gradient(to right, #57a8ff, #ffffff);
+  color: #003366;
+}
+
+/* GRADASI BIRU ASLI (DEFAULT) */
+.header.lightMode {
+  background: linear-gradient(to right, #007bff, #0056b3);
+  color: white;
+}
+
+/* SAAT SCROLL: FULL WIDTH */
 .header.scrolled {
-  /* Pindahkan ke paling atas */
-  top: 0;
   left: 0;
   right: 0;
-  
-  /* Hilangkan lengkungan */
+  transform: translateY(0);
   border-radius: 0;
-  
-  /* Gradasi solid (sudah sama) */
-  background: linear-gradient(to right, #007bff, #0056b3);
-  
-  /* Hilangkan blur dan border kaca */
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
-  border: none;
-
-  /* Bayangan hanya di bawah */
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-
+/* ===== LOGO & TEKS ===== */
 .logoContainer {
   display: flex;
   align-items: center;
@@ -77,6 +62,7 @@
   font-size: 0.9rem;
 }
 
+/* ===== NAVIGASI DESKTOP ===== */
 .nav ul {
   display: flex;
   list-style: none;
@@ -88,6 +74,8 @@
 .nav a {
   font-size: 0.95rem;
   font-weight: 500;
+  color: white;
+  text-decoration: none;
   position: relative;
   padding: 0.5rem 0;
   transition: opacity 0.3s ease;
@@ -97,7 +85,6 @@
   opacity: 0.7;
 }
 
-/* Efek garis bawah modern saat hover */
 .nav a::after {
   content: '';
   position: absolute;
@@ -105,7 +92,7 @@
   left: 0;
   width: 0;
   height: 2px;
-  background: white; /* Garis bawah tetap putih */
+  background: white;
   transition: width 0.3s ease;
 }
 
@@ -113,8 +100,20 @@
   width: 100%;
 }
 
+/* WARNA TEXT NAV SAAT DARK MODE */
+.header.darkMode .nav a,
+.header.darkMode .nav a::after {
+  color: #003366;
+  background: #003366;
+}
+
+.header.darkMode .nav a:hover {
+  opacity: 0.7;
+}
+
+/* ===== TOMBOL BAHASA ===== */
 .langButton {
-  background-color: #d90429; /* Merah dari tombol EN */
+  background-color: #d90429;
   color: white;
   border: none;
   border-radius: 20px;
@@ -130,25 +129,108 @@
   background-color: #b30021;
 }
 
-/* Penyesuaian untuk layar kecil */
+/* DARK MODE: TOMBOL BAHASA */
+.header.darkMode .langButton {
+  background-color: #d90429;
+  color: white;
+}
+
+/* ===== BURGER MENU (MOBILE) ===== */
+.burger {
+  display: none;
+  flex-direction: column;
+  gap: 4px;
+  cursor: pointer;
+  z-index: 1001;
+}
+
+.burger span {
+  width: 25px;
+  height: 3px;
+  background: white;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+.burger.open span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.burger.open span:nth-child(2) {
+  opacity: 0;
+}
+
+.burger.open span:nth-child(3) {
+  transform: rotate(-45deg) translate(7px, -6px);
+}
+
+/* DARK MODE: BURGER */
+.header.darkMode .burger span {
+  background: #003366;
+}
+
+/* ===== MOBILE MENU ===== */
+.mobileMenu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  z-index: 999;
+}
+
+.mobileMenu.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.mobileMenu a {
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.mobileMenu a:hover {
+  color: #d90429;
+}
+
+/* ===== RESPONSIVE ===== */
 @media (max-width: 1024px) {
   .nav {
-    display: none; /* Sembunyikan nav di mobile, butuh tombol burger menu */
+    display: none;
+  }
+
+  .burger {
+    display: flex;
   }
 }
 
 @media (max-width: 768px) {
   .logoText {
-    display: none; /* Sembunyikan teks logo di mobile */
-  }
-  .header {
-    padding: 0.5rem 1rem;
+    display: none;
   }
 
-  /* Saat di-scroll di mobile, jangan ambil margin atas 1rem */
+  .header {
+    left: 0.75rem;
+    right: 0.75rem;
+    padding: 0.5rem 1rem;
+    transform: translateY(0.75rem);
+  }
+
   .header.scrolled {
-    top: 0;
     left: 0;
     right: 0;
+    transform: translateY(0);
   }
 }

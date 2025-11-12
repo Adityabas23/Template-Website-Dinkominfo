@@ -2,7 +2,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Header from "@/component/header"; // Kita impor Header di sini
+import HeaderWrapper from "@/component/HeaderWrapper"; 
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,8 +18,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="id">
-      <body className={inter.className}>  
-        <Header /> {/* Header akan tampil di semua halaman */}
+      <body className={inter.className}>
+        <HeaderWrapper />
         <main>{children}</main>
       </body>
     </html>

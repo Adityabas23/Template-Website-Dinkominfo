@@ -25,12 +25,10 @@ html, body {
   overflow-x: hidden;
 }
 
-/* JANGAN PAKAI main { padding-top: ... } */
 main {
   display: block;
 }
 
-/* Reset umum */
 h1, h2, h3, h4, h5, h6, p, ul, ol, li, figure {
   margin: 0;
   padding: 0;

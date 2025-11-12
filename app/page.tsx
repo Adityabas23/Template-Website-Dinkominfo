@@ -1,18 +1,16 @@
 // app/page.tsx
-import Image from "next/image";
-import styles from "./page.module.css";
-import Link from "next/link";
-import Header from "@/component/header"; // Pastikan path benar
+'use client';
+
+import styles from './page.module.css';
+import Image from 'next/image';
+import Link from 'next/link';
 
 export default function HomePage() {
   return (
     <>
-
-
-      {/* HERO SECTION */}
+      {/* HERO — MULAI LANGSUNG DARI ATAS */}
       <section className={styles.hero}>
         <div className={styles.heroOverlay}></div>
-        
         <div className={styles.heroContent}>
           <h1 className={styles.heroTitle}>
             Menjawab Kebutuhan Informasi Warga Banyumas
@@ -38,11 +36,10 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* CONTENT SECTION */}
+      {/* CONTENT */}
       <section className={styles.contentSection}>
         <div className={styles.container}>
           <div className={styles.contentGrid}>
-            {/* Main Content */}
             <article className={styles.mainContent}>
               <Image
                 src="/berita1.jpg"
@@ -60,15 +57,14 @@ export default function HomePage() {
               </p>
               <div className={styles.articleBody}>
                 <p>
-                  BANYUMAS – Pemerintah Kabupaten Banyumas, melalui instansi terkait seperti Dinas Komunikasi dan Informatika (Dinkominfo) serta berkolaborasi dengan Kantor Bea Cukai Purwokerto, menggelar sosialiasi... (isi berita selengkapnya)
+                  BANYUMAS – Pemerintah Kabupaten Banyumas, melalui instansi terkait seperti Dinas Komunikasi dan Informatika (Dinkominfo)...
                 </p>
                 <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                 </p>
               </div>
             </article>
 
-            {/* Sidebar */}
             <aside className={styles.sidebar}>
               <div className={styles.sidebarCard}>
                 <h3>Berita Lainnya</h3>
