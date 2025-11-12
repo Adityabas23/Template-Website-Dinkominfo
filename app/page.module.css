@@ -1,0 +1,320 @@
+/* app/page.module.css */
+
+/* =======================================
+   1. HERO FULL-SCREEN + BERTUMPUK DENGAN HEADER
+   =======================================
+*/
+.hero {
+  height: 100vh;
+  width: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  color: white;
+  text-align: center;
+
+  background-image: url('/bms.png');
+  background-size: cover;
+  background-position: center;
+
+  border-bottom-right-radius: 300px;
+  overflow: hidden;
+
+  /* TIDAK PERLU margin-top negatif lagi */
+  margin-top: 0;
+  z-index: 1;
+}
+
+.heroOverlay {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+  border-bottom-right-radius: 300px;
+}
+
+.heroContent {
+  position: relative;
+  z-index: 3;
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.heroTitle {
+  font-size: 3.5rem;
+  font-weight: 700;
+  line-height: 1.1;
+  margin: 0;
+}
+
+.heroSubtitle {
+  font-size: 1.25rem;
+  font-weight: 300;
+  margin: 0;
+}
+
+.heroSearch {
+  display: flex;
+  width: 100%;
+  max-width: 600px;
+  background-color: white;
+  border-radius: 50px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.heroSearch input {
+  flex-grow: 1;
+  border: none;
+  padding: 1rem 1.5rem;
+  font-size: 1rem;
+  color: #333;
+}
+
+.heroSearch input:focus {
+  outline: none;
+}
+
+.heroSearch button {
+  border: none;
+  background-color: #007bff;
+  color: white;
+  padding: 0 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.heroSearch button:hover {
+  background-color: #0056b3;
+}
+
+.heroWidget {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 12px;
+  padding: 1rem 1.5rem;
+  text-align: left;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  width: fit-content;
+}
+
+.heroWidget strong {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.widgetLinks {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.widgetLinks a {
+  font-size: 0.9rem;
+  font-weight: 500;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  transition: background-color 0.3s ease;
+}
+
+.widgetLinks a:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+/* =======================================
+   2. CONTENT SECTION
+   =======================================
+*/
+.contentSection {
+  padding: 3rem 0;
+  background-color: var(--background-color, #f8f9fa);
+  position: relative;
+  z-index: 2;
+}
+
+/* =======================================
+   3. GRID KONTEN
+   =======================================
+*/
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.contentGrid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 1.5rem;
+}
+
+.mainContent {
+  background: var(--card-background, white);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.mainImage {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  object-fit: cover;
+}
+
+.mainTitle {
+  font-size: 2rem;
+  line-height: 1.2;
+  margin: 0 0 0.5rem 0;
+  color: #111;
+}
+
+.postMeta {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 1.5rem;
+}
+
+.articleBody {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: #333;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.sidebarCard {
+  background: var(--card-background, white);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.sidebarCard h3 {
+  margin-top: 0;
+  border-bottom: 2px solid var(--primary-color, #007bff);
+  padding-bottom: 0.5rem;
+  font-size: 1.1rem;
+}
+
+.newsList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.newsList a {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-weight: 500;
+  color: #333;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.newsList a:hover {
+  color: var(--primary-color, #007bff);
+}
+
+.newsList img {
+  width: 60px;
+  height: 60px;
+  border-radius: 6px;
+  object-fit: cover;
+}
+
+/* =======================================
+   4. RESPONSIVE
+   =======================================
+*/
+@media (max-width: 1024px) {
+  .heroTitle {
+    font-size: 3rem;
+  }
+  .heroSearch {
+    max-width: 500px;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    height: 90vh;
+    padding: 1rem;
+  }
+
+  .heroTitle {
+    font-size: 2.5rem;
+  }
+
+  .heroSubtitle {
+    font-size: 1.1rem;
+  }
+
+  .heroSearch {
+    flex-direction: column;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  }
+
+  .heroSearch input {
+    border-radius: 20px;
+    text-align: center;
+    padding: 1rem;
+  }
+
+  .heroSearch button {
+    border-radius: 20px;
+    padding: 1rem;
+    margin-top: 0.5rem;
+  }
+
+  .widgetLinks {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .contentGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .mainTitle {
+    font-size: 1.5rem;
+  }
+
+  .container {
+    padding: 0 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    height: 85vh;
+  }
+  .heroTitle {
+    font-size: 2rem;
+  }
+  .heroWidget {
+    width: 100%;
+    text-align: center;
+  }
+}
