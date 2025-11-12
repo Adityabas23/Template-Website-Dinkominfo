@@ -12,7 +12,7 @@ export default function HeaderWrapper() {
     const updateHeight = () => {
       if (headerRef.current) {
         const height = headerRef.current.offsetHeight;
-        setHeaderHeight(height + 16); // +1rem transform
+        setHeaderHeight(height + 16); // +1rem untuk transform
       }
     };
 
