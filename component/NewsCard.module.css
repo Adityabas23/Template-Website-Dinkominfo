@@ -1,0 +1,59 @@
+/* File: component/NewsCard.module.css */
+
+.cardLink {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  height: 100%; /* Penting untuk grid */
+}
+
+.card {
+  background-color: #f8f9fa; /* Latar belakang abu-abu muda */
+  border-radius: 12px;
+  overflow: hidden; /* Penting untuk rounded corners pada gambar */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+}
+
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  /* Atur rasio aspek gambar 16:10 */
+  aspect-ratio: 16 / 10;
+  background-color: #e9ecef; /* Placeholder saat gambar loading */
+}
+
+.image {
+  object-fit: cover; /* Pastikan gambar mengisi ruang tanpa distorsi */
+}
+
+.content {
+  padding: 16px;
+  flex-grow: 1; /* Konten mengisi sisa ruang */
+  display: flex;
+  flex-direction: column;
+}
+
+.date {
+  font-size: 13px;
+  color: #6c757d; /* Warna tanggal abu-abu */
+  margin-bottom: 8px;
+  display: block;
+}
+
+.title {
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.4;
+  margin: 0;
+  color: #212529; /* Warna judul */
+  flex-grow: 1;
+}
