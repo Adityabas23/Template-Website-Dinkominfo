@@ -53,7 +53,6 @@ const Header = forwardRef<HTMLDivElement>((props, ref) => {
             <li><Link href="#">Data Pegawai</Link></li>
             <li><Link href="#">Download</Link></li>
             <li><Link href="#">F.A.Q</Link></li>
-            <li><Link href="#">Kontak</Link></li>
           </ul>
         </nav>
 
