@@ -1,0 +1,347 @@
+// component/HeroBanner.tsx
+'use client';
+
+import { useState, useEffect, useRef } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+
+import {
+  FaFacebookF,
+  FaInstagram,
+  FaYoutube,
+  FaCloudSun,
+  FaMapMarkerAlt,
+  FaBolt,
+  FaUniversalAccess,
+  FaBookOpen,
+  FaSmile,
+  FaCalendar,
+} from 'react-icons/fa';
+import { RiTwitterXLine } from 'react-icons/ri';
+
+import styles from '@/app/page.module.css';
+import { newsData } from '@/app/data/newsData'; // ⬅️ ambil data berita
+
+const placeholders = [
+  'Cari artikel, berita, atau layanan...',
+  'Perizinan Online',
+  'Info Pajak',
+  'Lapor!',
+  'PPID',
+];
+
+type WeatherData = {
+  location: string;
+  temperature: number;
+  description: string;
+  source?: string;
+  rawCode?: string | null;
+};
+
+export default function HeroBanner() {
+  const tagsContainerRef = useRef<HTMLDivElement>(null);
+
+  // jam/tanggal
+  const [time, setTime] = useState<Date | null>(null);
+  // placeholder search
+  const [placeholder, setPlaceholder] = useState(placeholders[0]);
+  // ujung scroll tags
+  const [isAtEnd, setIsAtEnd] = useState(false);
+  // cuaca BMKG
+  const [weather, setWeather] = useState<WeatherData | null>(null);
+  const [showTemp, setShowTemp] = useState(true);
+
+  // daftar gambar banner
+  const bannerImages = ['/bannerfix.png', '/banner.jpg', '/berita3.png'];
+  const [bannerIndex, setBannerIndex] = useState(0);
+  const [isTransitioningBg, setIsTransitioningBg] = useState(false);
+
+  // index berita yang tampil di widget kanan
+  const [activeNewsIndex, setActiveNewsIndex] = useState(0);
+
+  // efek transisi halus kartu berita
+const [isNewsTransitioning, setIsNewsTransitioning] = useState(false);
+
+  /* 1. JAM REALTIME */
+  useEffect(() => {
+    setTime(new Date());
+    const timer = setInterval(() => setTime(new Date()), 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  /* 2. ANIMASI PLACEHOLDER */
+  useEffect(() => {
+    let index = 0;
+    const interval = setInterval(() => {
+      index = (index + 1) % placeholders.length;
+      setPlaceholder(placeholders[index]);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
+
+  /* 3. SCROLL TAGS HORIZONTAL */
+  useEffect(() => {
+    const container = tagsContainerRef.current;
+    if (!container) return;
+
+    const updateEdge = () => {
+      const atEnd =
+        Math.ceil(container.scrollLeft + container.clientWidth) >=
+        container.scrollWidth;
+      setIsAtEnd(atEnd);
+    };
+
+    updateEdge();
+
+    const handleWheel = (e: WheelEvent) => {
+      if (e.deltaY === 0) return;
+      e.preventDefault();
+      container.scrollLeft += e.deltaY;
+      updateEdge();
+    };
+
+    const handleScroll = () => updateEdge();
+
+    container.addEventListener('wheel', handleWheel, { passive: false });
+    container.addEventListener('scroll', handleScroll);
+
+    return () => {
+      container.removeEventListener('wheel', handleWheel);
+      container.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  /* 4. AMBIL CUACA DARI /api/cuaca (BMKG) */
+  useEffect(() => {
+    const fetchWeather = async () => {
+      try {
+        const res = await fetch('/api/cuaca', { cache: 'no-store' });
+        if (!res.ok) throw new Error('Gagal fetch cuaca');
+        const data = (await res.json()) as WeatherData;
+        setWeather(data);
+      } catch (err) {
+        console.error('Gagal mengambil data cuaca:', err);
+      }
+    };
+
+    fetchWeather();
+  }, []);
+
+  /* 5. TOGGLE SUHU <-> DESKRIPSI */
+  useEffect(() => {
+    if (!weather) return;
+    const interval = setInterval(() => {
+      setShowTemp((prev) => !prev);
+    }, 8000);
+    return () => clearInterval(interval);
+  }, [weather]);
+
+  /* 6. SLIDESHOW BACKGROUND (FADE + BLUR) */
+  useEffect(() => {
+    const interval = setInterval(() => {
+      // aktifkan efek blur+fade
+      setIsTransitioningBg(true);
+
+      // ganti gambar setelah 400ms
+      setTimeout(() => {
+        setBannerIndex((prev) => (prev + 1) % bannerImages.length);
+        setIsTransitioningBg(false);
+      }, 400);
+    }, 10000); // ganti tiap 10 detik
+
+    return () => clearInterval(interval);
+  }, [bannerImages.length]);
+
+  /* 7. FORMAT WAKTU & TGL */
+  const formatTime = (date: Date) =>
+    date
+      .toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })
+      .replace(':', '.');
+
+  const formatDate = (date: Date) =>
+    date
+      .toLocaleDateString('id-ID', {
+        weekday: 'long',
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric',
+      })
+      .toUpperCase();
+
+  const displayTime = time ?? new Date();
+  const locationLabel = (weather?.location || 'Purwokerto').toUpperCase();
+
+  /* 8. ROTASI BERITA DI WIDGET KANAN */
+  useEffect(() => {
+    let timeoutId: ReturnType<typeof setTimeout> | null = null;
+
+    const intervalId = setInterval(() => {
+        // Step 1: aktifkan fade-out
+        setIsNewsTransitioning(true);
+
+        // Step 2: setelah 320ms, ganti index + fade-in lagi
+        timeoutId = setTimeout(() => {
+        setActiveNewsIndex((prev) => (prev + 1) % newsData.length);
+        setIsNewsTransitioning(false);
+        }, 320);
+    }, 7000); // rotasi tiap 7 detik
+
+    return () => {
+        clearInterval(intervalId);
+        if (timeoutId) clearTimeout(timeoutId);
+    };
+    }, []);
+
+  const activeNews = newsData[activeNewsIndex];
+
+  return (
+    <section className={styles.hero}>
+      {/* layer background slideshow (fade + blur) */}
+      <div
+        className={`${styles.heroBg} ${
+          isTransitioningBg ? styles.heroBgTransition : ''
+        }`}
+        style={{ backgroundImage: `url(${bannerImages[bannerIndex]})` }}
+      />
+
+      {/* overlay gelap di atas background */}
+      <div className={styles.heroOverlay}></div>
+
+      <div className={styles.contentWrapper}>
+        {/* sidebar sosmed kiri */}
+        <div className={styles.socialSidebar}>
+          <a href="https://www.facebook.com/p/Dinkominfo-Kab-Banyumas-100069335344488/">
+            <FaFacebookF />
+          </a>
+          <a href="https://www.instagram.com/dinkominfo_kab.banyumas">
+            <FaInstagram />
+          </a>
+          <a href="https://x.com/kominfobanyumas">
+            <RiTwitterXLine />
+          </a>
+          <a href="http://www.youtube.com/@DINASKOMINFOKabupatenBanyumas">
+            <FaYoutube />
+          </a>
+        </div>
+
+        {/* kiri: judul + search + tags */}
+        <div className={styles.leftContent}>
+          <h1 className={styles.heroTitle}>
+            Menjawab kebutuhan Informasi <br /> Warga Banyumas
+          </h1>
+          <p className={styles.heroSubtitle}>
+            Temukan informasi publik terkini dari Pemerintahan Kabupaten Banyumas.
+          </p>
+
+          <div className={styles.searchBox}>
+            <input
+              type="text"
+              placeholder={placeholder}
+              className={styles.animatedPlaceholder}
+            />
+            <button>Cari</button>
+          </div>
+
+          <div className={styles.popularTags}>
+            <span>Pencarian Populer di Banyumas</span>
+
+            <div
+              className={`${styles.tagsOuter} ${
+                isAtEnd ? styles.tagsOuterNoFade : ''
+              }`}
+            >
+              <div className={styles.scrollWrapper} ref={tagsContainerRef}>
+                <div className={styles.tagsList}>
+                  <a href="#">Perizinan Online</a>
+                  <a href="#">Info Pajak</a>
+                  <a href="#">Lapor!</a>
+                  <a href="#">PPID</a>
+                  <a href="#">Berita Terbaru</a>
+                  <a href="#">Lowongan Kerja</a>
+                  <a href="#">Cetak Kartu Kuning</a>
+                  <a href="#">Pengumuman Hari Ini</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* kanan: widget jam + cuaca + berita singkat */}
+        <div className={styles.rightWidget}>
+          <div className={styles.widgetHeader}>
+            <div className={styles.widgetDateInfo}>
+              <span className={styles.labelToday}>HARI INI</span>
+              <span className={styles.textDate}>{formatDate(displayTime)}</span>
+              <span className={styles.textLoc}>
+                <FaMapMarkerAlt /> {locationLabel}
+              </span>
+            </div>
+            <div className={styles.widgetTimeInfo}>
+              <div className={styles.weather}>
+                <FaCloudSun />{' '}
+                {weather
+                  ? showTemp
+                    ? `${weather.temperature}°C`
+                    : weather.description
+                  : 'Memuat...'}
+              </div>
+              <div className={styles.bigClock}>{formatTime(displayTime)}</div>
+            </div>
+          </div>
+
+          {/* kartu berita yang berganti otomatis */}
+          <div className={`${styles.newsCard} ${styles.group} ${isNewsTransitioning ? styles.newsCardFading : ''}`}>
+            <Link href={activeNews.href} target="_blank">
+              <div className={styles.newsImageWrapper}>
+                <Image
+                  src={activeNews.imageUrl}
+                  alt={activeNews.altText}
+                  width={400}
+                  height={250}
+                  className={styles.newsImage}
+                />
+                <div className={styles.newsOverlay}>
+                  <span className={styles.newsCategory}>PEMERINTAHAN</span>
+                  <h3 className={styles.newsTitle}>{activeNews.title}</h3>
+                  <div className={styles.newsMeta}>
+                    <span>
+                      <FaMapMarkerAlt /> Purwokerto
+                    </span>{' '}
+                    •{' '}
+                    <span>
+                      <FaCalendar /> {activeNews.date}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </Link>
+          </div>
+
+          <button className={styles.btnMoreNews}>
+            Lihat Berita Lainnya
+          </button>
+        </div>
+
+        {/* sidebar aksesibilitas kanan */}
+        <div className={styles.accessSidebar}>
+          <button className={styles.accessBtn}><FaSmile /></button>
+          <button className={styles.accessBtn}><FaBookOpen /></button>
+          <button className={styles.accessBtn}><FaBolt /></button>
+          <button className={styles.accessBtn}><FaUniversalAccess /></button>
+        </div>
+
+        {/* wave di bawah banner */}
+        <div className={styles.waveContainer}>
+          <Image
+            src="/wave-bg.png"
+            alt="Wave Background"
+            width={1920}
+            height={300}
+            className={styles.waveImage}
+            priority
+          />
+        </div>
+      </div>
+    </section>
+  );
+}

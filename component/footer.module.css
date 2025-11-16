@@ -1,0 +1,308 @@
+.brandBadge {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  padding: 14px 22px;
+  border-radius: 20px;
+
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 
+      0 4px 20px rgba(0, 0, 0, 0.25),
+      0 0 18px rgba(0, 128, 255, 0.4);  /* glow biru */
+
+  transition: 0.3s ease;
+}
+
+/* Hover Glow */
+.brandBadge:hover {
+  box-shadow: 
+      0 6px 25px rgba(0, 0, 0, 0.35),
+      0 0 25px rgba(0, 128, 255, 0.6);
+  transform: translateY(-2px);
+}
+
+/* Logo style */
+.brandLogo {
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0, 128, 255, 0.5);
+}
+
+.footer {
+  position: relative;
+  margin-top: 4rem;
+  background: linear-gradient(135deg, #015afc, #00b4ff);
+  color: #f9fafb;
+  overflow: hidden;
+}
+
+/* wave lembut di atas footer */
+.waveDecor {
+  position: absolute;
+  inset: -40px -10%;
+  background:
+    radial-gradient(circle at 10% 0%, rgba(255,255,255,0.15) 0, transparent 55%),
+    radial-gradient(circle at 80% 10%, rgba(255,255,255,0.12) 0, transparent 50%);
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* GRID UTAMA */
+.footerInner {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem 2rem;
+  display: grid;
+  grid-template-columns: 2fr 1.5fr 1.5fr 1.5fr;
+  gap: 2rem;
+}
+
+/* KOL 1 – brand / alamat */
+.brandColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.brandRow {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.brandMark {
+  width: 44px;
+  height: 44px;
+  border-radius: 16px;
+  background: radial-gradient(circle at 30% 20%, #ffffff, #00d4ff);
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.35);
+}
+
+.brandTitle {
+  font-weight: 800;
+  font-size: 1.05rem;
+  line-height: 1.3;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.brandTagline {
+  margin-top: 0.3rem;
+  font-size: 0.85rem;
+  opacity: 0.9;
+}
+
+.addressBlock,
+.contactRow {
+  font-size: 0.85rem;
+}
+
+.addressTitle {
+  font-weight: 600;
+  margin-bottom: 0.15rem;
+}
+
+.addressText {
+  opacity: 0.9;
+  line-height: 1.4;
+}
+
+.addressText a {
+  color: #e0f2ff;
+  text-decoration: none;
+}
+.addressText a:hover {
+  text-decoration: underline;
+}
+
+/* Sosmed */
+.socialRow {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.socialLabel {
+  font-size: 0.85rem;
+  font-weight: 600;
+  opacity: 0.9;
+}
+
+.socialIcons {
+  display: flex;
+  gap: 0.6rem;
+}
+
+.socialIcons a {
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(168, 168, 168, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(8px);
+  transition: transform 0.16s ease, background 0.16s ease, box-shadow 0.16s ease;
+}
+.socialIcons a svg {
+  font-size: 0.9rem;
+}
+.socialIcons a:hover {
+  transform: translateY(-2px);
+  background: rgba(15, 23, 42, 0.6);
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.35);
+}
+
+/* KOL 2 & 3 – list link */
+.linkColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.columnTitle {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.columnTitleSub {
+  margin-top: 1.4rem;
+}
+
+.linkList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.linkList li {
+  margin-bottom: 0.3rem;
+}
+
+.linkList a {
+  font-size: 0.85rem;
+  text-decoration: none;
+  color: #e2f3ff;
+  opacity: 0.92;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+.linkList a:hover {
+  opacity: 1;
+  transform: translateX(2px);
+}
+
+/* KOL 4 – Counter */
+.counterColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.counterCard {
+  background: rgba(15, 23, 42, 0.45);
+  border-radius: 18px;
+  padding: 1rem 1.2rem;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.45);
+  backdrop-filter: blur(14px);
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.counterRow {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.82rem;
+  opacity: 0.94;
+}
+
+.counterRow span:first-child {
+  opacity: 0.85;
+}
+
+.counterValue {
+  font-weight: 700;
+}
+
+.counterHighlight {
+  margin-top: 0.25rem;
+  padding: 0.9rem 1rem;
+  border-radius: 16px;
+  background: rgba(15, 23, 42, 0.28);
+  border: 1px dashed rgba(255, 255, 255, 0.534);
+  font-size: 0.8rem;
+  line-height: 1.4;
+}
+
+.counterHighlightLabel {
+  font-weight: 600;
+  margin-bottom: 0.15rem;
+}
+
+.counterHighlightText {
+  opacity: 0.92;
+}
+
+.counterHighlightNumber {
+  margin-top: 0.35rem;
+  font-weight: 700;
+}
+
+/* BOTTOM BAR */
+.footerBottom {
+  position: relative;
+  border-top: 1px solid rgba(255, 255, 255, 0.562);
+  margin-top: 1.5rem;
+  padding: 0.9rem 1.5rem 1.2rem;
+  font-size: 0.8rem;
+  text-align: center;
+  color: #e0f2ff;
+  background: linear-gradient(
+    to top,
+    rgba(218, 218, 218, 0.45),
+    rgba(15, 23, 42, 0)
+  );
+}
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+  .footerInner {
+    grid-template-columns: 2fr 1.5fr 1.5fr;
+    row-gap: 2.5rem;
+  }
+  .counterColumn {
+    grid-column: span 3;
+    max-width: 400px;
+  }
+}
+
+@media (max-width: 768px) {
+  .footerInner {
+    grid-template-columns: 1fr 1fr;
+  }
+  .brandColumn {
+    grid-column: span 2;
+  }
+  .counterColumn {
+    grid-column: span 2;
+  }
+}
+
+@media (max-width: 600px) {
+  .footerInner {
+    grid-template-columns: 1fr;
+  }
+  .brandColumn,
+  .linkColumn,
+  .counterColumn {
+    grid-column: span 1;
+  }
+}
