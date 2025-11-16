@@ -1,0 +1,554 @@
+/* Sidebar posisi kanan tengah */
+.accessSidebar {
+  position: fixed;
+  right: 2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  z-index: 9999;
+  align-items: flex-end; 
+}
+
+/* Tombol dasar (lingkaran) */
+.accessBtn {
+  border: none;
+  outline: none;
+  cursor: pointer;
+
+  display: flex;
+  flex-direction: row-reverse;      /* icon di kanan, label di kiri */
+  align-items: center;
+  justify-content: flex-start;
+
+  width: 50px;
+  height: 50px;
+  padding: 0;
+  border-radius: 16px;
+
+  background: linear-gradient(135deg, #007bff, #0056b3);
+  box-shadow: 0 6px 16px rgba(15, 23, 42, 0.35);
+
+  transition:
+    width 0.25s ease,
+    box-shadow 0.25s ease,
+    transform 0.2s ease,
+    background 0.25s ease;
+  overflow: hidden;
+  color: #fff;
+}
+
+/* Saat melebar karena hover */
+.accessBtnExpanded {
+  width: 180px;                      /* nambah lebar ke kiri karena anchor di right: 2rem */
+  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.45);
+  transform: translateX(-4px); 
+  justify-content: space-between;
+}
+
+/* Icon (sekarang di kanan) */
+.accessIcon {
+  width: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+}
+
+/* Label yang muncul saat melebar (di kiri) */
+.accessLabel {
+  display: none;    
+  white-space: nowrap;
+  font-size: 0.9rem;
+  font-weight: 600;
+  opacity: 0;
+  transform: translateX(6px);        /* awalnya agak “nempel” ke icon */
+  padding: 0 0.75rem 0 1rem;         /* jarak antara label dan icon */
+  transition:
+    opacity 0.18s ease,
+    transform 0.18s ease;
+}
+
+/* Saat tombol expanded -> label muncul */
+.accessBtnExpanded .accessLabel {
+  display: block;
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ================= MODAL ================= */
+
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+}
+
+.modalShell {
+  width: min(720px, 95vw);
+  /* max-height: 90vh; */
+  background: #ffffff;
+  border-radius: 18px;
+  box-shadow: 0 20px 60px rgba(15, 23, 42, 0.35);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;                  /* clip border-radius header */
+}
+
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.35);
+  background: linear-gradient(135deg, #1d4ed8, #0ea5e9);
+  color: #fff;
+  border-radius: 18px 18px 0 0;
+}
+
+.modalTitleRow {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.modalHeader h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.closeBtn,
+.backBtn {
+  border: none;
+  background: transparent;
+  color: #fff;
+  font-size: 1.4rem;
+  cursor: pointer;
+}
+
+.backBtn {
+  font-size: 1.1rem;
+}
+
+.modalBody {
+  padding: 1.5rem 1.75rem 1.25rem;
+  overflow-y: visible;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.surveyImageLink {
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+
+.surveyImage {
+  width: 100%;
+  max-width: 620px;
+  max-height: 70vh;
+  margin: 0 auto;
+  height: auto;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.15);
+}
+
+.btnPrimaryLink {
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* blok konten */
+.modalIntro {
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+  width: 100%;
+  max-width: 620px;
+  text-align: left;
+}
+
+.modalBlock {
+  margin-bottom: 1.2rem;
+}
+
+.fieldLabel {
+  display: block;
+  margin-bottom: 0.4rem;
+  font-weight: 600;
+}
+
+.required {
+  color: #dc2626;
+}
+
+.emojiRow {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.emojiRow button {
+  font-size: 1.6rem;
+  background: #f1f5f9;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  width: 56px;
+  height: 56px;
+  cursor: pointer;
+}
+
+.emojiRow button:hover {
+  background: #e0f2fe;
+}
+
+.radioRow {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 0.4rem;
+}
+
+.radioRow label {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.charHint {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 0.75rem;
+  color: #64748b;
+}
+
+.aspectList {
+  padding-left: 1.15rem;
+  font-size: 0.9rem;
+  color: #1e293b;
+}
+
+/* tombol aksi */
+.modalActions {
+  margin-top: 1.25rem;
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  width: 100%;
+  max-width: 620px;
+}
+
+.btnPrimary,
+.btnGhost {
+  border-radius: 9999px;
+  padding: 0.55rem 1.4rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+}
+
+/* biru gradasi */
+.btnPrimary {
+  background: linear-gradient(135deg, #0ea5e9, #0369a1);
+  color: #fff;
+}
+
+.btnPrimary:hover {
+  background: linear-gradient(135deg, #0369a1, #0b4f91);
+}
+
+.btnGhost {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+
+.btnGhost:hover {
+  background: #cbd5f5;
+}
+
+/* CONTACT MENU */
+
+.contactMenu {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.contactItem {
+  width: 100%;
+  text-align: left;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  padding: 0.7rem 0.9rem;
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  cursor: pointer;
+  background: #f8fafc;
+}
+
+.contactItem span:first-child {
+  font-size: 1.4rem;
+}
+
+.contactItem h4 {
+  margin: 0;
+  font-size: 0.98rem;
+}
+
+.contactItem p {
+  margin: 0.15rem 0 0;
+  font-size: 0.83rem;
+  color: #64748b;
+}
+
+/* GUESTBOOK */
+
+.guestbookForm {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.guestbookForm label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.fakeCaptcha {
+  margin-top: 0.5rem;
+  border-radius: 10px;
+  border: 1px dashed #cbd5e1;
+  padding: 0.75rem;
+  font-size: 0.8rem;
+  color: #64748b;
+  text-align: center;
+}
+
+/* Quick access */
+
+.quickGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  margin-top: 0.75rem;
+}
+
+.quickCard {
+  display: block;
+  border-radius: 14px;
+  padding: 0.9rem 1rem;
+  border: 1px solid #e2e8f0;
+  background: #f9fafb;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.18s ease, box-shadow 0.18s ease,
+    border-color 0.18s ease;
+}
+
+.quickCard:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.15);
+  border-color: #0ea5e9;
+}
+
+.quickIcon {
+  font-size: 1.6rem;
+  margin-bottom: 0.4rem;
+}
+
+.quickCard h4 {
+  margin: 0 0 0.25rem;
+  font-size: 0.98rem;
+}
+
+.quickCard p {
+  margin: 0;
+  font-size: 0.83rem;
+  color: #64748b;
+}
+
+/* Accessibility settings */
+
+.accessSettings {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.toggleRow {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.bigContact {
+  font-size: 1.05rem;
+  margin-top: 0.75rem;
+}
+
+.bigContact a {
+  color: #0ea5e9;
+}
+
+/* ====== DESKTOP vs MOBILE VISIBILITY ====== */
+.desktopOnly {
+  display: flex;
+}
+
+.mobileFabWrapper {
+  display: none;
+}
+
+/* ====== MOBILE FAB & MENU ====== */
+
+.mobileFabWrapper {
+  position: fixed;
+  right: 1rem;
+  bottom: 1.5rem;
+  z-index: 9999;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.75rem;
+}
+
+.mobileMenuCard {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 0.6rem 0.4rem;
+  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.35);
+  width: min(320px, 86vw);
+}
+
+.mobileMenuItem {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  padding: 0.6rem 0.8rem;
+  border-radius: 12px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.mobileMenuItem:hover {
+  background: #f1f5f9;
+}
+
+.mobileMenuIcon {
+  width: 32px;
+  height: 32px;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #1d4ed8, #0ea5e9);
+  color: #fff;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+
+.mobileMenuText h4 {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.mobileMenuText p {
+  margin: 0.15rem 0 0;
+  font-size: 0.78rem;
+  color: #64748b;
+}
+
+.mobileFabButton {
+  border: none;
+  cursor: pointer;
+  border-radius: 16px;
+  padding: 0.7rem 1.1rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+
+  background: linear-gradient(135deg, #0ea5e9, #0369a1);
+  color: #fff;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.5);
+}
+
+/* Ikon kotak 4 */
+.mobileFabIcon {
+  font-size: 1.7rem;         
+  display: block;
+}
+
+.mobileFabIcon span {
+  background: #ffffff;
+  border-radius: 4px;
+}
+
+/* Teks Fitur */
+.mobileFabLabel {
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .accessSidebar {
+    right: 1rem;
+  }
+
+  .accessBtnExpanded {
+    width: 160px;
+  }
+
+  .modalShell {
+    width: 96vw;
+  }
+
+  .surveyImage {
+    max-width: 100%;
+    max-height: 70vh;
+  }
+
+  .modalIntro,
+  .modalActions {
+    max-width: 100%;
+  }
+
+  .desktopOnly {
+    display: none;      /* sembunyikan sidebar di HP */
+  }
+
+  .mobileFabWrapper {
+    display: flex;      /* tampilkan FAB di HP */
+  }
+}
+
+/* sedikit penyesuaian untuk laptop 1366 */
+@media (max-width: 1366px) and (min-width: 769px) {
+  .accessSidebar {
+    right: 1.5rem;
+  }
+}
+@media (max-width: 1024px) and (min-width: 769px) {
+  .accessBtnExpanded {
+    width: 160px;
+  }
+}

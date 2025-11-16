@@ -1,2 +1,46 @@
-<svg width="3248" height="313" viewBox="0 0 3248 313" fill="none" xmlns="http://www.w3.org/2000/svg">
-</svg>
+/* Vector 2 */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 0px;
+
+position: absolute;
+height: 313px;
+left: -2px;
+right: 0.5px;
+top: 665px;
+
+
+
+/* Vector 2 */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 0px;
+
+position: absolute;
+height: 313px;
+left: -2px;
+right: 0.5px;
+top: 665px;
+
+
+
+/* Vector 2 */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 0px;
+
+position: absolute;
+height: 313px;
+left: -2px;
+right: 0.5px;
+top: 665px;
+

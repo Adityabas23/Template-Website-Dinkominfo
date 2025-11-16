@@ -12,11 +12,11 @@
   justify-content: space-between;
   padding: 0.75rem 1.5rem;
   color: white;
-  background: linear-gradient(to right, #007bff, #0056b3);
+  background: linear-gradient(90deg, #007bff, #0056d6);
   border-radius: 50px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
   transform: translateY(1rem);
-  transition: all 0.20s ease-in-out;
+  transition: all 0.2s ease-in-out;
 }
 
 /* SAAT SCROLL: FULL WIDTH */
@@ -51,48 +51,68 @@
 }
 
 /* ===== NAVIGASI DESKTOP ===== */
-.nav ul {
+.nav {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.navList {
   display: flex;
   list-style: none;
   margin: 0;
   padding: 0;
-  gap: 1.5rem;
+  gap: 1.8rem;
 }
 
-.nav a {
-  font-size: 0.95rem;
-  font-weight: 500;
+.navItem {
+  position: relative;
+}
+
+.navLink {
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase; /* supaya semua sama tinggi, tidak besar-kecil */
+  letter-spacing: 0.04em;
   color: white;
   text-decoration: none;
   position: relative;
   padding: 0.5rem 0;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.25s ease;
 }
 
-.nav a:hover {
-  opacity: 0.7;
-}
-
-.nav a::after {
+.navLink::after {
   content: '';
   position: absolute;
   bottom: 0;
   left: 0;
   width: 0;
   height: 2px;
-  background: white;
-  transition: width 0.3s ease;
+  background: #ffffff;
+  transition: width 0.25s ease;
 }
 
-.nav a:hover::after {
+.navLink:hover {
+  opacity: 0.8;
+}
+
+.navLink:hover::after,
+.navLinkActive::after {
   width: 100%;
 }
+
+/* zona hover header + mega menu */
+.headerHoverZone {
+  position: relative;
+  z-index: 900;
+}
+
 
 /* ===== TOMBOL BAHASA & BURGER (KANAN) ===== */
 .rightControls {
   display: flex;
   align-items: center;
-  gap: 0.75rem; /* Jarak antara ID dan burger */
+  gap: 0.75rem;
   flex-direction: row;
 }
 
@@ -129,8 +149,7 @@
   height: 3px;
   background: white;
   border-radius: 2px;
-  transition: transform 0.3s ease,
-              opacity 0.3s ease;
+  transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
 .burger.open span:nth-child(1) {
@@ -143,6 +162,114 @@
 
 .burger.open span:nth-child(3) {
   transform: rotate(-45deg) translate(5px, -5px);
+}
+
+/* ===== MEGA MENU DESKTOP ===== */
+.megaContainer {
+  position: fixed;
+  top: 72px; /* jarak di bawah header */
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  z-index: 950;
+}
+
+/* panel tidak full, hanya kotak besar di tengah */
+.megaPanel {
+  position: relative;
+  max-width: 1120px;
+  width: calc(100% - 3rem);
+  background: linear-gradient(135deg, #0d6efd, #00b4ff);
+  color: #ffffff;
+  border-radius: 28px;
+  padding: 2rem 3rem 2.5rem;
+  box-shadow: 0 22px 45px rgba(15, 23, 42, 0.45);
+}
+
+/* tombol X */
+.megaClose {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.5rem;
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  border: none;
+  background: rgba(15, 23, 42, 0.32);
+  color: #ffffff;
+  font-size: 1.4rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.megaClose:hover {
+  background: rgba(15, 23, 42, 0.6);
+}
+
+.megaHeader {
+  margin-bottom: 1.75rem;
+}
+
+.megaHeader h3 {
+  font-size: 1.4rem;
+  margin: 0 0 0.4rem;
+}
+
+.megaHeader p {
+  font-size: 0.9rem;
+  max-width: 520px;
+  margin: 0;
+}
+
+/* grid item di dalam mega menu */
+.megaGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem 3rem;
+}
+
+.megaItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.9rem;
+  text-decoration: none;
+  color: inherit;
+}
+
+.megaItem:hover .megaIcon {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(15, 23, 42, 0.35);
+}
+
+.megaIcon {
+  width: 46px;
+  height: 46px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.22);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 0.07em;
+  box-shadow: 0 8px 16px rgba(15, 23, 42, 0.3);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.megaText h4 {
+  font-size: 0.95rem;
+  margin: 0 0 0.25rem;
+}
+
+.megaText p {
+  font-size: 0.85rem;
+  opacity: 0.9;
+  margin: 0;
 }
 
 /* ===== MOBILE MENU ===== */
@@ -199,7 +326,7 @@
   .burger {
     display: flex;
   }
-  /* DI HP: TOMBOL BAHASA TETAP DI KANAN, SEBELAH BURGER */
+
   .rightControls {
     gap: 0.5rem;
   }
@@ -207,6 +334,11 @@
   .langButton {
     padding: 0.4rem 0.8rem;
     font-size: 0.8rem;
+  }
+
+  /* mega menu hanya untuk desktop */
+  .megaContainer {
+    display: none;
   }
 }
 

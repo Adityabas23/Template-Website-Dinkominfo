@@ -1,14 +1,15 @@
 // app/layout.tsx
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "./globals.css";
-import HeaderWrapper from "@/component/HeaderWrapper"; 
+import type { Metadata } from 'next';
+import { Inter } from 'next/font/google';
+import './globals.css';
+import HeaderWrapper from '@/component/HeaderWrapper';
+import { LanguageProvider } from './i18n/LanguageContext';
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: "Dinkominfo Banyumas - Modern",
-  description: "Website modern Dinkominfo Kabupaten Banyumas",
+  title: 'Dinkominfo Banyumas - Modern',
+  description: 'Website modern Dinkominfo Kabupaten Banyumas',
 };
 
 export default function RootLayout({
@@ -19,8 +20,10 @@ export default function RootLayout({
   return (
     <html lang="id">
       <body className={inter.className}>
-        <HeaderWrapper />
-        <main>{children}</main>
+        <LanguageProvider>
+          <HeaderWrapper />
+          <main>{children}</main>
+        </LanguageProvider>
       </body>
     </html>
   );

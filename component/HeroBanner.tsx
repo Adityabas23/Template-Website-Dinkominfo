@@ -4,6 +4,7 @@
 import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import AccessibilitySidebar from '@/component/AccessibilitySidebar';
 
 import {
   FaFacebookF,
@@ -11,24 +12,14 @@ import {
   FaYoutube,
   FaCloudSun,
   FaMapMarkerAlt,
-  FaBolt,
-  FaUniversalAccess,
-  FaBookOpen,
-  FaSmile,
   FaCalendar,
 } from 'react-icons/fa';
 import { RiTwitterXLine } from 'react-icons/ri';
 
 import styles from '@/app/page.module.css';
-import { newsData } from '@/app/data/newsData'; // ⬅️ ambil data berita
-
-const placeholders = [
-  'Cari artikel, berita, atau layanan...',
-  'Perizinan Online',
-  'Info Pajak',
-  'Lapor!',
-  'PPID',
-];
+import { newsData } from '@/app/data/newsData';
+import { useLang } from '@/app/i18n/LanguageContext';
+import type { Lang, MessageKey } from '@/app/i18n/messages';
 
 type WeatherData = {
   location: string;
@@ -38,13 +29,23 @@ type WeatherData = {
   rawCode?: string | null;
 };
 
+// placeholder pakai key i18n
+const placeholderKeys: MessageKey[] = [
+  'hero.placeholder.search',
+  'hero.placeholder.perizinan',
+  'hero.placeholder.pajak',
+  'hero.placeholder.lapor',
+  'hero.placeholder.ppid',
+];
+
 export default function HeroBanner() {
   const tagsContainerRef = useRef<HTMLDivElement>(null);
 
+  const { lang, t } = useLang();
   // jam/tanggal
   const [time, setTime] = useState<Date | null>(null);
-  // placeholder search
-  const [placeholder, setPlaceholder] = useState(placeholders[0]);
+  // placeholder search (pakai index)
+  const [placeholderIndex, setPlaceholderIndex] = useState(0);
   // ujung scroll tags
   const [isAtEnd, setIsAtEnd] = useState(false);
   // cuaca BMKG
@@ -58,9 +59,8 @@ export default function HeroBanner() {
 
   // index berita yang tampil di widget kanan
   const [activeNewsIndex, setActiveNewsIndex] = useState(0);
-
   // efek transisi halus kartu berita
-const [isNewsTransitioning, setIsNewsTransitioning] = useState(false);
+  const [isNewsTransitioning, setIsNewsTransitioning] = useState(false);
 
   /* 1. JAM REALTIME */
   useEffect(() => {
@@ -69,15 +69,17 @@ const [isNewsTransitioning, setIsNewsTransitioning] = useState(false);
     return () => clearInterval(timer);
   }, []);
 
-  /* 2. ANIMASI PLACEHOLDER */
+  /* 2. ANIMASI PLACEHOLDER (pakai key) */
   useEffect(() => {
     let index = 0;
     const interval = setInterval(() => {
-      index = (index + 1) % placeholders.length;
-      setPlaceholder(placeholders[index]);
+      index = (index + 1) % placeholderKeys.length;
+      setPlaceholderIndex(index);
     }, 3000);
     return () => clearInterval(interval);
   }, []);
+
+  const currentPlaceholder = t(placeholderKeys[placeholderIndex]);
 
   /* 3. SCROLL TAGS HORIZONTAL */
   useEffect(() => {
@@ -139,10 +141,8 @@ const [isNewsTransitioning, setIsNewsTransitioning] = useState(false);
   /* 6. SLIDESHOW BACKGROUND (FADE + BLUR) */
   useEffect(() => {
     const interval = setInterval(() => {
-      // aktifkan efek blur+fade
       setIsTransitioningBg(true);
 
-      // ganti gambar setelah 400ms
       setTimeout(() => {
         setBannerIndex((prev) => (prev + 1) % bannerImages.length);
         setIsTransitioningBg(false);
@@ -158,39 +158,41 @@ const [isNewsTransitioning, setIsNewsTransitioning] = useState(false);
       .toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })
       .replace(':', '.');
 
-  const formatDate = (date: Date) =>
-    date
-      .toLocaleDateString('id-ID', {
-        weekday: 'long',
-        day: 'numeric',
-        month: 'long',
-        year: 'numeric',
-      })
-      .toUpperCase();
+  const formatDate = (date: Date, lang: Lang) => {
+  const locale = lang === 'id' ? 'id-ID' : 'en-US';
+
+    const formatted = date.toLocaleDateString(locale, {
+      weekday: 'long',
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+    });
+
+    // Biar Indonesia tetap UPPERCASE, Inggris tetap normal
+    return lang === 'id' ? formatted.toUpperCase() : formatted;
+  };
 
   const displayTime = time ?? new Date();
   const locationLabel = (weather?.location || 'Purwokerto').toUpperCase();
 
-  /* 8. ROTASI BERITA DI WIDGET KANAN */
+  /* 8. ROTASI BERITA DI WIDGET KANAN (dengan fade) */
   useEffect(() => {
     let timeoutId: ReturnType<typeof setTimeout> | null = null;
 
     const intervalId = setInterval(() => {
-        // Step 1: aktifkan fade-out
-        setIsNewsTransitioning(true);
+      setIsNewsTransitioning(true); // fade-out
 
-        // Step 2: setelah 320ms, ganti index + fade-in lagi
-        timeoutId = setTimeout(() => {
+      timeoutId = setTimeout(() => {
         setActiveNewsIndex((prev) => (prev + 1) % newsData.length);
-        setIsNewsTransitioning(false);
-        }, 320);
+        setIsNewsTransitioning(false); // fade-in
+      }, 320);
     }, 7000); // rotasi tiap 7 detik
 
     return () => {
-        clearInterval(intervalId);
-        if (timeoutId) clearTimeout(timeoutId);
+      clearInterval(intervalId);
+      if (timeoutId) clearTimeout(timeoutId);
     };
-    }, []);
+  }, []);
 
   const activeNews = newsData[activeNewsIndex];
 
@@ -226,24 +228,20 @@ const [isNewsTransitioning, setIsNewsTransitioning] = useState(false);
 
         {/* kiri: judul + search + tags */}
         <div className={styles.leftContent}>
-          <h1 className={styles.heroTitle}>
-            Menjawab kebutuhan Informasi <br /> Warga Banyumas
-          </h1>
-          <p className={styles.heroSubtitle}>
-            Temukan informasi publik terkini dari Pemerintahan Kabupaten Banyumas.
-          </p>
+          <h1 className={styles.heroTitle}>{t('hero.title')}</h1>
+          <p className={styles.heroSubtitle}>{t('hero.subtitle')}</p>
 
           <div className={styles.searchBox}>
             <input
               type="text"
-              placeholder={placeholder}
+              placeholder={currentPlaceholder}
               className={styles.animatedPlaceholder}
             />
-            <button>Cari</button>
+            <button>{lang === 'id' ? 'Cari' : 'Search'}</button>
           </div>
 
           <div className={styles.popularTags}>
-            <span>Pencarian Populer di Banyumas</span>
+            <span>{t('hero.popularTitle')}</span>
 
             <div
               className={`${styles.tagsOuter} ${
@@ -252,11 +250,11 @@ const [isNewsTransitioning, setIsNewsTransitioning] = useState(false);
             >
               <div className={styles.scrollWrapper} ref={tagsContainerRef}>
                 <div className={styles.tagsList}>
-                  <a href="#">Perizinan Online</a>
-                  <a href="#">Info Pajak</a>
-                  <a href="#">Lapor!</a>
-                  <a href="#">PPID</a>
-                  <a href="#">Berita Terbaru</a>
+                  <a href="#">{t('hero.placeholder.perizinan')}</a>
+                  <a href="#">{t('hero.placeholder.pajak')}</a>
+                  <a href="#">{t('hero.placeholder.lapor')}</a>
+                  <a href="#">{t('hero.placeholder.ppid')}</a>
+                  <a href="#">{t('home.section.news')}</a>
                   <a href="#">Lowongan Kerja</a>
                   <a href="#">Cetak Kartu Kuning</a>
                   <a href="#">Pengumuman Hari Ini</a>
@@ -270,8 +268,8 @@ const [isNewsTransitioning, setIsNewsTransitioning] = useState(false);
         <div className={styles.rightWidget}>
           <div className={styles.widgetHeader}>
             <div className={styles.widgetDateInfo}>
-              <span className={styles.labelToday}>HARI INI</span>
-              <span className={styles.textDate}>{formatDate(displayTime)}</span>
+              <span className={styles.labelToday}>{t('hero.today')}</span>
+              <span className={styles.textDate}>{formatDate(displayTime, lang)}</span>
               <span className={styles.textLoc}>
                 <FaMapMarkerAlt /> {locationLabel}
               </span>
@@ -290,7 +288,11 @@ const [isNewsTransitioning, setIsNewsTransitioning] = useState(false);
           </div>
 
           {/* kartu berita yang berganti otomatis */}
-          <div className={`${styles.newsCard} ${styles.group} ${isNewsTransitioning ? styles.newsCardFading : ''}`}>
+          <div
+            className={`${styles.newsCard} ${styles.group} ${
+              isNewsTransitioning ? styles.newsCardFading : ''
+            }`}
+          >
             <Link href={activeNews.href} target="_blank">
               <div className={styles.newsImageWrapper}>
                 <Image
@@ -318,17 +320,25 @@ const [isNewsTransitioning, setIsNewsTransitioning] = useState(false);
           </div>
 
           <button className={styles.btnMoreNews}>
-            Lihat Berita Lainnya
+            {lang === 'id' ? 'Lihat Berita Lainnya' : 'View More News'}
           </button>
         </div>
 
         {/* sidebar aksesibilitas kanan */}
-        <div className={styles.accessSidebar}>
-          <button className={styles.accessBtn}><FaSmile /></button>
-          <button className={styles.accessBtn}><FaBookOpen /></button>
-          <button className={styles.accessBtn}><FaBolt /></button>
-          <button className={styles.accessBtn}><FaUniversalAccess /></button>
-        </div>
+        {/*<div className={styles.accessSidebar}>
+          <button className={styles.accessBtn}>
+            <FaSmile />
+          </button>
+          <button className={styles.accessBtn}>
+            <FaBookOpen />
+          </button>
+          <button className={styles.accessBtn}>
+            <FaBolt />
+          </button>
+          <button className={styles.accessBtn}>
+            <FaUniversalAccess />
+          </button>
+        </div>*/}
 
         {/* wave di bawah banner */}
         <div className={styles.waveContainer}>
@@ -342,6 +352,7 @@ const [isNewsTransitioning, setIsNewsTransitioning] = useState(false);
           />
         </div>
       </div>
+      <AccessibilitySidebar />
     </section>
   );
 }
