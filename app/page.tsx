@@ -3,16 +3,16 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import NewsCard from '@/component/NewsCard';
-import HeroBanner from '@/component/HeroBanner';
-import Footer from '@/component/footer';
+import NewsCard from '@/app/component/card/NewsCard';
+import HeroBanner from '@/app/component/HeroBanner';
+import Footer from '@/app/component/footer';
 import styles from './page.module.css';
 
 // data dipisah ke file terpisah
 import { newsData } from './data/newsData';
 import { infoData } from './data/infoData';
 import { edukasiData } from './data/edukasiData';
-import Marquee from '@/component/Marquee';
+import Marquee from '@/app/component/Marquee';
 
 // i18n
 import { useLang } from './i18n/LanguageContext';

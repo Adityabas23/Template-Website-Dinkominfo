@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './Marquee.module.css'; // Kita akan buat file ini selanjutnya
+import styles from '@/app/assets/css/Marquee.module.css'; // Kita akan buat file ini selanjutnya
 
 interface MarqueeProps {
   children: React.ReactNode;

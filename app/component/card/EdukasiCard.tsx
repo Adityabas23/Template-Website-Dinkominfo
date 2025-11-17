@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import styles from './EdukasiCard.module.css';
+import styles from '@/app/assets/css/EdukasiCard.module.css';
 // Kita butuh ikon 'Play' dari react-icons
 import { FaPlay } from 'react-icons/fa'; 
 

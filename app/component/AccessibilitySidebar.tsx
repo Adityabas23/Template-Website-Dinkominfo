@@ -11,7 +11,7 @@ import {
   FaUniversalAccess,
 } from 'react-icons/fa';
 
-import styles from './accessibilitySidebar.module.css';
+import styles from '@/app/assets/css/accessibilitySidebar.module.css';
 
 type ModalType = 'survey' | 'contact' | 'quickAccess' | 'accessibility' | null;
 type ContactView = 'menu' | 'guestbook' | 'phone' | 'email';

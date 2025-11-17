@@ -7,7 +7,7 @@ import React, {
   useState,
   MouseEvent as ReactMouseEvent,
 } from 'react';
-import styles from './header.module.css';
+import styles from '@/app/assets/css/header.module.css';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useLang } from '@/app/i18n/LanguageContext';
@@ -193,7 +193,11 @@ const Header = forwardRef<HTMLDivElement>((props, ref) => {
   const closeMega = () => setOpenMega(null);
 
   const handleMenuClick = (e: ReactMouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
+    const href = (e.currentTarget.getAttribute('href') || '').trim();
+    // hanya blok link yang masih "#"
+    if (href === '#') {
+      e.preventDefault();
+    }
   };
 
   const renderMegaContent = () => {
@@ -282,7 +286,7 @@ const Header = forwardRef<HTMLDivElement>((props, ref) => {
           <nav className={styles.nav}>
             <ul className={styles.navList}>
               <li className={styles.navItem}>
-                <Link href="#" className={styles.navLink}>
+                <Link href="/" className={styles.navLink}>
                   {t('nav.home')}
                 </Link>
               </li>
@@ -292,8 +296,7 @@ const Header = forwardRef<HTMLDivElement>((props, ref) => {
                 onMouseEnter={() => handleMegaEnter('profil')}
               >
                 <Link
-                  href="#"
-                  onClick={handleMenuClick}
+                  href="/pages/profile"
                   className={`${styles.navLink} ${
                     openMega === 'profil' ? styles.navLinkActive : ''
                   }`}
@@ -384,7 +387,7 @@ const Header = forwardRef<HTMLDivElement>((props, ref) => {
         onClick={() => setIsMobileMenuOpen(false)}
       >
         <Link href="#">{t('nav.home')}</Link>
-        <Link href="#">{t('nav.profile')}</Link>
+        <Link href="/pages/profile">{t('nav.profile')}</Link>
         <Link href="#">{t('nav.ppid')}</Link>
         <Link href="#">{t('nav.publicMenu')}</Link>
         <Link href="#">{t('nav.staffData')}</Link>

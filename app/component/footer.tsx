@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { FaFacebookF, FaInstagram, FaYoutube } from 'react-icons/fa';
 import { RiTwitterXLine } from 'react-icons/ri';
 
-import styles from './footer.module.css';
+import styles from '@/app/assets/css/footer.module.css';
 import { useLang } from '@/app/i18n/LanguageContext';
 
 export default function Footer() {

@@ -4,7 +4,7 @@
 import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import AccessibilitySidebar from '@/component/AccessibilitySidebar';
+import AccessibilitySidebar from '@/app/component/AccessibilitySidebar';
 
 import {
   FaFacebookF,
