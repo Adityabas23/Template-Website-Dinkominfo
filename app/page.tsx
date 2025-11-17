@@ -4,7 +4,6 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import NewsCard from '@/component/NewsCard';
-// EdukasiCard sudah tidak dipakai di layout baru
 import HeroBanner from '@/component/HeroBanner';
 import Footer from '@/component/footer';
 import styles from './page.module.css';
@@ -13,11 +12,9 @@ import styles from './page.module.css';
 import { newsData } from './data/newsData';
 import { infoData } from './data/infoData';
 import { edukasiData } from './data/edukasiData';
-
-// komponen tambahan dari Aldo
 import Marquee from '@/component/Marquee';
 
-// i18n milikmu
+// i18n
 import { useLang } from './i18n/LanguageContext';
 
 // --- TIPE DATA UNTUK EDUKASI ---
@@ -32,7 +29,6 @@ type EdukasiItem = {
 export default function Home() {
   const { t } = useLang();
 
-  // state dari Aldo
   const [activeTab, setActiveTab] = useState<'artikel' | 'video'>('artikel');
   const [searchTerm, setSearchTerm] = useState('');
 
