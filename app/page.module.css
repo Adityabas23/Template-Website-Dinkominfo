@@ -408,22 +408,208 @@
   box-sizing: border-box;
 }
 
-.newsGrid{
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
-}
-
 .edukasisection {
   background-color: #ffffff;
   padding-top: 0;
 }
 
-.edukasiGrid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
+.sectionHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
 }
+
+.pemisahPanel {
+    border: 0;
+    border-top: 1px solid #e0e0e0; /* Garis abu-abu tipis */
+    margin: 2.5rem 0; /* Jarak di atas dan bawah garis */
+    width: 90%; 
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.edukasiLayout {
+    display: flex;
+    gap: 2.5rem; /* Jarak antara kolom kiri dan kanan */
+    flex-wrap: wrap; /* Agar bisa wrap ke bawah di mobile */
+}
+
+/* 1. Kolom Kiri (Highlight) */
+.edukasiHighlight {
+    flex: 1.5; /* Lebar: sekitar 60% */
+    min-width: 300px; /* Minimal lebar agar tidak terlalu kecil */
+}
+
+.highlightCard {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    height: 100%;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.highlightCard:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+}
+
+.highlightImage {
+    width: 100%;
+    height: 350px; /* Atur tinggi gambar highlight */
+    object-fit: cover;
+    background-color: #f0f0f0; /* Warna placeholder */
+}
+
+.highlightContent {
+    padding: 1.5rem;
+    background-color: #ffffff;
+}
+
+.highlightTag {
+    background-color: #007bff; /* Ganti dengan warna primer Anda */
+    color: white;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+.highlightContent h3 {
+    font-size: 1.5rem;
+    margin: 1rem 0 0 0;
+    line-height: 1.3;
+}
+
+/* 2. Kolom Kanan (Sidebar) */
+.edukasiSidebar {
+    flex: 1; /* Lebar: sekitar 40% */
+    min-width: 300px; /* Minimal lebar agar tidak terlalu kecil */
+    display: flex;
+    flex-direction: column;
+}
+
+/* Search Bar */
+.edukasiSearch {
+    display: flex;
+    margin-bottom: 1.5rem;
+}
+
+.edukasiSearch input {
+    flex: 1;
+    border: 1px solid #ccc;
+    padding: 0.75rem 1rem;
+    border-radius: 8px 0 0 8px;
+    font-size: 0.9rem;
+    outline-color: #007bff;
+}
+
+.edukasiSearch button {
+    background-color: #007bff; /* Ganti dengan warna primer Anda */
+    color: white;
+    border: none;
+    padding: 0 1.5rem;
+    border-radius: 0 8px 8px 0;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.2s ease;
+}
+.edukasiSearch button:hover {
+    background-color: #0056b3;
+}
+
+/* Pilihan Tabs */
+.edukasiTabs {
+    display: flex;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 1.5rem;
+}
+
+.edukasiTabs button {
+    background: none;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #666;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -2px; /* Agar border pas di garis */
+    transition: all 0.2s ease;
+}
+
+.edukasiTabs button:hover {
+    color: #333;
+}
+
+.edukasiTabs button.activeTab {
+    color: #007bff; /* Ganti dengan warna primer Anda */
+    border-bottom-color: #007bff;
+}
+
+/* Daftar Konten */
+.edukasiList {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    /* Jika ingin daftar kontennya punya scrollbar sendiri, aktifkan ini */
+    /* max-height: 400px; */ 
+    /* overflow-y: auto; */
+    /* padding-right: 5px; */ /* Untuk memberi ruang scrollbar */
+}
+
+.edukasiListItem {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+    padding: 4px;
+    border-radius: 8px;
+    transition: background-color 0.2s ease;
+}
+
+.edukasiListItem:hover {
+    background-color: #f8f9fa;
+}
+
+.edukasiListItem img {
+    width: 120px; /* Lebar gambar list */
+    height: 80px; /* Tinggi gambar list */
+    object-fit: cover;
+    border-radius: 8px;
+    flex-shrink: 0;
+    background-color: #f0f0f0;
+}
+
+.edukasiListItem div {
+    display: flex;
+    flex-direction: column;
+}
+
+.edukasiListItem h4 {
+    font-size: 0.95rem;
+    line-height: 1.4;
+    margin: 0 0 4px 0;
+    font-weight: 600;
+}
+
+.edukasiListItem span {
+    font-size: 0.8rem;
+    color: #666;
+    text-transform: capitalize;
+}
+
+/* 2. Kolom Kanan (Sidebar) */
+.edukasiSidebar {
+    flex: 1; /* Lebar: ~40% */
+    display: flex;
+    flex-direction: column;
+}
+
 
 /* RESPONSIVE (Agar aman di laptop kecil) */
 @media (max-width: 1366px) {
@@ -451,6 +637,20 @@
   .accessSidebar {right: 2rem;}
   .socialSidebar {left: 2rem;}
   .waveImage {width: 129%;}
+}
+
+@media (max-width: 1024px) {
+    .edukasiLayout {
+        flex-direction: column; /* Tumpuk kolom di layar tablet */
+    }
+    .edukasiHighlight, .edukasiSidebar {
+        flex: none; /* Hilangkan flex basis */
+        width: 100%; /* Ambil lebar penuh */
+        min-width: unset; /* Reset min-width */
+    }
+    .highlightImage {
+        height: 250px; /* Kecilkan gambar di tablet */
+    }
 }
 
 /* MOBILE */
@@ -548,30 +748,10 @@
     display: none; 
   }
 
-  .sectionHeader {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 12px;
-  }
   .sectionTitle {
     font-size: 22px;
   }
-}
-
-@media (max-width: 1024px) {
-  .edukasiGrid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 600px) {
-  .edukasiGrid {
-    grid-template-columns: 1fr;
-  }
-  .rightWidget,
-  .accessSidebar {
-    display: none; 
-  }
+  
 }
 
 @media (max-width: 480px) {

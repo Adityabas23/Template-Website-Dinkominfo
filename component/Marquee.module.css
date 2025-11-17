@@ -1,0 +1,37 @@
+/* 1. Definisikan animasi scroll ke kiri */
+@keyframes scroll-left {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    /* Geser ke kiri sejauh 50% dari total lebar (karena kita duplikat konten) */
+    transform: translateX(-50%);
+  }
+}
+
+/* 2. Wrapper untuk menyembunyikan overflow dan memberi efek fade */
+.marqueeWrapper {
+  overflow: hidden;
+  width: 100%;
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+}
+
+/* 3. Kontainer yang akan bergerak */
+.marqueeContent {
+  display: flex;
+  width: max-content; /* Lebar total sesuai isi */
+  gap: 24px; /* Jarak antar kartu (ganti 20px jika perlu) */
+  
+  /* Menjalankan animasi */
+  animation: scroll-left var(--animation-duration, 30s) linear infinite;
+}
+
+.marqueeContent > * {
+  width: 282px;
+  flex-shrink: 0;
+}
+/* 4. Berhenti saat di-hover (Good UX) */
+.marqueeWrapper:hover .marqueeContent {
+  animation-play-state: paused;
+}
