@@ -1,55 +1,71 @@
-/* app/page.module.css */
-
 /* 1. SETUP GLOBAL */
 .mainContainer {
   width: 100%;
   min-height: 100vh;
-  background-color: white; /* Untuk bagian lengkungan putih bawah kanan */
-  font-family: 'Inter', sans-serif; /* Pastikan font bagus */
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  background-color: white;
+  font-family: 'Inter', sans-serif;
 }
 
 /* 3. HERO SECTION (GAMBAR BACKGROUND) */
 .hero {
   position: relative;
-  margin-top: -80;
+  margin-top: -80px;
   width: 100%;
-  height: calc(100vh - 10px); 
-  background-image: url('/bannerfix.png'); 
+  height: calc(100vh - 10px);
+  border-bottom-right-radius: 200px;
+  overflow: hidden;
+}
+
+.heroBg {
+  position: absolute;
+  inset: 0;
   background-size: cover;
   background-position: center;
-  
-  /* LENGKUNGAN PUTIH DI POJOK KANAN BAWAH */
-  border-bottom-right-radius: 200px;
-  overflow: hidden; 
+  background-repeat: no-repeat;
+  z-index: 0;
+
+  opacity: 1;
+  filter: blur(0px);
+  transform: scale(1);
+
+  /* transisi dibuat lembut */
+  transition:
+    opacity 900ms cubic-bezier(0.25, 0.8, 0.25, 1),
+    filter 900ms ease-out,
+    transform 1800ms cubic-bezier(0.19, 1, 0.22, 1);
+
+  will-change: opacity, filter, transform;
+}
+
+/* Saat transisi: blur tipis + zoom tipis, tidak terlalu gelap */
+.heroBgTransition {
+  opacity: 0.85;      /* tadinya 0.50 → terlalu drop, sekarang lebih halus */
+  filter: blur(5px);/* blur setengah dari sebelumnya */
+  transform: scale(1.012); /* zoom tipis saja supaya tidak “melompat” */
 }
 
 /* Container Pembungkus Wave */
 .waveContainer {
   position: absolute;
-  bottom: -1px; /* Tips: -1px untuk menutupi celah garis putih tipis */
-  left: -20rem;
+  bottom: -1px;
+  left: -19.2rem;
   width: 100%;
-  z-index: 2; /* Pastikan di atas background hero, tapi di bawah konten penting */
-  line-height: 0; /* Menghapus spasi hantu di bawah gambar */
-  pointer-events: none; /* Agar klik tembus (tidak menghalangi tombol di belakangnya) */
+  z-index: 2;
+  line-height: 0;
+  pointer-events: none;
 }
 
 /* Gambar Wave-nya */
 .waveImage {
-  width: 150%;      /* Lebar mengikuti layar */
-  height: 100%;     /* Tinggi proporsional agar gambar tidak gepeng */
-  display: block;   /* Menghilangkan gap default image */
+  width: 149%;
+  height: 100%;
+  display: block;
 }
 
 .heroOverlay {
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0, 0, 0, 0.4); /* Gelapkan gambar sedikit */
+  background: rgba(0, 0, 0, 0.5);
   z-index: 1;
 }
 
@@ -90,11 +106,14 @@
   font-size: 1.2rem;
   transition: 0.3s;
 }
-.socialSidebar a:hover { background: rgba(255, 255, 255, 0.4); transform: scale(1.1);}
+.socialSidebar a:hover {
+  background: rgba(255, 255, 255, 0.4);
+  transform: scale(1.1);
+}
 
 /* 5. KONTEN KIRI (JUDUL & SEARCH) */
 .leftContent {
-  margin-left: 2rem; /* Geser supaya tidak nabrak sosmed */
+  margin-left: 2rem;
   max-width: 600px;
   color: white;
 }
@@ -131,7 +150,9 @@
   font-size: 1rem;
   outline: none;
 }
-.searchBox input::placeholder { color: rgba(255, 255, 255, 0.7); }
+.searchBox input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
 
 .searchBox button {
   background: linear-gradient(to right, #007bff, #0056b3);
@@ -142,35 +163,118 @@
   font-weight: 600;
   cursor: pointer;
 }
-
 .searchBox button:hover {
   background: linear-gradient(to right, #2384eb);
 }
 
-.popularTags span { font-size: 0.9rem; font-weight: 600; display: block; margin-bottom: 10px; }
-.tagsList { display: flex; gap: 10px; }
-.tagsList a {
-  padding: 8px 15px;
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 20px;
-  text-decoration: none;
-  color: white;
-  font-size: 0.85rem;
-  backdrop-filter: blur(5px);
+/* ============================
+   POPULAR TAGS WRAPPER
+============================ */
+.popularTags {
+  width: 100%;
+  max-width: 100%;
+  text-align: start;
+}
+.popularTags span { 
+  font-size: 0.9rem; 
+  font-weight: 600; 
+  display: block; 
+  margin-bottom: 10px; 
 }
 
-.tagsList a:hover {background: linear-gradient(to right, #007bff, #0056b3); transform: scale(1.1);}
+/* OUTER WRAPPER (STATIC) */
+.tagsOuter {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 40px;
+}
+
+/* Glass edge kanan */
+.tagsOuter::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 35px;
+  height: 100%;
+  pointer-events: none;
+  border-top-right-radius: 40px;
+  border-bottom-right-radius: 40px;
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0.0) 0%,
+    rgba(255, 255, 255, 0.11) 30%,
+    rgba(255, 255, 255, 0.05) 100%
+  );
+  backdrop-filter: blur(5px);
+  border-left: 0px solid rgba(255, 255, 255, 0.35);
+  z-index: 2;
+  transition: opacity 0.2s ease;
+}
+
+.tagsOuterNoFade::after {
+  opacity: 0;
+}
+
+/* SCROLL WRAPPER (Horizontal) */
+.scrollWrapper {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-right: 80px;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollWrapper::-webkit-scrollbar {
+  display: none;
+}
+
+/* TAGS LIST */
+.tagsList { 
+  position: relative;
+  z-index: 1;
+  display: flex; 
+  gap: 10px;
+  white-space: nowrap;
+  align-items: center;
+}
+
+/* CHIP / TAG GLASS */
+.tagsList a {
+  flex: 0 0 auto;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px 18px;
+  background: rgba(255, 255, 255, 0.28);
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: #fff;
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+.tagsList a:hover {
+  background: rgba(255, 255, 255, 0.36);
+  transform: translateY(-1px);
+  transition: 0.18s ease;
+}
 
 /* 6. WIDGET KANAN (BERITA + JAM) */
 .rightWidget {
   width: 450px;
-  background: rgba(0, 0, 0, 0.4); /* Hitam Transparan */
+  background: rgba(0, 0, 0, 0.4);
   backdrop-filter: blur(10px);
   border-radius: 20px;
   padding: 1.5rem;
   color: white;
   border: 1px solid rgba(255, 255, 255, 0.1);
-  margin-right: 4rem; /* Jarak dari kanan agar tidak nabrak aksesibilitas */
+  margin-right: 4rem;
 }
 
 /* Header Widget */
@@ -180,7 +284,6 @@
   margin-bottom: 1rem;
   align-items: flex-start;
 }
-
 .labelToday { font-size: 1.3rem; font-weight: 800; display: block; margin-bottom: 5px; }
 .textDate { font-size: 1rem; opacity: 0.9; display: block; margin-bottom: 5px;}
 .textLoc { font-size: 0.75rem; opacity: 0.7; display: flex; align-items: center; gap: 5px; text-transform: uppercase; }
@@ -195,6 +298,17 @@
   border-radius: 15px;
   overflow: hidden;
   position: relative;
+  /* ➕ tambahkan transition untuk efek halus */
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity 320ms cubic-bezier(0.25, 0.8, 0.25, 1),
+    transform 320ms cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.newsCardFading {
+  opacity: 0;
+  transform: translateY(6px); /* turun dikit biar berasa lembut */
 }
 
 .newsImageWrapper { 
@@ -202,21 +316,18 @@
   width: 100%; 
   height: 300px; 
 }
-
 .group {
   cursor: pointer;
   position: relative;
   overflow: hidden; 
   border-radius: 15px; 
 }
-
 .newsImage { 
   width: 100%; 
   height: 100%; 
   object-fit: cover; 
   transition-timing-function: 0.5s cubic-bezier(.4,0,.2,1);
 }
-
 .newsOverlay {
   position: absolute;
   bottom: 0; left: 0; right: 0;
@@ -225,16 +336,13 @@
   backdrop-filter: blur(10px);
   transition: all 0.5s ease;
 }
-
 .group:hover .newsImage{
-    transform: scale(1.1);
+  transform: scale(1.1);
 }
-  
 .group:hover .newsOverlay{
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.733));
-    backdrop-filter: blur(20px);
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.733));
+  backdrop-filter: blur(20px);
 }
-
 .newsCategory { font-size: 0.6rem; background: rgba(255,255,255,0.2); padding: 2px 8px; border-radius: 4px; }
 .newsTitle { font-size: 0.9rem; margin: 8px 0; line-height: 1.3; }
 .newsMeta { font-size: 0.65rem; opacity: 0.7; }
@@ -255,15 +363,15 @@
 
 /* 7. SIDEBAR AKSESIBILITAS (KANAN MENTOK) */
 .accessSidebar {
-  position: absolute;
-  right: -11rem;
+  position: fixed;
+  right: 2rem;
   top: 50%;
   transform: translateY(-50%);
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  z-index: 9999;
 }
-
 .accessBtn {
   width: 50px;
   height: 50px;
@@ -282,53 +390,86 @@
 }
 .accessBtn:hover { transform: scale(1.1); }
 
+.contentsection {
+  padding: 60px 0;
+  background-color: #ffffff;
+}
+
+.agendasection {
+  background-color: #f8f9fa;
+  padding-top: 0;
+}
+
+.container{
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  box-sizing: border-box;
+}
+
+.newsGrid{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.edukasisection {
+  background-color: #ffffff;
+  padding-top: 0;
+}
+
+.edukasiGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
 /* RESPONSIVE (Agar aman di laptop kecil) */
 @media (max-width: 1366px) {
   .heroTitle { font-size: 1.8rem; }
   .heroSubtitle {max-width: 90%;}
   .rightWidget { width: 400px; padding: 1rem; margin-right: 4.5rem; margin-top: 3rem;}
   .bigClock { font-size: 3rem; }
+  .textDate {font-size: 0.9rem;}
   .newsImageWrapper { height: 275px; }
   .leftContent { margin-left: 5rem; }
   .searchBox {width: 28rem;}
   .accessSidebar {right: 2rem;}
   .socialSidebar {left: 2rem;}
+  .waveImage {width: 129%;}
 }
 
-/* =======================================
-   RESPONSIVE MOBILE (HP)
-   Max-width 768px mencakup HP & Tablet Kecil
-   =======================================
-*/
+@media (max-width: 1280px) {
+  .heroTitle { font-size: 1.5rem; }
+  .heroSubtitle {max-width: 80%;}
+  .rightWidget { width: 400px; padding: 1rem; margin-right: 5rem; margin-top: 4rem;}
+  .bigClock { font-size: 3rem; }
+  .newsImageWrapper { height: 200px; }
+  .leftContent { margin-left: 5rem; }
+  .searchBox {width: 28rem;}
+  .accessSidebar {right: 2rem;}
+  .socialSidebar {left: 2rem;}
+  .waveImage {width: 129%;}
+}
+
+/* MOBILE */
 @media (max-width: 768px) {
-  /* =======================================
-     1. HERO (Container Utama)
-     ======================================= */
   .hero {
-    /* Gunakan Flexbox untuk menata semua anak-anaknya */
     display: flex;
-    flex-direction: column; /* Tumpuk ke bawah */
-    align-items: center;   /* Rata tengah horizontal */
-    
+    flex-direction: column;
+    align-items: center;
     position: relative;
     height: auto;
-    min-height: 95vh; /* Minimal setinggi 90% layar */
-    
-    /* Padding atas besar untuk navbar, padding bawah untuk memberi ruang di kaki */
-    padding: 5rem 1.5rem 4rem; 
-    
+    min-height: 95vh;
+    padding: 5rem 1.5rem 4rem;
     background-image: url('/bannermobile.png');
     background-size: cover;
     background-position: center;
     overflow: hidden;
-
-    /* PERMINTAAN ANDA: Lengkungan di kanan bawah */
-    border-bottom-right-radius: 100px; 
+    border-bottom-right-radius: 100px;
   }
 
-  /* =======================================
-     2. JUDUL & SUBJUDUL
-     ======================================= */
   .heroTitle {
     margin-top: 0;
     font-size: 2.2rem;
@@ -349,11 +490,7 @@
     z-index: 2;
   }
   
-  /* =======================================
-     3. KONTEN (SEARCH & TAGS)
-     ======================================= */
   .contentWrapper, .leftContent {
-    /* Kita jadikan satu alur flexbox */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -368,18 +505,11 @@
     margin-bottom: 2rem;
   }
 
-  /* =======================================
-     4. TAGS LIST (Scroll Marquee)
-     ======================================= */
   .popularTags {
     text-align: center; 
     width: 100%;
-    max-width: 500px;
+    max-width: 100%;
     margin-bottom: 2rem;
-    overflow: hidden;
-    /* Efek fade (kabut) di pinggir */
-    -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
-    mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
   }
 
   .popularTags span { 
@@ -388,43 +518,16 @@
     display: block; 
     margin-bottom: 1rem; 
   }
-  
-  .tagsList { 
-    display: flex;
-    white-space: nowrap; /* Kunci: Jangan biarkan tag turun baris */
-    gap: 0.75rem;
-    /* Terapkan animasi scroll */
-    animation: scrollTags 20s linear infinite;
-  }
-  
-  .tagsList a {
-    padding: 8px 16px;
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 20px;
-    text-decoration: none;
-    color: white;
-    font-size: 0.85rem;
-    backdrop-filter: blur(8px);
-  }
 
-  /* =======================================
-     5. PERBAIKAN: IKON SOSIAL MEDIA (PINDAH KE BAWAH)
-     ======================================= */
   .socialSidebar {
-    /* Hapus position: absolute */
     position: static; 
     display: flex;
     flex-direction: row;
     justify-content: center;
     gap: 1.5rem;
     width: 100%;
-    
-    /* TRIK AJAIB: Mendorong ikon ke paling bawah */
     margin-top: auto; 
-    
-    /* Beri jarak dari konten di atasnya */
     padding-top: 2rem; 
-    
     z-index: 10;
   }
 
@@ -441,32 +544,42 @@
     backdrop-filter: blur(5px);
   }
 
-  /* =======================================
-     6. HAPUS WAVE IMAGE (Diganti border-radius)
-     ======================================= */
   .waveContainer, .waveImage {
     display: none; 
   }
 
-  /* =======================================
-     7. SEMBUNYIKAN WIDGET DESKTOP
-     ======================================= */
+  .sectionHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .sectionTitle {
+    font-size: 22px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .edukasiGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .edukasiGrid {
+    grid-template-columns: 1fr;
+  }
   .rightWidget,
   .accessSidebar {
     display: none; 
   }
 }
 
-/* =======================================
-   8. HP SANGAT KECIL (480px)
-   ======================================= */
 @media (max-width: 480px) {
   .hero {
-    /* PERMINTAAN ANDA: Lengkungan lebih kecil */
     border-bottom-right-radius: 70px;
-    
-    padding: 5rem 1rem 3rem; /* Padding lebih kecil */
-    min-height: 100vh;
+    padding: 5rem 1rem 3rem;
+    background-image: url('/bannermobile.png');
+    min-height: 80vh;
   }
 
   .heroTitle {
@@ -481,31 +594,39 @@
   .searchBox {
     margin-bottom: 1.5rem;
   }
-
-  /* Perkecil ukuran tag */
-  .tagsList a {
-    font-size: 0.75rem;
-    padding: 6px 12px;
+  
+  .searchBox button {
+    margin-left: -4.5rem;
   }
 
-  /* Perkecil ikon sosmed */
+  .tagsList a {
+    font-size: 0.75rem;
+    padding: 8px 12px;
+  }
+
+  .socialSidebar a {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 30%;
+    color: white;
+    font-size: 1.3rem;
+    backdrop-filter: blur(5px);
+  }
+
   .socialSidebar a {
     width: 42px;
     height: 42px;
     font-size: 1.1rem;
+    
   }
 }
 
-/* =======================================
-   KODE ANIMASI UNTUK SCROLL TAGS
-   Letakkan ini di luar media query
-   ======================================= */
+/* Animasi (kalau mau dipakai di tempat lain) */
 @keyframes scrollTags {
-  0% {
-    transform: translateX(0%);
-  }
-  100% {
-    /* Geser sejauh 100% (lebar list) + total gap (jika perlu) */
-    transform: translateX(-101%); 
-  }
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-101%); }
 }
