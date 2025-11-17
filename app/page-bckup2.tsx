@@ -1,77 +1,42 @@
 // app/page.tsx
-'use client';
-
-import { useState } from 'react';
 import Link from 'next/link';
 import NewsCard from '@/component/NewsCard';
-// EdukasiCard sudah tidak dipakai di layout baru
+import EdukasiCard from '@/component/EdukasiCard';
 import HeroBanner from '@/component/HeroBanner';
 import Footer from '@/component/footer';
 import styles from './page.module.css';
+import { useState } from 'react';
 
 // data dipisah ke file terpisah
 import { newsData } from './data/newsData';
 import { infoData } from './data/infoData';
 import { edukasiData } from './data/edukasiData';
 
-// komponen tambahan dari Aldo
+// --- IMPORT KOMPONEN BARU KITA ---
 import Marquee from '@/component/Marquee';
 
-// i18n milikmu
-import { useLang } from './i18n/LanguageContext';
-
-// --- TIPE DATA UNTUK EDUKASI ---
-type EdukasiItem = {
-  href: string;
-  imageUrl: string;
-  altText: string;
-  title: string;
-  type: string; // 'video' | 'artikel' | dll
-};
-
 export default function Home() {
-  const { t } = useLang();
-
-  // state dari Aldo
-  const [activeTab, setActiveTab] = useState<'artikel' | 'video'>('artikel');
-  const [searchTerm, setSearchTerm] = useState('');
-
-  // pisah highlight dan list
-  const highlightItem: EdukasiItem | null =
-    edukasiData.length > 0 ? (edukasiData[0] as EdukasiItem) : null;
-  const listItems: EdukasiItem[] = edukasiData.slice(1) as EdukasiItem[];
-
-  const filteredList = listItems.filter((item) => {
-    const matchesTab =
-      activeTab === 'artikel' ? item.type !== 'video' : item.type === 'video';
-
-    const matchesSearch = item.title
-      .toLowerCase()
-      .includes(searchTerm.toLowerCase());
-
-    return matchesTab && matchesSearch;
-  });
-
   return (
     <main className={styles.mainContainer}>
-      {/* BANNER / HERO */}
+      {/* BANNER / HERO DIPISAH KE KOMPONEN SENDIRI */}
       <HeroBanner />
 
       {/* BERITA TERBARU */}
       <section className={`${styles.contentSection} ${styles.infoSection}`}>
         <div className={styles.container}>
           <div className={styles.sectionHeader}>
-            <h2 className={styles.sectionTitle}>{t('home.section.news')}</h2>
+            <h2 className={styles.sectionTitle}>Berita Terbaru</h2>
             <Link href="/arsip-berita" className={styles.viewAllLink}>
-              {t('home.section.news.all')}
+              Lihat Semua Berita &gt;
             </Link>
           </div>
-
-          {/* Marquee dari Aldo */}
-          <Marquee duration="40s">
+          
+          {/* --- GANTI BAGIAN INI --- */}
+          {/* Hapus div className={styles.newsGrid} */}
+          <Marquee duration="40s"> {/* Atur kecepatan di sini */}
             {newsData.map((item) => (
               <NewsCard
-                key={item.title}
+                key={item.title} // Key tetap di sini
                 href={item.href}
                 imageUrl={item.imageUrl}
                 altText={item.altText}
@@ -80,24 +45,27 @@ export default function Home() {
               />
             ))}
           </Marquee>
+          {/* --- BATAS AKHIR REVISI --- */}
+
         </div>
       </section>
 
-      {/* Garis pemisah */}
+      {/* --- TAMBAHKAN GARIS PEMISAH DI SINI --- */}
       <hr className={styles.pemisahPanel} />
 
       {/* INFORMASI */}
       <section className={`${styles.contentSection} ${styles.infoSection}`}>
         <div className={styles.container}>
           <div className={styles.sectionHeader}>
-            <h2 className={styles.sectionTitle}>{t('home.section.info')}</h2>
+            <h2 className={styles.sectionTitle}>Informasi</h2>
             <Link href="/arsip-informasi" className={styles.viewAllLink}>
-              {t('home.section.info.all')}
+              Lihat Semua Informasi &gt;
             </Link>
           </div>
-
-          {/* Marquee dari Aldo */}
-          <Marquee duration="30s">
+          
+          {/* --- GANTI BAGIAN INI JUGA --- */}
+          {/* Hapus div className={styles.newsGrid} */}
+          <Marquee duration="30s"> {/* Kecepatan bisa beda */}
             {infoData.map((item) => (
               <NewsCard
                 key={item.title}
@@ -109,48 +77,40 @@ export default function Home() {
               />
             ))}
           </Marquee>
+          {/* --- BATAS AKHIR REVISI --- */}
+
         </div>
       </section>
-
-      {/* Garis pemisah */}
+      
+      {/* --- TAMBAHKAN GARIS PEMISAH DI SINI --- */}
       <hr className={styles.pemisahPanel} />
 
-      {/* EDUKASI PUBLIK (layout baru Aldo + i18n judul) */}
+      {/* EDUKASI PUBLIK (Biarkan ini tetap grid, tidak scroll) */}
       <section className={`${styles.contentSection} ${styles.edukasiSection}`}>
         <div className={styles.container}>
+
           {/* Header (Judul dan Link "Lihat Semua") */}
           <div className={styles.sectionHeader}>
-            <h2 className={styles.sectionTitle}>
-              {t('home.section.education')}
-            </h2>
+            <h2 className={styles.sectionTitle}>Edukasi Publik</h2>
             <Link href="/arsip-edukasi" className={styles.viewAllLink}>
-              {t('home.section.education.all')}
+              Lihat Semua Edukasi &gt;
             </Link>
           </div>
 
           {/* --- Pengecekan Data Edukasi secara keseluruhan --- */}
-          {!highlightItem && filteredList.length === 0 ? (
-            <div
-              style={{
-                padding: '2rem',
-                textAlign: 'center',
-                border: '1px dashed #ccc',
-                borderRadius: '8px',
-                color: '#666',
-              }}
-            >
+          {/* Jika tidak ada data highlight atau daftar, tampilkan pesan */}
+          {(!highlightItem && filteredList.length === 0) ? (
+            <div style={{ padding: '2rem', textAlign: 'center', border: '1px dashed #ccc', borderRadius: '8px', color: '#666' }}>
               <p>Belum ada data edukasi publik untuk ditampilkan.</p>
             </div>
           ) : (
             // Jika ada data, tampilkan layout utama
             <div className={styles.edukasiLayout}>
-              {/* 1. BAGIAN KIRI: HIGHLIGHT */}
-              {highlightItem && (
+
+              {/* --- 1. BAGIAN KIRI: HIGHLIGHT --- */}
+              {highlightItem && ( // Tampilkan highlight hanya jika ada item
                 <div className={styles.edukasiHighlight}>
-                  <a
-                    href={highlightItem.href}
-                    className={styles.highlightCard}
-                  >
+                  <a href={highlightItem.href} className={styles.highlightCard}>
                     <img
                       src={highlightItem.imageUrl}
                       alt={highlightItem.altText}
@@ -166,8 +126,9 @@ export default function Home() {
                 </div>
               )}
 
-              {/* 2. BAGIAN KANAN: SIDEBAR (SEARCH, TABS, LIST) */}
+              {/* --- 2. BAGIAN KANAN: SIDEBAR (SEARCH, TABS, LIST) --- */}
               <div className={styles.edukasiSidebar}>
+
                 {/* Search Bar */}
                 <div className={styles.edukasiSearch}>
                   <input
@@ -176,22 +137,18 @@ export default function Home() {
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                   />
-                  <button type="button">Cari</button>
+                  <button>Cari</button>
                 </div>
 
-                {/* Pilihan Tab */}
+                {/* Pilihan Tab (Artikel / Video) */}
                 <div className={styles.edukasiTabs}>
                   <button
-                    type="button"
-                    className={
-                      activeTab === 'artikel' ? styles.activeTab : ''
-                    }
+                    className={activeTab === 'artikel' ? styles.activeTab : ''}
                     onClick={() => setActiveTab('artikel')}
                   >
                     Artikel
                   </button>
                   <button
-                    type="button"
                     className={activeTab === 'video' ? styles.activeTab : ''}
                     onClick={() => setActiveTab('video')}
                   >
@@ -199,35 +156,25 @@ export default function Home() {
                   </button>
                 </div>
 
-                {/* Daftar Konten */}
+                {/* Daftar Konten Sesuai Tab dan Pencarian */}
                 <div className={styles.edukasiList}>
                   {filteredList.length > 0 ? (
                     filteredList.map((item) => (
-                      <a
-                        key={item.title}
-                        href={item.href}
-                        className={styles.edukasiListItem}
-                      >
+                      <a key={item.title} href={item.href} className={styles.edukasiListItem}>
                         <img src={item.imageUrl} alt={item.altText} />
                         <div>
                           <h4>{item.title}</h4>
-                          <span>{item.type}</span>
+                          <span>{item.type}</span> 
                         </div>
                       </a>
                     ))
                   ) : (
-                    <p
-                      style={{
-                        fontSize: '0.9rem',
-                        color: '#666',
-                        padding: '1rem',
-                      }}
-                    >
-                      Tidak ada konten {activeTab} yang cocok dengan pencarian
-                      Anda.
+                    <p style={{ fontSize: '0.9rem', color: '#666', padding: '1rem' }}>
+                      Tidak ada konten {activeTab} yang cocok dengan pencarian Anda.
                     </p>
                   )}
                 </div>
+
               </div>
             </div>
           )}
@@ -236,17 +183,7 @@ export default function Home() {
 
       {/* AGENDA */}
       <section className={`${styles.contentSection} ${styles.agendaSection}`}>
-        <div className={styles.container}>
-          <div className={styles.sectionHeader}>
-            <h2 className={styles.sectionTitle}>{t('home.section.agenda')}</h2>
-            <Link href="/arsip-agenda" className={styles.viewAllLink}>
-              {t('home.section.agenda.all')}
-            </Link>
-          </div>
-          <div className={styles.sidebarCard}>
-            <p>{t('home.section.agenda.empty')}</p>
-          </div>
-        </div>
+        {/* ... sisa kode Anda ... */}
         <Footer />
       </section>
     </main>
