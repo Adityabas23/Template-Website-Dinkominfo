@@ -476,7 +476,7 @@
   border: none;
   cursor: pointer;
   border-radius: 16px;
-  padding: 0.7rem 1.1rem;
+  padding: 0.4rem 1rem;
   font-size: 0.9rem;
   font-weight: 600;
 
@@ -493,7 +493,7 @@
 
 /* Ikon kotak 4 */
 .mobileFabIcon {
-  font-size: 1.7rem;         
+  font-size: 1.8rem;         
   display: block;
 }
 
@@ -545,6 +545,17 @@
 @media (max-width: 1366px) and (min-width: 769px) {
   .accessSidebar {
     right: 1.5rem;
+  }
+  .modalShell {
+    width: 50vw;
+  }
+  .surveyImage {
+    max-width: 60%;
+    max-height: 60vh;
+  }
+  .modalIntro,
+  .modalActions {
+    max-width: 70%;
   }
 }
 @media (max-width: 1024px) and (min-width: 769px) {

@@ -323,23 +323,7 @@ export default function HeroBanner() {
             {lang === 'id' ? 'Lihat Berita Lainnya' : 'View More News'}
           </button>
         </div>
-
-        {/* sidebar aksesibilitas kanan */}
-        {/*<div className={styles.accessSidebar}>
-          <button className={styles.accessBtn}>
-            <FaSmile />
-          </button>
-          <button className={styles.accessBtn}>
-            <FaBookOpen />
-          </button>
-          <button className={styles.accessBtn}>
-            <FaBolt />
-          </button>
-          <button className={styles.accessBtn}>
-            <FaUniversalAccess />
-          </button>
-        </div>*/}
-
+        
         {/* wave di bawah banner */}
         <div className={styles.waveContainer}>
           <Image
