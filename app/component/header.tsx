@@ -336,7 +336,7 @@ const Header = forwardRef<HTMLDivElement>((props, ref) => {
               </li>
 
               <li className={styles.navItem}>
-                <Link href="#" className={styles.navLink}>
+                <Link href="/pages/data-pegawai" className={styles.navLink}>
                   {t('nav.staffData')}
                 </Link>
               </li>

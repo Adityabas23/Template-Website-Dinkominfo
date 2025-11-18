@@ -1,0 +1,249 @@
+.wrapper {
+    max-width: 1160px;
+    margin: 0 auto 40px;
+    padding: 0 16px;
+  }
+  
+  .section {
+    margin-top: 16px;
+  }
+  
+  .title {
+    font-size: 22px;
+    font-weight: 700;
+    color: #0c75ff;
+    margin-bottom: 10px;
+  }
+  
+  /* CARD PUTIH DI BAWAH JUDUL */
+  .sectionCard {
+    background-color: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    padding: 18px 20px 20px;
+  }
+  
+  /* ===== LAYOUT 2 KOLOM (LIST KIRI, PANEL KANAN) ===== */
+  .downloadLayout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.4fr);
+    gap: 22px;
+    align-items: flex-start;
+  }
+  
+  /* KIRI: LIST TAHUN */
+  .listColumn {
+    font-size: 13px;
+  }
+  
+  .yearBlock {
+    margin-bottom: 14px;
+  }
+  
+  .yearLabel {
+    font-size: 13px;
+    font-weight: 600;
+    color: #555;
+    margin-bottom: 4px;
+  }
+  
+  .list {
+    list-style: disc;
+    padding-left: 20px;
+    line-height: 1.7;
+  }
+  
+  .list li {
+    margin-bottom: 3px;
+  }
+  
+  .link {
+    color: #0c75ff;
+    font-weight: 600;
+    text-decoration: underline;
+  }
+  
+  .link:hover {
+    text-decoration: none;
+  }
+  
+  /* KANAN: PANEL GRADASI BIRU + GRID PER TAHUN */
+  .cardsColumn {
+    width: 100%;
+  }
+  
+  /* PANEL BACKGROUND GRADASI BIRU */
+  .filePanel {
+    background: linear-gradient(135deg, #0b63d1 0%, #1976d2 45%, #2196f3 100%);
+    border-radius: 22px;
+    padding: 16px 16px 18px;
+    box-shadow: 0 12px 30px rgba(15, 76, 129, 0.35);
+  }
+  
+  /* Kolom per tahun di dalam panel */
+  .yearColumn {
+    background-color: rgba(255, 255, 255, 0.96);
+    border-radius: 16px;
+    padding: 12px 12px 14px;
+    margin-bottom: 14px;
+  }
+  
+  .yearHeading {
+    font-size: 13px;
+    font-weight: 700;
+    color: #0b63d1;
+    margin-bottom: 10px;
+  }
+  
+  /* ROW KARTU – SCROLL HORIZONTAL 2-2 + SNAP */
+  .fileGrid {
+    display: flex;
+    gap: 14px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 6px 4px 10px;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+  }
+  
+  /* scrollbar styling */
+  .fileGrid::-webkit-scrollbar {
+    height: 6px;
+  }
+  .fileGrid::-webkit-scrollbar-thumb {
+    background: rgba(15, 76, 129, 0.45);
+    border-radius: 999px;
+  }
+  .fileGrid::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  /* Kartu file – bentuk & ukuran seragam */
+  .fileCard {
+    background-color: #ffffff;
+    border-radius: 18px;
+    padding: 14px 16px 14px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #e5e7eb;
+  
+    /* 2 kartu per “halaman” */
+    flex: 0 0 calc(50% - 7px);
+    max-width: calc(50% - 7px);
+  
+    /* snap ke awal kartu */
+    scroll-snap-align: start;
+  
+    /* tinggi minimum supaya seragam */
+    min-height: 230px;
+  }
+  
+  .fileThumb {
+    height: 90px;
+    border-radius: 14px;
+    background-color: #f4f5fb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+  }
+  
+  .pdfBadge {
+    background-color: #ef4444;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 6px 12px;
+    border-radius: 999px;
+  }
+  
+  /* Text di kartu */
+  .fileCategory {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #6b7280;
+    margin-bottom: 2px;
+  }
+  
+  .fileTitle {
+    font-size: 13px;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 4px;
+  }
+  
+  .fileDesc {
+    font-size: 11px;
+    color: #4b5563;
+    margin-bottom: 10px;
+  }
+  
+  /* Tombol di kartu */
+  .cardActions {
+    margin-top: auto;
+    display: flex;
+    gap: 8px;
+  }
+  
+  .btnOutline,
+  .btnGradient {
+    flex: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 600;
+    border-radius: 999px;
+    padding: 6px 10px;
+    text-decoration: none;
+    border: 1px solid transparent;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  
+  /* tombol LIHAT (outline) */
+  .btnOutline {
+    border-color: #0c75ff;
+    color: #0c75ff;
+    background-color: #ffffff;
+  }
+  
+  /* tombol UNDUH (gradasi biru) */
+  .btnGradient {
+    color: #ffffff;
+    border: none;
+    background: linear-gradient(90deg, #0c75ff 0%, #1d4ed8 50%, #2563eb 100%);
+    box-shadow: 0 4px 10px rgba(37, 99, 235, 0.4);
+  }
+  
+  .btnOutline:hover {
+    background-color: #eff6ff;
+  }
+  
+  .btnGradient:hover {
+    filter: brightness(1.05);
+  }
+  
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .downloadLayout {
+      grid-template-columns: 1fr;
+    }
+  
+    .filePanel {
+      padding: 12px;
+    }
+  
+    .yearColumn {
+      padding: 10px;
+    }
+  
+    /* mobile: 1 kartu per halaman */
+    .fileCard {
+      flex: 0 0 85%;
+      max-width: 85%;
+    }
+  }
+  

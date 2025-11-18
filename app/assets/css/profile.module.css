@@ -85,15 +85,16 @@
 }
 
 .sidebarItem {
-  margin-bottom: 8px;
+  margin-bottom: 20px;
 }
 
 .sidebarButton {
+  display: block;
   width: 100%;
   border: none;
   background: transparent;
   text-align: left;
-  padding: 8px 18px;
+  padding: 10px 18px;
   font-size: 13px;
   color: #333;
   cursor: pointer;

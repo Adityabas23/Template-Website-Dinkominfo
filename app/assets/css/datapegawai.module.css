@@ -1,0 +1,63 @@
+/* wrapper sejajar dengan .page-content */
+.wrapper {
+    max-width: 700px;
+    margin: 0 auto 40px;
+    padding: 0 16px;
+  }
+  
+  /* judul & subjudul */
+  .section {
+    margin-top: 12px;
+  }
+  
+  .title {
+    font-size: 22px;
+    font-weight: 700;
+    color: #0c75ff;
+    margin-bottom: 4px;
+  }
+  
+  .subtitle {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 18px;
+  }
+  
+  /* kartu dengan background gradasi biru */
+  .card {
+    background: linear-gradient(
+      135deg,
+      #0b63d1 0%,
+      #1976d2 45%,
+      #2196f3 100%
+    );
+    border-radius: 20px;
+    padding: 18px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  }
+  
+  /* wrapper gambar agar rapi & responsive */
+  .imageWrapper {
+    border-radius: 16px;
+    overflow: hidden;
+  }
+  
+  /* gambar responsif */
+  .imageWrapper img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  
+  /* responsive */
+  @media (max-width: 768px) {
+    .card {
+      padding: 12px;
+    }
+  
+    .title {
+      font-size: 20px;
+    }
+  }
+  
