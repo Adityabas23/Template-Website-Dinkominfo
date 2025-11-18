@@ -29,37 +29,37 @@ const profilItems: MegaItem[] = [
     titleKey: 'profil.visiMisi.title',
     descKey: 'profil.visiMisi.desc',
     icon: 'VM',
-    href: '#',
+    href: '/pages/profile/',
   },
   {
     titleKey: 'profil.tugasFungsi.title',
     descKey: 'profil.tugasFungsi.desc',
     icon: 'TF',
-    href: '#',
+    href: '/pages/profile/tugas-fungsi',
   },
   {
     titleKey: 'profil.struktur.title',
     descKey: 'profil.struktur.desc',
     icon: 'SO',
-    href: '#',
+    href: '/pages/profile/struktur-organisasi',
   },
   {
     titleKey: 'profil.sejarah.title',
     descKey: 'profil.sejarah.desc',
     icon: 'SJ',
-    href: '#',
+    href: '/pages/profile/sejarah',
   },
   {
     titleKey: 'profil.alamatKontak.title',
     descKey: 'profil.alamatKontak.desc',
     icon: 'AK',
-    href: '#',
+    href: '/pages/profile/alamat-kontak',
   },
   {
     titleKey: 'profil.iku.title',
     descKey: 'profil.iku.desc',
     icon: 'IK',
-    href: '#',
+    href: '/pages/profile/iku',
   },
 ];
 

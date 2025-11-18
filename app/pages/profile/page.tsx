@@ -1,13 +1,15 @@
 // app/profile/page.tsx
 import PageLayout from "@/app/component/pagelayout";
-import styles from "@/app/assets/css/profile.module.css";
+import styles from "@/app/assets/css/profile.module.css"; // ← ganti ini, pakai relative path
+import Link from "next/link";
 
 export default function ProfilePage() {
   return (
     <PageLayout
-      title={`PROFIL DINKOMINFO<br />PEMERINTAH KABUPATEN BANYUMAS`}
+      title={`PROFIL DINKOMINFO`}
       breadcrumb="Beranda > Profil"
       description="Visi, misi, dan informasi mengenai Dinas Komunikasi dan Informatika Kabupaten Banyumas."
+      heroImage="/bannerpemkab.png"
     >
       {/* isi ini akan muncul di dalam <main className="page-content"> dari PageLayout */}
       <div className={styles.profileCard}>
@@ -15,14 +17,39 @@ export default function ProfilePage() {
         <aside className={styles.sidebar}>
           <h2 className={styles.sidebarTitle}>PROFIL DINKOMINFO</h2>
           <ul className={styles.sidebarMenu}>
-            <li className={styles.sidebarItem}>
-              <button
-                className={`${styles.sidebarButton} ${styles.sidebarButtonActive}`}
+          <li className={styles.sidebarItem}>
+              <Link href="/pages/profile" 
+              className={`${styles.sidebarButton} ${styles.sidebarButtonActive}`}
               >
                 Visi dan Misi
-              </button>
+              </Link>
             </li>
-            {/* menu lain bisa ditambah di sini */}
+            <li className={styles.sidebarItem}>
+              <Link href="/pages/profile/struktur-organisasi" className={styles.sidebarButton}>
+                Struktur dan Organisasi
+              </Link>
+            </li>
+            <li className={styles.sidebarItem}>
+              <Link href="/pages/profile/alamat-kontak" className={styles.sidebarButton}>
+                Alamat dan Kontak
+              </Link>
+            </li>
+            <li className={styles.sidebarItem}>
+              <Link href="/pages/profile/tugas-fungsi" className={styles.sidebarButton}>
+                Tugas dan Fungsi
+              </Link>
+            </li>
+            <li className={styles.sidebarItem}>
+              <Link href="/pages/profile/sejarah" className={styles.sidebarButton}>
+                Sejarah Dinkominfo
+              </Link>
+            </li>
+            <li className={styles.sidebarItem}>
+              <Link
+                href="/pages/profile/iku" className={styles.sidebarButton}>
+                Indikator Kinerja Utama
+              </Link>
+            </li>
           </ul>
         </aside>
 
@@ -38,7 +65,8 @@ export default function ProfilePage() {
             <div>
               <h3 className={styles.infoCardTextTitle}>VISI</h3>
               <p className={styles.infoCardQuote}>
-                &quot;MENJADIKAN BANYUMAS YANG MAJU, ADIL-MAKMUR, DAN MANDIRI.&quot;
+                &quot;MENJADIKAN BANYUMAS YANG MAJU, ADIL-MAKMUR, DAN
+                MANDIRI.&quot;
               </p>
             </div>
             <div className={styles.infoCardImage}>
@@ -62,8 +90,8 @@ export default function ProfilePage() {
                   partisipatif, inovatif, dan bermartabat.
                 </li>
                 <li>
-                  Meningkatkan kualitas hidup warga melalui pemenuhan kebutuhan dan
-                  layanan dasar pendidikan, kesehatan, dan sosial.
+                  Meningkatkan kualitas hidup warga melalui pemenuhan kebutuhan
+                  dan layanan dasar pendidikan, kesehatan, dan sosial.
                 </li>
                 <li>
                   Meningkatkan pertumbuhan ekonomi dan daya saing daerah yang
@@ -76,7 +104,8 @@ export default function ProfilePage() {
                 </li>
                 <li>
                   Menciptakan iklim investasi yang berorientasi pada perluasan
-                  kesempatan kerja yang berbasis potensi lokal dan ramah lingkungan.
+                  kesempatan kerja yang berbasis potensi lokal dan ramah
+                  lingkungan.
                 </li>
                 <li>
                   Meningkatkan kualitas dan kuantitas infrastruktur dasar yang
@@ -84,7 +113,8 @@ export default function ProfilePage() {
                 </li>
                 <li>
                   Mewujudkan kemandirian ekonomi dengan menggerakkan industri
-                  kreatif, pariwisata, dan ekonomi lokal lainnya yang berdaya saing.
+                  kreatif, pariwisata, dan ekonomi lokal lainnya yang berdaya
+                  saing.
                 </li>
                 <li>
                   Mewujudkan tatanan masyarakat yang berbudaya, berkepribadian,

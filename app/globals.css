@@ -89,23 +89,47 @@ input[type="email"] {
 
 /* ===========================
    HERO / BANNER HALAMAN (PageLayout)
+   – gambar di-set dari prop heroImage di PageLayout
    =========================== */
 
-.page-hero {
-  /* pastikan file ini ada di /public/images/banner_1854x277.png */
-  background-image: url("/bannerpemkab.png");
-  background-size: cover;
+.hero {
+  position: relative;
+
+  /* Biar tidak full layar, sejajar dengan konten */
+  max-width: 1160px;
+  margin: 20 auto 24px;
+
   border-radius: 20px;
+  overflow: hidden;
+
+  background-size: cover;
   background-position: center;
-  padding: 40px 40px 42px;
   color: #ffffff;
 }
 
-.page-hero-inner {
-  max-width: 1160px;
-  margin: 0 auto;
+/* Overlay gradasi biru gelap → transparan (kiri → kanan) */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    to right,
+    rgba(0, 32, 96, 0.9) 0%,
+    rgba(0, 90, 180, 0.6) 40%,
+    rgba(0, 90, 180, 0) 100%
+  );
+  z-index: 1;
 }
 
+/* Konten di dalam hero (breadcrumb, title, desc) */
+.hero-content {
+  position: relative;
+  z-index: 2;
+  padding: 32px 32px 36px;
+}
+
+/* Typografi hero */
 .breadcrumb {
   font-size: 12px;
   text-transform: uppercase;
@@ -144,7 +168,13 @@ input[type="email"] {
    =========================== */
 
 @media (max-width: 992px) {
-  .page-hero {
+  .hero {
+    margin: 0 16px 16px;
+    max-width: 100%;
+    border-radius: 16px;
+  }
+
+  .hero-content {
     padding: 20px 20px 24px;
   }
 

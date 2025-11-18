@@ -7,6 +7,8 @@ type PageLayoutProps = {
   description?: string;
   breadcrumb?: string;
   children: React.ReactNode;
+  heroImage?: string;        // ← gambar hero per halaman (opsional)
+  heroClassName?: string;    // ← kalau mau nambah class khusus per halaman
 };
 
 const PageLayout: React.FC<PageLayoutProps> = ({
@@ -14,14 +16,22 @@ const PageLayout: React.FC<PageLayoutProps> = ({
   description,
   breadcrumb,
   children,
+  heroImage,
+  heroClassName,
 }) => {
+  // style background hero (kalau heroImage ada)
+  const heroStyle = heroImage
+    ? { backgroundImage: `url('${heroImage}')` }
+    : undefined;
+
   return (
     <div className="mainContainer">
-      {/* HEADER kamu */}
-
       {/* HERO / BANNER ATAS */}
-      <section className="page-hero">
-        <div className="page-hero-inner">
+      <section
+        className={`hero ${heroClassName ?? ""}`}
+        style={heroStyle}
+      >
+        <div className="hero-content">
           {breadcrumb && <p className="breadcrumb">{breadcrumb}</p>}
 
           <h1
@@ -38,7 +48,7 @@ const PageLayout: React.FC<PageLayoutProps> = ({
       {/* KONTEN HALAMAN */}
       <main className="page-content">{children}</main>
 
-      {/* FOOTER kamu */}
+      {/* FOOTER */}
       <Footer />
     </div>
   );
