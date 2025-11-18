@@ -93,10 +93,11 @@ input[type="email"] {
 
 .page-hero {
   /* pastikan file ini ada di /public/images/banner_1854x277.png */
-  background-image: url("/bannerpembkab.png");
+  background-image: url("/bannerpemkab.png");
   background-size: cover;
+  border-radius: 20px;
   background-position: center;
-  padding: 28px 40px 32px;
+  padding: 40px 40px 42px;
   color: #ffffff;
 }
 
