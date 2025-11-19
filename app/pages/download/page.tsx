@@ -1,22 +1,173 @@
-// app/download/page.tsx
-
 "use client";
 
-import React from "react";
+import { useEffect, useRef, useState } from "react";
 import PageLayout from "@/app/component/pagelayout";
 import styles from "@/app/assets/css/download.module.css";
+import ModalPreview from "./ModalPreview";
 
-const handleHorizontalScroll = (
-    e: React.WheelEvent<HTMLDivElement>
-  ): void => {
-    const el = e.currentTarget;
-  
-    // selalu pakai deltaY untuk geser horizontal
-    e.preventDefault();
-    el.scrollLeft += e.deltaY;
-  };
 
 export default function DownloadPage() {
+  const [previewFile, setPreviewFile] = useState<string | null>(null);
+
+  const blocks = [
+    {
+      year: "2017",
+      files: [
+        {
+          category: "Renstra",
+          title: "Renstra Dinas Kominfo 2017",
+          desc: "Dokumen rencana strategis Dinas Komunikasi dan Informatika Kabupaten Banyumas Tahun 2017.",
+          fileName: "Matrik Renstra kominfo 2017.xlsx",
+        },
+      ],
+    },
+    {
+      year: "2021",
+      files: [
+        {
+          category: "LKJIP",
+          title: "LKJIP Dinas Kominfo 2021",
+          desc: "Laporan Akuntabilitas Kinerja Instansi Pemerintah (LKJIP) Dinas Kominfo Tahun 2021.",
+          fileName: "LKjIP Dinkominfo 2021.pdf",
+        },
+      ],
+    },
+    {
+      year: "2022",
+      files: [
+        {
+          category: "Data & Informasi",
+          title: "Data dan Informasi Kabupaten Banyumas 2022",
+          desc: "Dokumen data dan informasi Kabupaten Banyumas Tahun 2022.",
+          fileName: "DIKB 2022.pdf",
+        },
+        {
+          category: "Renja",
+          title: "Renja Dinas Kominfo 2022",
+          desc: "Rencana kerja Dinas Komunikasi dan Informatika Kabupaten Banyumas Tahun 2022.",
+          fileName: "RENJA DINAS KOMINFO.pdf",
+        },
+        {
+          category: "Rencana Aksi",
+          title: "Rencana Aksi Dinas Kominfo 2022",
+          desc: "Dokumen rencana aksi pelaksanaan program Dinas Kominfo Tahun 2022.",
+          fileName: "Rencana Aksi Dinkominfo.pdf",
+        },
+      ],
+    },
+    {
+      year: "2023",
+      files: [
+        {
+          category: "Rencana Aksi",
+          title: "Rencana Aksi Dinas Kominfo 2023",
+          desc: "Dokumen rencana aksi pelaksanaan program Dinas Kominfo Tahun 2023.",
+          fileName: "Rencana Aksi 2023 Dinkominfo.pdf",
+        },
+      ],
+    },
+    {
+      year: "2024",
+      files: [
+        {
+          category: "Rencana Aksi",
+          title: "Rencana Aksi Dinas Kominfo 2024",
+          desc: "Dokumen rencana aksi pelaksanaan program Dinas Kominfo Tahun 2024.",
+          fileName: "Rencana Aksi Dinkominfo 2024.pdf",
+        },
+        {
+          category: "Renja Perubahan",
+          title: "RENJA Perubahan Dinas Kominfo 2024",
+          desc: "Rencana Kerja (RENJA) Perubahan Dinas Kominfo Kabupaten Banyumas Tahun 2024.",
+          fileName: "RENJA PERUBAHAN DINKOMINFO TAHUN 2024.pdf",
+        },
+        {
+          category: "RKA SKPD",
+          title: "RKA SKPD Dinas Kominfo 2024",
+          desc: "Rencana kerja dan anggaran Satuan Kerja Perangkat Daerah Dinas Kominfo Tahun 2024.",
+          fileName: "RKA SKPD Dinas Komunikasi dan Informatika Tahun 2024.pdf",
+        },
+        {
+          category: "LKJIP",
+          title: "LKJIP Dinas Kominfo 2024",
+          desc: "Laporan Akuntabilitas Kinerja Instansi Pemerintah Dinas Kominfo Tahun 2024.",
+          fileName: "LKJiP Dinkominfo Tahun 2024.pdf",
+        },
+        {
+          category: "DPA",
+          title: "DPA Dinas Kominfo 2024",
+          desc: "Dokumen Pelaksanaan Anggaran Dinas Kominfo Kabupaten Banyumas Tahun 2024.",
+          fileName: "DPA 2024 DINKOMINFO.pdf",
+        },
+      ],
+    },
+    {
+      year: "2025",
+      files: [
+        {
+          category: "Rencana Aksi",
+          title: "Rencana Aksi Dinas Kominfo 2025",
+          desc: "Dokumen rencana aksi pelaksanaan program Dinas Kominfo Tahun 2025.",
+          fileName: "renaksi 2025.pdf",
+        },
+        {
+          category: "DPA",
+          title: "DPA Dinas Kominfo 2025",
+          desc: "Dokumen Pelaksanaan Anggaran Dinas Kominfo Kabupaten Banyumas Tahun 2025.",
+          fileName: "DPA Belanja 2025 Dinkominfo.pdf",
+        },
+      ],
+    },
+    {
+      year: "RENSTRA",
+      files: [
+        {
+          category: "Renstra",
+          title: "Renstra Kominfo Banyumas 2024–2026",
+          desc: "Rencana Strategis Dinas Komunikasi dan Informatika Kabupaten Banyumas Tahun 2024–2026.",
+          fileName: "RENSTRA DINKOMINFO TAHUN 2024-2026.pdf",
+        },
+      ],
+    },
+  ];
+
+  const panelRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const panel = panelRef.current;
+    if (!panel) return;
+
+    const handler = (e: WheelEvent) => {
+      // elemen tepat di bawah posisi mouse
+      const underPointer = document.elementFromPoint(
+        e.clientX,
+        e.clientY
+      ) as HTMLElement | null;
+      if (!underPointer) return;
+
+      const wrapper = underPointer.closest(
+        "." + styles.scrollWrapper
+      ) as HTMLDivElement | null;
+
+      // kalau bukan di atas row kartu -> biarin scroll halaman biasa
+      if (!wrapper) return;
+
+      // kalau tidak ada overflow horizontal -> ga usah apa2
+      if (wrapper.scrollWidth <= wrapper.clientWidth) return;
+
+      if (e.deltaY === 0) return;
+
+      e.preventDefault(); // blok scroll vertikal
+      wrapper.scrollLeft += e.deltaY * 0.5; // sedikit diperbesar biar kerasa
+    };
+
+    panel.addEventListener("wheel", handler, { passive: false });
+
+    return () => {
+      panel.removeEventListener("wheel", handler);
+    };
+  }, []);
+
   return (
     <PageLayout
       title="DOWNLOAD DOKUMEN"
@@ -24,16 +175,19 @@ export default function DownloadPage() {
       description="Daftar dokumen perencanaan dan kinerja Dinas Komunikasi dan Informatika Kabupaten Banyumas."
       heroImage="/bannerpemkab.png"
     >
+      <ModalPreview
+        isOpen={!!previewFile}
+        fileUrl={previewFile}
+        onClose={() => setPreviewFile(null)}
+      />
+
       <div className={styles.wrapper}>
         <section className={styles.section}>
           <h2 className={styles.title}>Renstra</h2>
 
-          {/* CARD PUTIH DI BAWAH JUDUL */}
           <div className={styles.sectionCard}>
             <div className={styles.downloadLayout}>
-              {/* =====================================================
-                  KOLOM KIRI : LIST TAHUN DAN LINK (TEXT)
-                 ===================================================== */}
+              {/* KIRI: LIST TAHUN */}
               <div className={styles.listColumn}>
                 {/* 2017 */}
                 <div className={styles.yearBlock}>
@@ -41,8 +195,8 @@ export default function DownloadPage() {
                   <ul className={styles.list}>
                     <li>
                       Renstra bisa download{" "}
-                      <a href="#" className={styles.link}>
-                        disini
+                      <a href="/dokumen/Matrik Renstra kominfo 2017.xlsx" className={styles.link} download>
+                        DISINI
                       </a>
                     </li>
                   </ul>
@@ -55,7 +209,7 @@ export default function DownloadPage() {
                     <li>
                       Laporan Akuntabilitas Kinerja Instansi Pemerintah (LKJIP)
                       Tahun 2021 bisa di download{" "}
-                      <a href="#" className={styles.link}>
+                      <a href="\dokumen\LKjIP Dinkominfo 2021.pdf" className={styles.link}download>
                         DISINI
                       </a>
                     </li>
@@ -69,21 +223,21 @@ export default function DownloadPage() {
                     <li>
                       Data dan Informasi Kabupaten Banyumas 2022 bisa di
                       download{" "}
-                      <a href="#" className={styles.link}>
+                      <a href="\dokumen\DIKB 2022.pdf" className={styles.link}download>
                         DISINI
                       </a>
                     </li>
                     <li>
                       Renja Dinas Komunikasi dan Informatika Kab. Banyumas
                       Tahun 2022 bisa di download{" "}
-                      <a href="#" className={styles.link}>
+                      <a href="\dokumen\RENJA DINAS KOMINFO.pdf" className={styles.link}download>
                         DISINI
                       </a>
                     </li>
                     <li>
                       Rencana Aksi Dinas Komunikasi dan Informatika Kab.
                       Banyumas Tahun 2022 bisa di download{" "}
-                      <a href="#" className={styles.link}>
+                      <a href="\dokumen\Rencana Aksi Dinkominfo.pdf" className={styles.link}download>
                         DISINI
                       </a>
                     </li>
@@ -97,7 +251,7 @@ export default function DownloadPage() {
                     <li>
                       Rencana Aksi Dinas Komunikasi dan Informatika Kab.
                       Banyumas Tahun 2023 bisa di download{" "}
-                      <a href="#" className={styles.link}>
+                      <a href="\dokumen\Rencana Aksi 2023 Dinkominfo.pdf" className={styles.link}download>
                         DISINI
                       </a>
                     </li>
@@ -111,14 +265,14 @@ export default function DownloadPage() {
                     <li>
                       Rencana Aksi Dinas Komunikasi dan Informatika Kab.
                       Banyumas Tahun 2024 bisa di download{" "}
-                      <a href="#" className={styles.link}>
+                      <a href="\dokumen\Rencana Aksi Dinkominfo 2024.pdf.pdf" className={styles.link}download>
                         DISINI
                       </a>
                     </li>
                     <li>
                       Rencana Kerja (RENJA) Perubahan Dinas Komunikasi dan
                       Informatika Kab. Banyumas Tahun 2024 bisa di download{" "}
-                      <a href="#" className={styles.link}>
+                      <a href="\dokumen\RENJA PERUBAHAN DINKOMINFO TAHUN 2024.pdf" className={styles.link}download>
                         DISINI
                       </a>
                     </li>
@@ -126,7 +280,7 @@ export default function DownloadPage() {
                       Rencana Kerja dan Anggaran Satuan Kerja Perangkat Daerah
                       (RKA SKPD) Dinas Komunikasi dan Informatika Kab. Banyumas
                       Tahun 2024 bisa di download{" "}
-                      <a href="#" className={styles.link}>
+                      <a href="\dokumen\RKA SKPD Dinas Komunikasi dan Informatika Tahun 2024.pdf" className={styles.link}download>
                         DISINI
                       </a>
                     </li>
@@ -134,14 +288,14 @@ export default function DownloadPage() {
                       Laporan Akuntabilitas Kinerja Instansi Pemerintah (LKJIP)
                       Dinas Komunikasi dan Informatika Kab. Banyumas Tahun 2024
                       bisa di download{" "}
-                      <a href="#" className={styles.link}>
+                      <a href="\dokumen\LKJiP Dinkominfo Tahun 2024.pdf" className={styles.link}download>
                         DISINI
                       </a>
                     </li>
                     <li>
                       Dokumen Pelaksanaan Anggaran (DPA) Dinas Komunikasi dan
                       Informatika Kab. Banyumas Tahun 2024 bisa di download{" "}
-                      <a href="#" className={styles.link}>
+                      <a href="\dokumen\DPA 2024 DINKOMINFO.pdf" className={styles.link}download>
                         DISINI
                       </a>
                     </li>
@@ -155,14 +309,14 @@ export default function DownloadPage() {
                     <li>
                       Rencana Aksi Dinas Komunikasi dan Informatika Kab.
                       Banyumas Tahun 2025 bisa di download{" "}
-                      <a href="#" className={styles.link}>
+                      <a href="\dokumen\renaksi 2025.pdf" className={styles.link}download>
                         DISINI
                       </a>
                     </li>
                     <li>
                       DPA Dinas Komunikasi dan Informatika Kab. Banyumas Tahun
                       2025 bisa di download{" "}
-                      <a href="#" className={styles.link}>
+                      <a href="\dokumen\DPA Belanja 2025 Dinkominfo.pdf" className={styles.link}download>
                         DISINI
                       </a>
                     </li>
@@ -176,7 +330,7 @@ export default function DownloadPage() {
                     <li>
                       Rencana Strategis Dinas Komunikasi dan Informatika Kab.
                       Banyumas Tahun 2024–2026 bisa di download{" "}
-                      <a href="#" className={styles.link}>
+                      <a href="\dokumen\RENSTRA DINKOMINFO TAHUN 2024-2026.pdf" className={styles.link}download>
                         DISINI
                       </a>
                     </li>
@@ -184,336 +338,62 @@ export default function DownloadPage() {
                 </div>
               </div>
 
-              {/* =====================================================
-                  KOLOM KANAN : PANEL GRADIENT DAN GRID FILE PER TAHUN
-                 ===================================================== */}
+              {/* KANAN: PANEL KARTU */}
               <div className={styles.cardsColumn}>
-                <div className={styles.filePanel}>
-                  {/* 2017 */}
-                  <div className={styles.yearColumn}>
-                    <h3 className={styles.yearHeading}>2017</h3>
-                    <div
-                      className={styles.fileGrid}
-                      onWheelCapture={handleHorizontalScroll}
-                    >
-                      <article className={styles.fileCard}>
-                        <div className={styles.fileThumb}>
-                          <div className={styles.pdfBadge}>PDF</div>
+                <div className={styles.filePanel} ref={panelRef}>
+                  {blocks.map((block, idx) => (
+                    <div key={idx} className={styles.yearColumn}>
+                      <h3 className={styles.yearHeading}>{block.year}</h3>
+
+                      <div className={styles.scrollWrapper}>
+                        <div className={styles.fileGrid}>
+                          {block.files.map((f, i) => (
+                            <article key={i} className={styles.fileCard}>
+                              <div className={styles.fileThumb}>
+                                <div className={styles.pdfBadge}>PDF</div>
+                              </div>
+
+                              <p className={styles.fileCategory}>
+                                {f.category}
+                              </p>
+                              <h4 className={styles.fileTitle}>{f.title}</h4>
+                              <p className={styles.fileDesc}>{f.desc}</p>
+
+                              <div className={styles.cardActions}>
+                                {/* 👁 TOMBOL LIHAT → BUKA MODAL */}
+                                <button
+                                  type="button"
+                                  className={styles.btnOutline}
+                                  onClick={(e) => {
+                                    // jaga-jaga kalau kartu dibungkus <a> / ada onClick di parent
+                                    e.preventDefault();
+                                    e.stopPropagation();
+                                    setPreviewFile(`/dokumen/${f.fileName}`);
+                                  }}
+                                  style={{ cursor: "pointer" }}
+                                >
+                                  👁 Lihat
+                                </button>
+
+                                {/* ⬇ TOMBOL UNDUH → DOWNLOAD LANGSUNG */}
+                                <a
+                                  href={`/dokumen/${f.fileName}`}
+                                  className={styles.btnGradient}
+                                  download
+                                  onClick={(e) => e.stopPropagation()}
+                                >
+                                  ⬇ Unduh
+                                </a>
+                              </div>
+                            </article>
+                          ))}
                         </div>
-                        <p className={styles.fileCategory}>Renstra</p>
-                        <h4 className={styles.fileTitle}>
-                          Renstra Dinas Kominfo 2017
-                        </h4>
-                        <p className={styles.fileDesc}>
-                          Dokumen rencana strategis Dinas Komunikasi dan
-                          Informatika Kabupaten Banyumas Tahun 2017.
-                        </p>
-                        <div className={styles.cardActions}>
-                          <a href="#" className={styles.btnOutline}>
-                            👁 Lihat
-                          </a>
-                          <a href="#" className={styles.btnGradient}>
-                            ⬇ Unduh
-                          </a>
-                        </div>
-                      </article>
+                      </div>
                     </div>
-                  </div>
-
-                  {/* 2021 */}
-                  <div className={styles.yearColumn}>
-                    <h3 className={styles.yearHeading}>2021</h3>
-                    <div
-                      className={styles.fileGrid}
-                      onWheelCapture={handleHorizontalScroll}
-                    >
-                      <article className={styles.fileCard}>
-                        <div className={styles.fileThumb}>
-                          <div className={styles.pdfBadge}>PDF</div>
-                        </div>
-                        <p className={styles.fileCategory}>LKJIP</p>
-                        <h4 className={styles.fileTitle}>
-                          LKJIP Dinas Kominfo 2021
-                        </h4>
-                        <p className={styles.fileDesc}>
-                          Laporan Akuntabilitas Kinerja Instansi Pemerintah
-                          (LKJIP) Tahun 2021.
-                        </p>
-                        <div className={styles.cardActions}>
-                          <a href="#" className={styles.btnOutline}>
-                            👁 Lihat
-                          </a>
-                          <a href="#" className={styles.btnGradient}>
-                            ⬇ Unduh
-                          </a>
-                        </div>
-                      </article>
-                    </div>
-                  </div>
-
-                  {/* 2022 */}
-                  <div className={styles.yearColumn}>
-                    <h3 className={styles.yearHeading}>2022</h3>
-                    <div
-                      className={styles.fileGrid}
-                      onWheelCapture={handleHorizontalScroll}
-                    >
-                      <article className={styles.fileCard}>
-                        <div className={styles.fileThumb}>
-                          <div className={styles.pdfBadge}>PDF</div>
-                        </div>
-                        <p className={styles.fileCategory}>
-                          Data &amp; Informasi
-                        </p>
-                        <h4 className={styles.fileTitle}>
-                          Data dan Informasi Kabupaten Banyumas 2022
-                        </h4>
-                        <p className={styles.fileDesc}>
-                          Dokumen data dan informasi Kabupaten Banyumas Tahun
-                          2022.
-                        </p>
-                        <div className={styles.cardActions}>
-                          <a href="#" className={styles.btnOutline}>
-                            👁 Lihat
-                          </a>
-                          <a href="#" className={styles.btnGradient}>
-                            ⬇ Unduh
-                          </a>
-                        </div>
-                      </article>
-
-                      <article className={styles.fileCard}>
-                        <div className={styles.fileThumb}>
-                          <div className={styles.pdfBadge}>PDF</div>
-                        </div>
-                        <p className={styles.fileCategory}>Renja</p>
-                        <h4 className={styles.fileTitle}>
-                          Renja Dinas Kominfo 2022
-                        </h4>
-                        <p className={styles.fileDesc}>
-                          Rencana kerja Dinas Komunikasi dan Informatika
-                          Kabupaten Banyumas Tahun 2022.
-                        </p>
-                        <div className={styles.cardActions}>
-                          <a href="#" className={styles.btnOutline}>
-                            👁 Lihat
-                          </a>
-                          <a href="#" className={styles.btnGradient}>
-                            ⬇ Unduh
-                          </a>
-                        </div>
-                      </article>
-
-                      <article className={styles.fileCard}>
-                        <div className={styles.fileThumb}>
-                          <div className={styles.pdfBadge}>PDF</div>
-                        </div>
-                        <p className={styles.fileCategory}>Rencana Aksi</p>
-                        <h4 className={styles.fileTitle}>
-                          Rencana Aksi Dinas Kominfo 2022
-                        </h4>
-                        <p className={styles.fileDesc}>
-                          Rencana aksi pelaksanaan program Dinas Kominfo Tahun
-                          2022.
-                        </p>
-                        <div className={styles.cardActions}>
-                          <a href="#" className={styles.btnOutline}>
-                            👁 Lihat
-                          </a>
-                          <a href="#" className={styles.btnGradient}>
-                            ⬇ Unduh
-                          </a>
-                        </div>
-                      </article>
-                    </div>
-                  </div>
-
-                  {/* 2023 */}
-                  <div className={styles.yearColumn}>
-                    <h3 className={styles.yearHeading}>2023</h3>
-                    <div
-                      className={styles.fileGrid}
-                      onWheelCapture={handleHorizontalScroll}
-                    >
-                      <article className={styles.fileCard}>
-                        <div className={styles.fileThumb}>
-                          <div className={styles.pdfBadge}>PDF</div>
-                        </div>
-                        <p className={styles.fileCategory}>Rencana Aksi</p>
-                        <h4 className={styles.fileTitle}>
-                          Rencana Aksi Dinas Kominfo 2023
-                        </h4>
-                        <p className={styles.fileDesc}>
-                          Dokumen rencana aksi pelaksanaan program Tahun 2023.
-                        </p>
-                        <div className={styles.cardActions}>
-                          <a href="#" className={styles.btnOutline}>
-                            👁 Lihat
-                          </a>
-                          <a href="#" className={styles.btnGradient}>
-                            ⬇ Unduh
-                          </a>
-                        </div>
-                      </article>
-                    </div>
-                  </div>
-
-                  {/* 2024 */}
-                  <div className={styles.yearColumn}>
-                    <h3 className={styles.yearHeading}>2024</h3>
-                    <div
-                      className={styles.fileGrid}
-                      onWheelCapture={handleHorizontalScroll}
-                    >
-                      {/* Rencana Aksi 2024 */}
-                      <article className={styles.fileCard}>
-                        <div className={styles.fileThumb}>
-                          <div className={styles.pdfBadge}>PDF</div>
-                        </div>
-                        <p className={styles.fileCategory}>Rencana Aksi</p>
-                        <h4 className={styles.fileTitle}>
-                          Rencana Aksi Dinas Kominfo 2024
-                        </h4>
-                        <p className={styles.fileDesc}>
-                          Dokumen rencana aksi pelaksanaan program Dinas Kominfo
-                          Tahun 2024.
-                        </p>
-                        <div className={styles.cardActions}>
-                          <a href="#" className={styles.btnOutline}>
-                            👁 Lihat
-                          </a>
-                          <a href="#" className={styles.btnGradient}>
-                            ⬇ Unduh
-                          </a>
-                        </div>
-                      </article>
-
-                      {/* RENJA Perubahan 2024 */}
-                      <article className={styles.fileCard}>
-                        <div className={styles.fileThumb}>
-                          <div className={styles.pdfBadge}>PDF</div>
-                        </div>
-                        <p className={styles.fileCategory}>Renja Perubahan</p>
-                        <h4 className={styles.fileTitle}>
-                          RENJA Perubahan Dinas Kominfo 2024
-                        </h4>
-                        <p className={styles.fileDesc}>
-                          Rencana Kerja (RENJA) Perubahan Dinas Kominfo
-                          Kabupaten Banyumas Tahun 2024.
-                        </p>
-                        <div className={styles.cardActions}>
-                          <a href="#" className={styles.btnOutline}>
-                            👁 Lihat
-                          </a>
-                          <a href="#" className={styles.btnGradient}>
-                            ⬇ Unduh
-                          </a>
-                        </div>
-                      </article>
-
-                      {/* RKA SKPD 2024 */}
-                      <article className={styles.fileCard}>
-                        <div className={styles.fileThumb}>
-                          <div className={styles.pdfBadge}>PDF</div>
-                        </div>
-                        <p className={styles.fileCategory}>RKA SKPD</p>
-                        <h4 className={styles.fileTitle}>
-                          RKA SKPD Dinas Kominfo 2024
-                        </h4>
-                        <p className={styles.fileDesc}>
-                          Rencana Kerja dan Anggaran Satuan Kerja Perangkat
-                          Daerah Tahun 2024.
-                        </p>
-                        <div className={styles.cardActions}>
-                          <a href="#" className={styles.btnOutline}>
-                            👁 Lihat
-                          </a>
-                          <a href="#" className={styles.btnGradient}>
-                            ⬇ Unduh
-                          </a>
-                        </div>
-                      </article>
-
-                      {/* LKJIP 2024 */}
-                      <article className={styles.fileCard}>
-                        <div className={styles.fileThumb}>
-                          <div className={styles.pdfBadge}>PDF</div>
-                        </div>
-                        <p className={styles.fileCategory}>LKJIP</p>
-                        <h4 className={styles.fileTitle}>
-                          LKJIP Dinas Kominfo 2024
-                        </h4>
-                        <p className={styles.fileDesc}>
-                          Laporan Akuntabilitas Kinerja Instansi Pemerintah
-                          Dinas Kominfo Tahun 2024.
-                        </p>
-                        <div className={styles.cardActions}>
-                          <a href="#" className={styles.btnOutline}>
-                            👁 Lihat
-                          </a>
-                          <a href="#" className={styles.btnGradient}>
-                            ⬇ Unduh
-                          </a>
-                        </div>
-                      </article>
-
-                      {/* DPA 2024 */}
-                      <article className={styles.fileCard}>
-                        <div className={styles.fileThumb}>
-                          <div className={styles.pdfBadge}>PDF</div>
-                        </div>
-                        <p className={styles.fileCategory}>DPA</p>
-                        <h4 className={styles.fileTitle}>
-                          DPA Dinas Kominfo 2024
-                        </h4>
-                        <p className={styles.fileDesc}>
-                          Dokumen Pelaksanaan Anggaran Dinas Kominfo Kabupaten
-                          Banyumas Tahun 2024.
-                        </p>
-                        <div className={styles.cardActions}>
-                          <a href="#" className={styles.btnOutline}>
-                            👁 Lihat
-                          </a>
-                          <a href="#" className={styles.btnGradient}>
-                            ⬇ Unduh
-                          </a>
-                        </div>
-                      </article>
-                    </div>
-                  </div>
-
-                  {/* 2025 */}
-                  <div className={styles.yearColumn}>
-                    <h3 className={styles.yearHeading}>2025</h3>
-                    <div
-                      className={styles.fileGrid}
-                      onWheelCapture={handleHorizontalScroll}
-                    >
-                      <article className={styles.fileCard}>
-                        <div className={styles.fileThumb}>
-                          <div className={styles.pdfBadge}>PDF</div>
-                        </div>
-                        <p className={styles.fileCategory}>Rencana Aksi</p>
-                        <h4 className={styles.fileTitle}>
-                          Rencana Aksi Dinas Kominfo 2025
-                        </h4>
-                        <p className={styles.fileDesc}>
-                          Dokumen rencana aksi pelaksanaan program Tahun 2025.
-                        </p>
-                        <div className={styles.cardActions}>
-                          <a href="#" className={styles.btnOutline}>
-                            👁 Lihat
-                          </a>
-                          <a href="#" className={styles.btnGradient}>
-                            ⬇ Unduh
-                          </a>
-                        </div>
-                      </article>
-                    </div>
-                  </div>
+                  ))}
                 </div>
               </div>
-              {/* END KOLOM KANAN */}
+              {/* END KANAN */}
             </div>
           </div>
         </section>
