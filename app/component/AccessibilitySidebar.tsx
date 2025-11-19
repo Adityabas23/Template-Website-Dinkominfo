@@ -244,7 +244,7 @@ export default function AccessibilitySidebar() {
       </p>
 
       <div className={styles.quickGrid}>
-        <a href="#" className={styles.quickCard}>
+        <a href="http://lpse.banyumaskab.go.id/" className={styles.quickCard}>
           <div className={styles.quickIcon}>🏛️</div>
           <h4>LPSE Kab. Banyumas</h4>
           <p>
@@ -252,7 +252,7 @@ export default function AccessibilitySidebar() {
           </p>
         </a>
 
-        <a href="#" className={styles.quickCard}>
+        <a href="https://siap.banyumaskab.go.id" className={styles.quickCard}>
           <div className={styles.quickIcon}>📢</div>
           <h4>SIAP (Aspirasi & Pengaduan)</h4>
           <p>
@@ -260,7 +260,7 @@ export default function AccessibilitySidebar() {
           </p>
         </a>
 
-        <a href="#" className={styles.quickCard}>
+        <a href="https://perizinan.banyumaskab.go.id/" className={styles.quickCard}>
           <div className={styles.quickIcon}>📊</div>
           <h4>Sipanjimas</h4>
           <p>

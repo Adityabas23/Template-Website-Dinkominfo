@@ -73,9 +73,17 @@ const idMessages = {
   'ppid.skDipPenetapan.desc':
     'Penetapan daftar informasi publik yang dikelola.',
   'ppid.permohonan.title':
-    'Permohonan Informasi & Form Keberatan',
+    'Permohonan Informasi',
   'ppid.permohonan.desc':
-    'Prosedur dan formulir permohonan informasi dan keberatan.',
+    'Prosedur permohonan informasi.',
+  'ppid.form_keberatan.title': 
+    'Formulir Keberatan',
+  'ppid.form_keberatan.desc':
+    'Prosedur dan formulir pengajuan keberatan informasi.',
+  'ppid.sop.title':
+    'SOP Layanan Informasi Publik',
+  'ppid.sop.desc':
+    'Standar operasional prosedur layanan informasi publik.',
 
   // ===== MENU PUBLIK =====
   'menuPublik.berita.title': 'Berita',
@@ -224,6 +232,14 @@ const enMessages: Messages = {
     'Information Request & Objection Form',
   'ppid.permohonan.desc':
     'Procedures and forms for information requests and objections.',
+  'ppid.form_keberatan.title': 
+    'Objection Form',
+  'ppid.form_keberatan.desc': 
+    'Procedures and forms for submitting information objections.',
+  'ppid.sop.title':
+    'Public Information Service SOP',
+  'ppid.sop.desc':
+    'Standard operating procedures for public information services.',
 
   // MENU PUBLIK
   'menuPublik.berita.title': 'News',

@@ -68,61 +68,73 @@ const ppidItems: MegaItem[] = [
     titleKey: 'ppid.skDip.title',
     descKey: 'ppid.skDip.desc',
     icon: 'SK',
-    href: '#',
+    href: '/pages/PPID/sk-dip-dikecualikan',
   },
   {
     titleKey: 'ppid.berkala.title',
     descKey: 'ppid.berkala.desc',
     icon: 'BR',
-    href: '#',
+    href: '/pages/PPID/berkala',
   },
   {
     titleKey: 'ppid.setiapSaat.title',
     descKey: 'ppid.setiapSaat.desc',
     icon: 'SS',
-    href: '#',
+    href: '/pages/PPID/setiap-saat',
   },
   {
     titleKey: 'ppid.sertaMerta.title',
     descKey: 'ppid.sertaMerta.desc',
     icon: 'SM',
-    href: '#',
+    href: '/pages/PPID/serta-merta',
   },
   {
     titleKey: 'ppid.struktur.title',
     descKey: 'ppid.struktur.desc',
     icon: 'ST',
-    href: '#',
+    href: '/pages/PPID/struktur-ppid',
   },
   {
     titleKey: 'ppid.maklumat.title',
     descKey: 'ppid.maklumat.desc',
     icon: 'MP',
-    href: '#',
+    href: '/pages/PPID/maklumat-pelayanan',
   },
   {
     titleKey: 'ppid.laporanTahunan.title',
     descKey: 'ppid.laporanTahunan.desc',
     icon: 'LT',
-    href: '#',
+    href: '/pages/PPID/laporan-tahunan',
   },
   {
     titleKey: 'ppid.skPpid.title',
     descKey: 'ppid.skPpid.desc',
     icon: 'SK',
-    href: '#',
+    href: '/pages/PPID/sk-ppid',
   },
   {
     titleKey: 'ppid.skDipPenetapan.title',
     descKey: 'ppid.skDipPenetapan.desc',
     icon: 'DP',
-    href: '#',
+    href: '/pages/PPID/sk-penetapan-dip',
   },
   {
     titleKey: 'ppid.permohonan.title',
     descKey: 'ppid.permohonan.desc',
     icon: 'PI',
-    href: '#',
+    href: '/pages/PPID/permohonan-informasi',
+  },
+  {
+    titleKey: 'ppid.form_keberatan.title',
+    descKey: 'ppid.form_keberatan.desc',
+    icon: 'FK', // bebas: 'FK' / 'KB' / 'FM' dll
+    href: '/PPID/form-keberatan',
+  },
+  {
+    titleKey: 'ppid.sop.title',
+    descKey: 'ppid.sop.desc',
+    icon: 'SP',
+    href: '/PPID/sop',
   },
 ];
 
@@ -346,7 +358,7 @@ const Header = forwardRef<HTMLDivElement>((props, ref) => {
                 </Link>
               </li>
               <li className={styles.navItem}>
-                <Link href="#" className={styles.navLink}>
+                <Link href="/pages/FAQ" className={styles.navLink}>
                   {t('nav.faq')}
                 </Link>
               </li>
