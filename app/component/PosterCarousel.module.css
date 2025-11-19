@@ -1,0 +1,27 @@
+.carouselWrapper {
+  width: 100%;
+  height: 100vh; /* penuh 1 layar */
+  overflow: hidden;
+  background: transparent;
+}
+
+.swiperContainer {
+  width: 100%;
+  height: 100%;
+}
+
+.slide {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: transparent;
+}
+
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* <-- INI YANG ANDA INGINKAN */
+  border-radius: 0;
+}
