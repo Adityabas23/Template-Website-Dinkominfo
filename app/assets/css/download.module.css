@@ -102,10 +102,10 @@
   overflow-x: auto;
   overflow-y: hidden;
 
-  padding-top: 10px;      /* 🔥 tambahkan ruang di atas */
-  padding-bottom: 16px;    /* 🔥 tambahkan ruang di bawah */
-  margin-top: -10px;       /* kompensasi agar visual tidak turun */
-  margin-bottom: -10px;    /* kompensasi */
+  padding-top: 10px;
+  padding-bottom: 16px;
+  margin-top: -10px;
+  margin-bottom: -10px;
 
   position: relative;
 
@@ -158,8 +158,27 @@
   margin-bottom: 10px;
 }
 
+/* BADGE TIPE FILE */
 .pdfBadge {
   background-color: #ef4444;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 6px 12px;
+  border-radius: 999px;
+}
+
+.xlsxBadge {
+  background-color: #16a34a; /* hijau excel */
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 6px 12px;
+  border-radius: 999px;
+}
+
+.otherBadge {
+  background-color: #6b7280; /* abu-abu netral */
   color: #fff;
   font-size: 12px;
   font-weight: 700;

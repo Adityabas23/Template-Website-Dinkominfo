@@ -5,11 +5,22 @@ import PageLayout from "@/app/component/pagelayout";
 import styles from "@/app/assets/css/download.module.css";
 import ModalPreview from "./ModalPreview";
 
+type FileItem = {
+  category: string;
+  title: string;
+  desc: string;
+  fileName: string;
+};
+
+type YearBlock = {
+  year: string;
+  files: FileItem[];
+};
 
 export default function DownloadPage() {
   const [previewFile, setPreviewFile] = useState<string | null>(null);
 
-  const blocks = [
+  const blocks: YearBlock[] = [
     {
       year: "2017",
       files: [
@@ -133,12 +144,15 @@ export default function DownloadPage() {
 
   const panelRef = useRef<HTMLDivElement | null>(null);
 
+  // helper ekstensi
+  const getExt = (fileName: string) =>
+    fileName.split(".").pop()?.toLowerCase() ?? "";
+
   useEffect(() => {
     const panel = panelRef.current;
     if (!panel) return;
 
     const handler = (e: WheelEvent) => {
-      // elemen tepat di bawah posisi mouse
       const underPointer = document.elementFromPoint(
         e.clientX,
         e.clientY
@@ -149,23 +163,16 @@ export default function DownloadPage() {
         "." + styles.scrollWrapper
       ) as HTMLDivElement | null;
 
-      // kalau bukan di atas row kartu -> biarin scroll halaman biasa
       if (!wrapper) return;
-
-      // kalau tidak ada overflow horizontal -> ga usah apa2
       if (wrapper.scrollWidth <= wrapper.clientWidth) return;
-
       if (e.deltaY === 0) return;
 
-      e.preventDefault(); // blok scroll vertikal
-      wrapper.scrollLeft += e.deltaY * 0.5; // sedikit diperbesar biar kerasa
+      e.preventDefault();
+      wrapper.scrollLeft += e.deltaY * 0.5;
     };
 
     panel.addEventListener("wheel", handler, { passive: false });
-
-    return () => {
-      panel.removeEventListener("wheel", handler);
-    };
+    return () => panel.removeEventListener("wheel", handler);
   }, []);
 
   return (
@@ -187,7 +194,7 @@ export default function DownloadPage() {
 
           <div className={styles.sectionCard}>
             <div className={styles.downloadLayout}>
-              {/* KIRI: LIST TAHUN */}
+              {/* ================= KIRI: LIST TAHUN ================= */}
               <div className={styles.listColumn}>
                 {/* 2017 */}
                 <div className={styles.yearBlock}>
@@ -195,7 +202,11 @@ export default function DownloadPage() {
                   <ul className={styles.list}>
                     <li>
                       Renstra bisa download{" "}
-                      <a href="/dokumen/Matrik Renstra kominfo 2017.xlsx" className={styles.link} download>
+                      <a
+                        href="/dokumen/Matrik Renstra kominfo 2017.xlsx"
+                        className={styles.link}
+                        download
+                      >
                         DISINI
                       </a>
                     </li>
@@ -209,7 +220,11 @@ export default function DownloadPage() {
                     <li>
                       Laporan Akuntabilitas Kinerja Instansi Pemerintah (LKJIP)
                       Tahun 2021 bisa di download{" "}
-                      <a href="\dokumen\LKjIP Dinkominfo 2021.pdf" className={styles.link}download>
+                      <a
+                        href="/dokumen/LKjIP Dinkominfo 2021.pdf"
+                        className={styles.link}
+                        download
+                      >
                         DISINI
                       </a>
                     </li>
@@ -223,21 +238,33 @@ export default function DownloadPage() {
                     <li>
                       Data dan Informasi Kabupaten Banyumas 2022 bisa di
                       download{" "}
-                      <a href="\dokumen\DIKB 2022.pdf" className={styles.link}download>
+                      <a
+                        href="/dokumen/DIKB 2022.pdf"
+                        className={styles.link}
+                        download
+                      >
                         DISINI
                       </a>
                     </li>
                     <li>
                       Renja Dinas Komunikasi dan Informatika Kab. Banyumas
                       Tahun 2022 bisa di download{" "}
-                      <a href="\dokumen\RENJA DINAS KOMINFO.pdf" className={styles.link}download>
+                      <a
+                        href="/dokumen/RENJA DINAS KOMINFO.pdf"
+                        className={styles.link}
+                        download
+                      >
                         DISINI
                       </a>
                     </li>
                     <li>
                       Rencana Aksi Dinas Komunikasi dan Informatika Kab.
                       Banyumas Tahun 2022 bisa di download{" "}
-                      <a href="\dokumen\Rencana Aksi Dinkominfo.pdf" className={styles.link}download>
+                      <a
+                        href="/dokumen/Rencana Aksi Dinkominfo.pdf"
+                        className={styles.link}
+                        download
+                      >
                         DISINI
                       </a>
                     </li>
@@ -251,7 +278,11 @@ export default function DownloadPage() {
                     <li>
                       Rencana Aksi Dinas Komunikasi dan Informatika Kab.
                       Banyumas Tahun 2023 bisa di download{" "}
-                      <a href="\dokumen\Rencana Aksi 2023 Dinkominfo.pdf" className={styles.link}download>
+                      <a
+                        href="/dokumen/Rencana Aksi 2023 Dinkominfo.pdf"
+                        className={styles.link}
+                        download
+                      >
                         DISINI
                       </a>
                     </li>
@@ -265,14 +296,22 @@ export default function DownloadPage() {
                     <li>
                       Rencana Aksi Dinas Komunikasi dan Informatika Kab.
                       Banyumas Tahun 2024 bisa di download{" "}
-                      <a href="\dokumen\Rencana Aksi Dinkominfo 2024.pdf.pdf" className={styles.link}download>
+                      <a
+                        href="/dokumen/Rencana Aksi Dinkominfo 2024.pdf"
+                        className={styles.link}
+                        download
+                      >
                         DISINI
                       </a>
                     </li>
                     <li>
                       Rencana Kerja (RENJA) Perubahan Dinas Komunikasi dan
                       Informatika Kab. Banyumas Tahun 2024 bisa di download{" "}
-                      <a href="\dokumen\RENJA PERUBAHAN DINKOMINFO TAHUN 2024.pdf" className={styles.link}download>
+                      <a
+                        href="/dokumen/RENJA PERUBAHAN DINKOMINFO TAHUN 2024.pdf"
+                        className={styles.link}
+                        download
+                      >
                         DISINI
                       </a>
                     </li>
@@ -280,7 +319,11 @@ export default function DownloadPage() {
                       Rencana Kerja dan Anggaran Satuan Kerja Perangkat Daerah
                       (RKA SKPD) Dinas Komunikasi dan Informatika Kab. Banyumas
                       Tahun 2024 bisa di download{" "}
-                      <a href="\dokumen\RKA SKPD Dinas Komunikasi dan Informatika Tahun 2024.pdf" className={styles.link}download>
+                      <a
+                        href="/dokumen/RKA SKPD Dinas Komunikasi dan Informatika Tahun 2024.pdf"
+                        className={styles.link}
+                        download
+                      >
                         DISINI
                       </a>
                     </li>
@@ -288,14 +331,22 @@ export default function DownloadPage() {
                       Laporan Akuntabilitas Kinerja Instansi Pemerintah (LKJIP)
                       Dinas Komunikasi dan Informatika Kab. Banyumas Tahun 2024
                       bisa di download{" "}
-                      <a href="\dokumen\LKJiP Dinkominfo Tahun 2024.pdf" className={styles.link}download>
+                      <a
+                        href="/dokumen/LKJiP Dinkominfo Tahun 2024.pdf"
+                        className={styles.link}
+                        download
+                      >
                         DISINI
                       </a>
                     </li>
                     <li>
                       Dokumen Pelaksanaan Anggaran (DPA) Dinas Komunikasi dan
                       Informatika Kab. Banyumas Tahun 2024 bisa di download{" "}
-                      <a href="\dokumen\DPA 2024 DINKOMINFO.pdf" className={styles.link}download>
+                      <a
+                        href="/dokumen/DPA 2024 DINKOMINFO.pdf"
+                        className={styles.link}
+                        download
+                      >
                         DISINI
                       </a>
                     </li>
@@ -309,14 +360,22 @@ export default function DownloadPage() {
                     <li>
                       Rencana Aksi Dinas Komunikasi dan Informatika Kab.
                       Banyumas Tahun 2025 bisa di download{" "}
-                      <a href="\dokumen\renaksi 2025.pdf" className={styles.link}download>
+                      <a
+                        href="/dokumen/renaksi 2025.pdf"
+                        className={styles.link}
+                        download
+                      >
                         DISINI
                       </a>
                     </li>
                     <li>
                       DPA Dinas Komunikasi dan Informatika Kab. Banyumas Tahun
                       2025 bisa di download{" "}
-                      <a href="\dokumen\DPA Belanja 2025 Dinkominfo.pdf" className={styles.link}download>
+                      <a
+                        href="/dokumen/DPA Belanja 2025 Dinkominfo.pdf"
+                        className={styles.link}
+                        download
+                      >
                         DISINI
                       </a>
                     </li>
@@ -330,7 +389,11 @@ export default function DownloadPage() {
                     <li>
                       Rencana Strategis Dinas Komunikasi dan Informatika Kab.
                       Banyumas Tahun 2024–2026 bisa di download{" "}
-                      <a href="\dokumen\RENSTRA DINKOMINFO TAHUN 2024-2026.pdf" className={styles.link}download>
+                      <a
+                        href="/dokumen/RENSTRA DINKOMINFO TAHUN 2024-2026.pdf"
+                        className={styles.link}
+                        download
+                      >
                         DISINI
                       </a>
                     </li>
@@ -338,7 +401,7 @@ export default function DownloadPage() {
                 </div>
               </div>
 
-              {/* KANAN: PANEL KARTU */}
+              {/* ================= KANAN: PANEL KARTU ================= */}
               <div className={styles.cardsColumn}>
                 <div className={styles.filePanel} ref={panelRef}>
                   {blocks.map((block, idx) => (
@@ -347,46 +410,71 @@ export default function DownloadPage() {
 
                       <div className={styles.scrollWrapper}>
                         <div className={styles.fileGrid}>
-                          {block.files.map((f, i) => (
-                            <article key={i} className={styles.fileCard}>
-                              <div className={styles.fileThumb}>
-                                <div className={styles.pdfBadge}>PDF</div>
-                              </div>
+                          {block.files.map((f, i) => {
+                            const ext = getExt(f.fileName);
+                            const isPdf = ext === "pdf";
+                            const isExcel = ext === "xlsx" || ext === "xls";
+                            const filePath = `/dokumen/${f.fileName}`;
 
-                              <p className={styles.fileCategory}>
-                                {f.category}
-                              </p>
-                              <h4 className={styles.fileTitle}>{f.title}</h4>
-                              <p className={styles.fileDesc}>{f.desc}</p>
+                            return (
+                              <article key={i} className={styles.fileCard}>
+                                <div className={styles.fileThumb}>
+                                  {isPdf && (
+                                    <div className={styles.pdfBadge}>PDF</div>
+                                  )}
+                                  {isExcel && (
+                                    <div className={styles.xlsxBadge}>XLSX</div>
+                                  )}
+                                  {!isPdf && !isExcel && (
+                                    <div className={styles.otherBadge}>
+                                      FILE
+                                    </div>
+                                  )}
+                                </div>
 
-                              <div className={styles.cardActions}>
-                                {/* 👁 TOMBOL LIHAT → BUKA MODAL */}
-                                <button
-                                  type="button"
-                                  className={styles.btnOutline}
-                                  onClick={(e) => {
-                                    // jaga-jaga kalau kartu dibungkus <a> / ada onClick di parent
-                                    e.preventDefault();
-                                    e.stopPropagation();
-                                    setPreviewFile(`/dokumen/${f.fileName}`);
-                                  }}
-                                  style={{ cursor: "pointer" }}
-                                >
-                                  👁 Lihat
-                                </button>
+                                <p className={styles.fileCategory}>
+                                  {f.category}
+                                </p>
+                                <h4 className={styles.fileTitle}>
+                                  {f.title}
+                                </h4>
+                                <p className={styles.fileDesc}>{f.desc}</p>
 
-                                {/* ⬇ TOMBOL UNDUH → DOWNLOAD LANGSUNG */}
-                                <a
-                                  href={`/dokumen/${f.fileName}`}
-                                  className={styles.btnGradient}
-                                  download
-                                  onClick={(e) => e.stopPropagation()}
-                                >
-                                  ⬇ Unduh
-                                </a>
-                              </div>
-                            </article>
-                          ))}
+                                <div className={styles.cardActions}>
+                                  {/* 👁 TOMBOL LIHAT */}
+                                  <button
+                                    type="button"
+                                    className={styles.btnOutline}
+                                    onClick={(e) => {
+                                      e.preventDefault();
+                                      e.stopPropagation();
+
+                                      if (isPdf || isExcel) {
+                                        // PDF & XLSX → preview di modal
+                                        setPreviewFile(filePath);
+                                      } else {
+                                        // tipe lain (kalau ada) → buka tab baru / download
+                                        window.open(filePath, "_blank");
+                                      }
+                                    }}
+                                    style={{ cursor: "pointer" }}
+                                  >
+                                    👁 Lihat
+                                  </button>
+
+                                  {/* ⬇ TOMBOL UNDUH */}
+                                  <a
+                                    href={filePath}
+                                    className={styles.btnGradient}
+                                    download
+                                    onClick={(e) => e.stopPropagation()}
+                                  >
+                                    ⬇ Unduh
+                                  </a>
+                                </div>
+                              </article>
+                            );
+                          })}
                         </div>
                       </div>
                     </div>
