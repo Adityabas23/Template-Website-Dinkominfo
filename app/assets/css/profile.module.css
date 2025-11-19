@@ -1,15 +1,26 @@
 /* =============================== */
+/*           GLOBAL WRAPPER        */
+/* =============================== */
+
+.mainContainer {
+  width: 100%;
+  min-height: 100vh;
+  background-color: white;
+  font-family: 'Inter', sans-serif;
+}
+
+/* =============================== */
 /*           HERO BANNER           */
 /* =============================== */
 
 .hero {
   position: relative;
 
-  /* BATAS LEBAR BANNER */
-  max-width: 1180px;         /* Atur sesuai kebutuhan */
+  /* BATAS LEBAR BANNER DESKTOP */
+  max-width: 1180px;
   margin: 0 auto 30px;       /* auto = center, 30px = jarak bawah */
 
-  border-radius: 20px;       /* sudut membulat tidak full layar */
+  border-radius: 20px;       /* sudut membulat */
   overflow: hidden;          /* gambar & overlay ikut radius */
 
   background-size: cover;
@@ -39,7 +50,6 @@
   z-index: 2;
 }
 
-
 /* =============================== */
 /*      CARD BESAR (CONTENT)       */
 /* =============================== */
@@ -57,7 +67,6 @@
   max-width: 1180px;
   margin: 0 auto;
 }
-
 
 /* =============================== */
 /*           SIDEBAR KIRI          */
@@ -100,7 +109,9 @@
   cursor: pointer;
   border-radius: 999px;
   border-left: 3px solid transparent;
-  transition: background-color 0.15s ease, color 0.15s ease,
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease,
     border-left-color 0.15s ease;
 }
 
@@ -115,7 +126,6 @@
   background-color: #bed4ff;
   color: black;
 }
-
 
 /* =============================== */
 /*          KONTEN KANAN           */
@@ -137,7 +147,6 @@
   letter-spacing: 0.08em;
   margin: 0 0 16px;
 }
-
 
 /* =============================== */
 /*       KARTU VISI / MISI         */
@@ -192,6 +201,7 @@
 }
 
 /* CARD STRUKTUR ORGANISASI */
+
 .structureCard {
   margin-top: 12px;
   background: linear-gradient(
@@ -208,7 +218,7 @@
 .structureImageWrapper {
   border-radius: 16px;
   overflow: hidden;
-  background-color: #ffffff; /* opsional, biar gambar agak “naik” dari gradien */
+  background-color: #ffffff; /* opsional */
 }
 
 /* Gambar responsif */
@@ -218,7 +228,10 @@
   height: auto;
 }
 
-/*ALAMAT KONTAK*/
+/* =============================== */
+/*          ALAMAT & KONTAK        */
+/* =============================== */
+
 .contactBox {
   font-size: 14px;
   line-height: 1.8;
@@ -232,7 +245,10 @@
   vertical-align: middle;
 }
 
-/*TUGAS-FUNGSI*/
+/* =============================== */
+/*           TUGAS-FUNGSI          */
+/* =============================== */
+
 .contentBox {
   font-size: 14px;
   line-height: 1.8;
@@ -260,8 +276,10 @@
   margin-bottom: 6px;
 }
 
+/* =============================== */
+/*                IKU              */
+/* =============================== */
 
-/*IKU*/
 .downloadText {
   font-size: 14px;
   margin-bottom: 18px;
@@ -289,18 +307,8 @@
   background: white;
 }
 
-@media (max-width: 768px) {
-  .pdfViewer {
-    height: 480px;
-  }
-}
-
-
-
-
-
 /* =============================== */
-/*             LIST MISI            */
+/*             LIST MISI           */
 /* =============================== */
 
 .misiList {
@@ -310,27 +318,268 @@
   line-height: 1.5;
 }
 
+/* =============================== */
+/*     TEKS HERO (GLOBAL OVERRIDE) */
+/* =============================== */
+
+.page-hero-title {
+  font-size: 32px;
+  line-height: 1.2;
+  margin-bottom: 6px;
+}
+
+.page-hero-desc {
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.breadcrumb {
+  font-size: 13px;
+  margin-bottom: 4px;
+}
 
 /* =============================== */
-/*            RESPONSIVE            */
+/*          RESPONSIVE DESKTOP     */
+/*   (LAPTOP KECIL, IPAD PRO LAND) */
 /* =============================== */
 
-@media (max-width: 992px) {
+/* ≤ 1200px : laptop kecil & sebagian iPad Pro landscape */
+@media (max-width: 1200px) {
+  .hero {
+    max-width: 100%;
+    margin: 0 24px 24px;
+  }
+
+  .profileCard {
+    max-width: 100%;
+    margin: 0 24px;
+  }
+
+  .pdfViewer {
+    height: 560px;
+  }
+}
+
+/* ≤ 1024px : iPad / tablet landscape */
+@media (max-width: 1024px) {
+  .profileCard {
+    grid-template-columns: 240px minmax(0, 1fr);
+    gap: 20px;
+    padding: 20px;
+  }
+
+  .sectionTitle {
+    font-size: 22px;
+  }
+
+  .sectionSubtitle {
+    font-size: 14px;
+  }
+
+  .infoCard {
+    grid-template-columns: 1.1fr 1fr;
+  }
+
+  .pdfViewer {
+    height: 520px;
+  }
+}
+
+/* =============================== */
+/*          RESPONSIVE TABLET      */
+/*   (TABLET PORTRAIT, HP BESAR)   */
+/* =============================== */
+
+@media (max-width: 768px) {
+  .hero {
+    margin: 0 16px 18px;
+    border-radius: 18px;
+    padding: 14px 16px;            /* hero lebih pendek */
+  }
+
+  .page-hero-title {
+    font-size: 24px;
+  }
+
+  .page-hero-desc {
+    font-size: 13px;
+  }
+
+  .breadcrumb {
+    font-size: 12px;
+  }
+
   .profileCard {
     grid-template-columns: 1fr;
+    margin: 0 16px;
+    padding: 18px;
+  }
+
+  .profileMain {
+    padding: 8px 0 0;
   }
 
   .infoCard {
     grid-template-columns: 1fr;
+    padding: 16px 18px;
   }
 
+  .sectionTitle {
+    font-size: 21px;
+  }
+
+  .sectionSubtitle {
+    font-size: 13px;
+  }
+
+  .sidebar {
+    padding: 10px 0;
+  }
+
+  .sidebarTitle {
+    font-size: 14px;
+    padding: 0 16px 8px;
+  }
+
+  .sidebarButton {
+    font-size: 12px;
+    padding: 8px 14px;
+  }
+
+  .pdfCard {
+    padding: 10px;
+    border-radius: 14px;
+  }
+
+  .pdfViewer {
+    height: 460px;
+  }
+}
+
+/* =============================== */
+/*          RESPONSIVE PHONE       */
+/*      (HP UMUM, IPHONE, ETC)     */
+/* =============================== */
+
+@media (max-width: 576px) {
   .hero {
-    margin: 0 16px 24px;
-    max-width: 100%;
+    margin: 0 12px 16px;
+    border-radius: 16px;
+    padding: 12px 14px;          /* hero makin pendek di HP */
+  }
+
+  .page-hero-title {
+    font-size: 20px;
+  }
+
+  .page-hero-desc {
+    font-size: 12px;
+  }
+
+  .breadcrumb {
+    font-size: 11px;
   }
 
   .profileCard {
-    margin: 0 16px;
-    max-width: 100%;
+    margin: 0 12px;
+    padding: 16px;
+    border-radius: 16px;
+  }
+
+  .sectionTitle {
+    font-size: 19px;
+  }
+
+  .sectionSubtitle {
+    font-size: 12px;
+    letter-spacing: 0.06em;
+  }
+
+  .infoCard {
+    padding: 14px 16px;
+    border-radius: 16px;
+  }
+
+  .infoCardTextTitle {
+    font-size: 16px;
+  }
+
+  .infoCardQuote {
+    font-size: 13px;
+  }
+
+  .contactBox,
+  .contentBox,
+  .downloadText {
+    font-size: 13px;
+  }
+
+  .misiList {
+    font-size: 12px;
+    margin-left: 14px;
+  }
+
+  .pdfCard {
+    padding: 8px;
+    border-radius: 14px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+  }
+
+  .pdfViewer {
+    height: 380px;              /* tidak terlalu tinggi di HP */
+  }
+}
+
+/* =============================== */
+/*        PHONE KECIL (≤ 400px)    */
+/* =============================== */
+
+@media (max-width: 400px) {
+  .hero {
+    margin: 0 8px 14px;
+    border-radius: 14px;
+    padding: 10px 12px;         /* banner lebih ringkas */
+  }
+
+  .page-hero-title {
+    font-size: 10px !important;
+  }
+
+  .page-hero-desc {
+    font-size: 11px;
+  }
+
+  .breadcrumb {
+    font-size: 10px;
+  }
+
+  .profileCard {
+    margin: 0 8px;
+    padding: 14px;
+  }
+
+  .sectionTitle {
+    font-size: 18px;
+  }
+
+  .sectionSubtitle {
+    font-size: 11px;
+  }
+
+  .sidebarTitle {
+    font-size: 13px;
+  }
+
+  .sidebarButton {
+    font-size: 11px;
+    padding: 8px 12px;
+  }
+
+  .infoCard {
+    padding: 12px 14px;
+  }
+
+  .pdfViewer {
+    height: 340px;             /* tinggi pas untuk layar kecil 400px */
   }
 }

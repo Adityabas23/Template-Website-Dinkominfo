@@ -1,6 +1,7 @@
 // components/PageLayout.tsx
 import React from "react";
 import Footer from "@/app/component/footer";
+import AccessibilitySidebar from "@/app/component/AccessibilitySidebar";
 
 type PageLayoutProps = {
   title: string;
@@ -31,6 +32,7 @@ const PageLayout: React.FC<PageLayoutProps> = ({
         className={`hero ${heroClassName ?? ""}`}
         style={heroStyle}
       >
+        <AccessibilitySidebar />
         <div className="hero-content">
           {breadcrumb && <p className="breadcrumb">{breadcrumb}</p>}
 

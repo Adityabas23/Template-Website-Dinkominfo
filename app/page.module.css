@@ -6,14 +6,34 @@
   font-family: 'Inter', sans-serif;
 }
 
+/* WRAPPER HERO – PEMEGANG BANTAL BIRU */
+.heroSection {
+  position: relative;
+  margin-top: -80px;     /* pindahkan dari .hero ke sini kalau mau */
+}
+
+/* BANTAL BIRU DI BELAKANG HERO (PERSIS SEPERTI BRI) */
+.heroSection::after {
+  content: "";
+  position: absolute;
+  width: 150%;           /* lebih lebar dari hero */
+  height: 100%;          /* tinggi mengikuti hero */
+  background: linear-gradient(to right, #007bff, #0056b3);   /* atau linear-gradient seperti BRI */
+  border-bottom-right-radius: 190px;
+  bottom: -10px;
+  right: 0;
+  z-index: 0;            /* di belakang .hero */
+}
+
 /* 3. HERO SECTION (GAMBAR BACKGROUND) */
 .hero {
   position: relative;
-  margin-top: -80px;
   width: 100%;
   height: calc(100vh - 10px);
   border-bottom-right-radius: 200px;
   overflow: hidden;
+  background: rgb(255, 255, 255);
+  z-index: 1;
 }
 
 .heroBg {
@@ -40,26 +60,8 @@
 /* Saat transisi: blur tipis + zoom tipis, tidak terlalu gelap */
 .heroBgTransition {
   opacity: 0.85;
-  filter: blur(5px);
+  filter: blur(10px);
   transform: scale(1.012);
-}
-
-/* Container Pembungkus Wave */
-.waveContainer {
-  position: absolute;
-  bottom: -1px;
-  left: -19.2rem;
-  width: 100%;
-  z-index: 2;
-  line-height: 0;
-  pointer-events: none;
-}
-
-/* Gambar Wave-nya */
-.waveImage {
-  width: 149%;
-  height: 100%;
-  display: block;
 }
 
 .heroOverlay {
@@ -483,10 +485,8 @@
   background-color: #ffffff;
 }
 
-.agendaSection,
-.agendasection {
+.agendaSection {
   background-color: #f8f9fa;
-  padding-top: 0;
 }
 
 .container {
@@ -549,30 +549,55 @@
   margin-right: auto;
 }
 
-/* 1. Wrapper untuk memberi jarak atas/bawah */
-.posterMarqueeSection {
-  padding: 40px 0;
-  /* background-color: #f8f9fa; */ /* (Bisa diaktifkan jika mau ada latar) */
-}
+/* =========================================
+                POSTER CAROUSEL
+   ========================================= */
 
+/*/* 1. Wrapper section poster */
 .posterMarqueeSection {
   padding: 40px 0;
-  /* Anda bisa beri warna latar berbeda jika mau */
   /* background-color: #f8f9fa; */
 }
 
-.posterMarqueeSection :global(.swiper-slide) > * {
-  /* Hapus lebar paksa 282px */
-  width: auto !important; 
-  
-  /* Atur tinggi poster agar seragam */
-  height: 180px; /* <-- Sesuaikan tinggi poster ini */
-  
-  /* Style tambahan */
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+/* 2. Row 3 poster di dalam 1 slide */
+/*.posterRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+}*/
+
+/* 3. Poster tengah (besar) */
+/*.posterMain {
+  flex: 0 0 40%;
+  max-width: 420px;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+}*/
+
+/* 4. Poster kiri & kanan (kecil) */
+/*.posterSide {
+  flex: 0 0 22%;
+  max-width: 260px;
+  opacity: 0.9;
+  transform: scale(0.92);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.14);
+}*/
+
+/* 5. Gambar poster */
+/*.posterMain img,
+.posterSide img {
+  display: block;
+  width: 100%;
+  height: auto;
   object-fit: cover;
-}
+}*/
 
 /* =========================================
    LAYOUT EDUKASI (HIGHLIGHT + SIDEBAR)
@@ -1030,9 +1055,6 @@
   .socialSidebar {
     left: 2rem;
   }
-  .waveImage {
-    width: 129%;
-  }
 }
 
 @media (max-width: 1280px) {
@@ -1065,9 +1087,6 @@
   }
   .socialSidebar {
     left: 2rem;
-  }
-  .waveImage {
-    width: 129%;
   }
 }
 
@@ -1209,6 +1228,9 @@
 }
 
 @media (max-width: 600px) {
+  .heroSection::after {
+    border-bottom-right-radius: 90px;
+  }
   .edukasiGrid {
     grid-template-columns: 1fr;
   }
@@ -1219,6 +1241,9 @@
 }
 
 @media (max-width: 480px) {
+  .heroSection::after {
+    border-bottom-right-radius: 65px;
+  }
   .hero {
     border-bottom-right-radius: 70px;
     padding: 10rem 1rem 3rem;
@@ -1257,10 +1282,14 @@
     height: 42px;
     font-size: 1.1rem;
   }
+  
 }
 
 /* RESPONSIVE TABLET KHUSUS HERO (versi kamu) */
-@media (min-width: 768px) and (max-width: 1024px) {
+@media (min-width: 700px) and (max-width: 1024px) {
+  .heroSection::after {
+    border-bottom-right-radius: 110px;
+  }
   .hero {
     display: flex;
     flex-direction: column;
@@ -1363,11 +1392,6 @@
     backdrop-filter: blur(5px);
     font-size: 1.4rem;
     color: #fff;
-  }
-
-  .waveContainer,
-  .waveImage {
-    display: none;
   }
 }
 

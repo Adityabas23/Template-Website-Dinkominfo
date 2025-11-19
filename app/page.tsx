@@ -7,6 +7,7 @@ import NewsCard from '@/app/component/card/NewsCard';
 import HeroBanner from '@/app/component/HeroBanner';
 import Footer from '@/app/component/footer';
 import styles from './page.module.css';
+import AccessibilitySidebar from '@/app/component/AccessibilitySidebar';
 
 
 // data dipisah ke file terpisah
@@ -15,7 +16,7 @@ import { infoData } from './data/infoData';
 import { edukasiData } from './data/edukasiData';
 import DraggableCarousel from './component/DraggableCarousel';
 import PosterCarousel from './component/PosterCarousel';
-import Agenda from './component/Agenda';
+import Agenda from './component/agenda/Agenda';
 
 // i18n
 import { useLang } from './i18n/LanguageContext';
@@ -94,26 +95,19 @@ const agendaItems = [
 
        <section className={styles.posterMarqueeSection}>
         <PosterCarousel>
-          
-          {/* --- SET 1 (Gambar Asli) --- */}
           <img src="/flayer2.jpg" alt="Poster TIPIKOR" />
           <img src="/flayer1.jpg" alt="Poster Pengaduan" />
           <img src="/flayer3.jpg" alt="Poster Say No" />
-
-          {/* --- SET 2 (DUPLIKAT - Copy Paste di sini) --- */}
-          {/* Ini WAJIB ada agar loop berjalan mulus tanpa berhenti */}
           <img src="/flayer4.jpg" alt="Poster WASPADA" />
-          <img src="/flayer5.jpg" alt="Poster Gempur" />
-          <img src="/flayer6.png" alt="Poster Say No" />
-
-          {/* --- SET 3 (OPSIONAL - Tambahkan lagi agar makin aman) --- */}
-          <img src="/flayer7.png" alt="Poster TIPIKOR" />
-          <img src="/flayer8.jpg" alt="Poster Pengaduan" />
-          <img src="/flayer2.jpg" alt="Poster Say No" />
-
+          <img src="/flayer5.png" alt="Poster Gempur" />
+          <img src="/flayer6.png" alt="Poster Say No 2" />
+          <img src="/flayer7.png" alt="Poster TIPIKOR 2" />
+          <img src="/flayer8.png" alt="Poster Pengaduan 2" />
         </PosterCarousel>
-      </section>
+       </section>
 
+      
+      {/* Garis pemisah */}
       <hr className={styles.pemisahPanel} />
 
       {/* INFORMASI */}
@@ -264,22 +258,24 @@ const agendaItems = [
         </div>
       </section>
 
+      {/* Garis pemisah */}
+      <hr className={styles.pemisahPanel} />
+
       {/* AGENDA */}
       <section className={`${styles.contentSection} ${styles.agendaSection}`}>
         <div className={styles.container}>
           <div className={styles.sectionHeader}>
             <h2 className={styles.sectionTitle}>{t('home.section.agenda')}</h2>
             <Link href="/arsip-agenda" className={styles.viewAllLink}>
-              {t('home.section.agenda.all')}
+              Lihat Semua Agenda &gt;
             </Link>
           </div>
 
-          {/* Ganti placeholder dengan komponen Agenda */}
           <Agenda items={agendaItems} />
-
         </div>
-        <Footer />
       </section>
+      <AccessibilitySidebar />
+      <Footer />
     </main>
   );
 }

@@ -182,3 +182,26 @@ input[type="email"] {
     margin-top: 14px;
   }
 }
+/* ========================= */
+/* MOBILE EXTRA SMALL (≤400) */
+/* ========================= */
+@media (max-width: 400px) {
+  .hero {
+    margin: 0 15px 15px;
+    padding: 10px 12px;
+    border-radius: 14px;
+    
+  }
+
+  .page-hero-title {
+    font-size: 17px !important;
+  }
+
+  .page-hero-desc {
+    font-size: 11px !important;
+  }
+
+  .breadcrumb {
+    font-size: 10px !important;
+  }
+}

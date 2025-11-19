@@ -322,7 +322,7 @@ const Header = forwardRef<HTMLDivElement>((props, ref) => {
                 onMouseEnter={() => handleMegaEnter('ppid')}
               >
                 <Link
-                  href="#"
+                  href="/pages/PPID/sk-dip-dikecualikan"
                   onClick={handleMenuClick}
                   className={`${styles.navLink} ${
                     openMega === 'ppid' ? styles.navLinkActive : ''
@@ -398,14 +398,13 @@ const Header = forwardRef<HTMLDivElement>((props, ref) => {
         }`}
         onClick={() => setIsMobileMenuOpen(false)}
       >
-        <Link href="#">{t('nav.home')}</Link>
+        <Link href="/">{t('nav.home')}</Link>
         <Link href="/pages/profile">{t('nav.profile')}</Link>
-        <Link href="#">{t('nav.ppid')}</Link>
+        <Link href="/pages/PPID/sk-dip-dikecualikan">{t('nav.ppid')}</Link>
         <Link href="#">{t('nav.publicMenu')}</Link>
-        <Link href="#">{t('nav.staffData')}</Link>
-        <Link href="#">{t('nav.download')}</Link>
-        <Link href="#">{t('nav.faq')}</Link>
-        <Link href="#">{t('nav.contact')}</Link>
+        <Link href="/pages/data-pegawai">{t('nav.staffData')}</Link>
+        <Link href="/pages/download">{t('nav.download')}</Link>
+        <Link href="/pages/FAQ">{t('nav.faq')}</Link>
 
         <button className={styles.langButton} onClick={toggleLang}>
           {lang.toUpperCase()}

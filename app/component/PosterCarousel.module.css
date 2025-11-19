@@ -1,6 +1,7 @@
 .carouselWrapper {
   width: 100%;
-  height: 100vh; /* penuh 1 layar */
+  max-width: 1200px;
+  margin: 0 auto;
   overflow: hidden;
   background: transparent;
 }
@@ -10,18 +11,81 @@
   height: 100%;
 }
 
+/* Wrapper setiap slide */
 .slide {
-  width: 100%;
-  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: transparent;
 }
 
-.slide img {
+/* ===== STYLE SWIPER SLIDE (GLOBAL) ===== */
+
+.carouselWrapper :global(.swiper-slide) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition:
+    transform 0.35s ease,
+    opacity 0.35s ease,
+    box-shadow 0.35s ease;
+  transform: scale(0.85);      /* default: agak kecil */
+  opacity: 0.6;
+}
+
+/* Gambar di dalam slide */
+.carouselWrapper :global(.swiper-slide img) {
+  display: block;
   width: 100%;
-  height: 100%;
-  object-fit: cover; /* <-- INI YANG ANDA INGINKAN */
-  border-radius: 0;
+  height: auto;
+  max-width: 160px;            /* batas lebar poster di kiri/kanan */
+  border-radius: 18px;
+  object-fit: cover;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
+}
+
+/* Slide aktif (tengah) → lebih besar & lebih terang */
+.carouselWrapper :global(.swiper-slide-active) {
+  transform: scale(1.06);      /* diperbesar */
+  opacity: 1;
+}
+
+.carouselWrapper :global(.swiper-slide-active img) {
+  max-width: 320px;            /* poster tengah lebih lebar */
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+}
+
+/* Sedikit perbesar slide tetangga (prev/next) jika mau */
+.carouselWrapper :global(.swiper-slide-prev),
+.carouselWrapper :global(.swiper-slide-next) {
+  transform: scale(1);
+  opacity: 0.5;
+}
+
+/* ===== RESPONSIVE ===== */
+
+/* Tablet & HP besar */
+@media (max-width: 768px) {
+  .carouselWrapper :global(.swiper-slide img) {
+    max-width: 220px;
+    border-radius: 16px;
+  }
+
+  .carouselWrapper :global(.swiper-slide-active img) {
+    max-width: 260px;
+  }
+}
+
+/* HP kecil */
+@media (max-width: 480px) {
+  .carouselWrapper {
+    height: 260px;
+  }
+
+  .carouselWrapper :global(.swiper-slide img) {
+    max-width: 180px;
+  }
+
+  .carouselWrapper :global(.swiper-slide-active img) {
+    max-width: 220px;
+  }
 }

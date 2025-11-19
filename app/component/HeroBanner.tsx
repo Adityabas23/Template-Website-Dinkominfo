@@ -197,146 +197,136 @@ export default function HeroBanner() {
   const activeNews = newsData[activeNewsIndex];
 
   return (
-    <section className={styles.hero}>
-      {/* layer background slideshow (fade + blur) */}
-      <div
-        className={`${styles.heroBg} ${
-          isTransitioningBg ? styles.heroBgTransition : ''
-        }`}
-        style={{ backgroundImage: `url(${bannerImages[bannerIndex]})` }}
-      />
+    <div className={styles.heroSection}>
+      <section className={styles.hero}>
+        {/* layer background slideshow (fade + blur) */}
+        <div
+          className={`${styles.heroBg} ${
+            isTransitioningBg ? styles.heroBgTransition : ''
+          }`}
+          style={{ backgroundImage: `url(${bannerImages[bannerIndex]})` }}
+        />
 
-      {/* overlay gelap di atas background */}
-      <div className={styles.heroOverlay}></div>
+        {/* overlay gelap di atas background */}
+        <div className={styles.heroOverlay}></div>
 
-      <div className={styles.contentWrapper}>
-        {/* sidebar sosmed kiri */}
-        <div className={styles.socialSidebar}>
-          <a href="https://www.facebook.com/p/Dinkominfo-Kab-Banyumas-100069335344488/">
-            <FaFacebookF />
-          </a>
-          <a href="https://www.instagram.com/dinkominfo_kab.banyumas">
-            <FaInstagram />
-          </a>
-          <a href="https://x.com/kominfobanyumas">
-            <RiTwitterXLine />
-          </a>
-          <a href="http://www.youtube.com/@DINASKOMINFOKabupatenBanyumas">
-            <FaYoutube />
-          </a>
-        </div>
-
-        {/* kiri: judul + search + tags */}
-        <div className={styles.leftContent}>
-          <h1 className={styles.heroTitle}>{t('hero.title')}</h1>
-          <p className={styles.heroSubtitle}>{t('hero.subtitle')}</p>
-
-          <div className={styles.searchBox}>
-            <input
-              type="text"
-              placeholder={currentPlaceholder}
-              className={styles.animatedPlaceholder}
-            />
-            <button>{lang === 'id' ? 'Cari' : 'Search'}</button>
+        <div className={styles.contentWrapper}>
+          {/* sidebar sosmed kiri */}
+          <div className={styles.socialSidebar}>
+            <a href="https://www.facebook.com/p/Dinkominfo-Kab-Banyumas-100069335344488/">
+              <FaFacebookF />
+            </a>
+            <a href="https://www.instagram.com/dinkominfo_kab.banyumas">
+              <FaInstagram />
+            </a>
+            <a href="https://x.com/kominfobanyumas">
+              <RiTwitterXLine />
+            </a>
+            <a href="http://www.youtube.com/@DINASKOMINFOKabupatenBanyumas">
+              <FaYoutube />
+            </a>
           </div>
 
-          <div className={styles.popularTags}>
-            <span>{t('hero.popularTitle')}</span>
+          {/* kiri: judul + search + tags */}
+          <div className={styles.leftContent}>
+            <h1 className={styles.heroTitle}>{t('hero.title')}</h1>
+            <p className={styles.heroSubtitle}>{t('hero.subtitle')}</p>
 
-            <div
-              className={`${styles.tagsOuter} ${
-                isAtEnd ? styles.tagsOuterNoFade : ''
-              }`}
-            >
-              <div className={styles.scrollWrapper} ref={tagsContainerRef}>
-                <div className={styles.tagsList}>
-                  <a href="#">{t('hero.placeholder.perizinan')}</a>
-                  <a href="#">{t('hero.placeholder.pajak')}</a>
-                  <a href="#">{t('hero.placeholder.lapor')}</a>
-                  <a href="#">{t('hero.placeholder.ppid')}</a>
-                  <a href="#">{t('home.section.news')}</a>
-                  <a href="#">Lowongan Kerja</a>
-                  <a href="#">Cetak Kartu Kuning</a>
-                  <a href="#">Pengumuman Hari Ini</a>
-                </div>
-              </div>
+            <div className={styles.searchBox}>
+              <input
+                type="text"
+                placeholder={currentPlaceholder}
+                className={styles.animatedPlaceholder}
+              />
+              <button>{lang === 'id' ? 'Cari' : 'Search'}</button>
             </div>
-          </div>
-        </div>
 
-        {/* kanan: widget jam + cuaca + berita singkat */}
-        <div className={styles.rightWidget}>
-          <div className={styles.widgetHeader}>
-            <div className={styles.widgetDateInfo}>
-              <span className={styles.labelToday}>{t('hero.today')}</span>
-              <span className={styles.textDate}>{formatDate(displayTime, lang)}</span>
-              <span className={styles.textLoc}>
-                <FaMapMarkerAlt /> {locationLabel}
-              </span>
-            </div>
-            <div className={styles.widgetTimeInfo}>
-              <div className={styles.weather}>
-                <FaCloudSun />{' '}
-                {weather
-                  ? showTemp
-                    ? `${weather.temperature}°C`
-                    : weather.description
-                  : 'Memuat...'}
-              </div>
-              <div className={styles.bigClock}>{formatTime(displayTime)}</div>
-            </div>
-          </div>
+            <div className={styles.popularTags}>
+              <span>{t('hero.popularTitle')}</span>
 
-          {/* kartu berita yang berganti otomatis */}
-          <div
-            className={`${styles.newsCard} ${styles.group} ${
-              isNewsTransitioning ? styles.newsCardFading : ''
-            }`}
-          >
-            <Link href={activeNews.href} target="_blank">
-              <div className={styles.newsImageWrapper}>
-                <Image
-                  src={activeNews.imageUrl}
-                  alt={activeNews.altText}
-                  width={400}
-                  height={250}
-                  className={styles.newsImage}
-                />
-                <div className={styles.newsOverlay}>
-                  <span className={styles.newsCategory}>PEMERINTAHAN</span>
-                  <h3 className={styles.newsTitle}>{activeNews.title}</h3>
-                  <div className={styles.newsMeta}>
-                    <span>
-                      <FaMapMarkerAlt /> Purwokerto
-                    </span>{' '}
-                    •{' '}
-                    <span>
-                      <FaCalendar /> {activeNews.date}
-                    </span>
+              <div
+                className={`${styles.tagsOuter} ${
+                  isAtEnd ? styles.tagsOuterNoFade : ''
+                }`}
+              >
+                <div className={styles.scrollWrapper} ref={tagsContainerRef}>
+                  <div className={styles.tagsList}>
+                    <a href="#">{t('hero.placeholder.perizinan')}</a>
+                    <a href="#">{t('hero.placeholder.pajak')}</a>
+                    <a href="#">{t('hero.placeholder.lapor')}</a>
+                    <a href="#">{t('hero.placeholder.ppid')}</a>
+                    <a href="#">{t('home.section.news')}</a>
+                    <a href="#">Lowongan Kerja</a>
+                    <a href="#">Cetak Kartu Kuning</a>
+                    <a href="#">Pengumuman Hari Ini</a>
                   </div>
                 </div>
               </div>
-            </Link>
+            </div>
           </div>
 
-          <button className={styles.btnMoreNews}>
-            {lang === 'id' ? 'Lihat Berita Lainnya' : 'View More News'}
-          </button>
+          {/* kanan: widget jam + cuaca + berita singkat */}
+          <div className={styles.rightWidget}>
+            <div className={styles.widgetHeader}>
+              <div className={styles.widgetDateInfo}>
+                <span className={styles.labelToday}>{t('hero.today')}</span>
+                <span className={styles.textDate}>{formatDate(displayTime, lang)}</span>
+                <span className={styles.textLoc}>
+                  <FaMapMarkerAlt /> {locationLabel}
+                </span>
+              </div>
+              <div className={styles.widgetTimeInfo}>
+                <div className={styles.weather}>
+                  <FaCloudSun />{' '}
+                  {weather
+                    ? showTemp
+                      ? `${weather.temperature}°C`
+                      : weather.description
+                    : 'Memuat...'}
+                </div>
+                <div className={styles.bigClock}>{formatTime(displayTime)}</div>
+              </div>
+            </div>
+
+            {/* kartu berita yang berganti otomatis */}
+            <div
+              className={`${styles.newsCard} ${styles.group} ${
+                isNewsTransitioning ? styles.newsCardFading : ''
+              }`}
+            >
+              <Link href={activeNews.href} target="_blank">
+                <div className={styles.newsImageWrapper}>
+                  <Image
+                    src={activeNews.imageUrl}
+                    alt={activeNews.altText}
+                    width={400}
+                    height={250}
+                    className={styles.newsImage}
+                  />
+                  <div className={styles.newsOverlay}>
+                    <span className={styles.newsCategory}>PEMERINTAHAN</span>
+                    <h3 className={styles.newsTitle}>{activeNews.title}</h3>
+                    <div className={styles.newsMeta}>
+                      <span>
+                        <FaMapMarkerAlt /> Purwokerto
+                      </span>{' '}
+                      •{' '}
+                      <span>
+                        <FaCalendar /> {activeNews.date}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </Link>
+            </div>
+
+            <button className={styles.btnMoreNews}>
+              {lang === 'id' ? 'Lihat Berita Lainnya' : 'View More News'}
+            </button>
+          </div>
         </div>
-        
-        {/* wave di bawah banner */}
-        <div className={styles.waveContainer}>
-          <Image
-            src="/wave-bg.png"
-            alt="Wave Background"
-            width={1920}
-            height={300}
-            className={styles.waveImage}
-            priority
-          />
-        </div>
-      </div>
-      <AccessibilitySidebar />
-    </section>
+        <AccessibilitySidebar />
+      </section>
+    </div>
   );
 }

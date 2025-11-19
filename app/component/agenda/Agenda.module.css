@@ -1,0 +1,436 @@
+/* SECTION WRAPPER */
+.agendaSection {
+  padding: 24px 0 40px;
+  background-color: #f8fafc;
+  font-size: 0.9rem;
+  color: #3b4b63;
+}
+
+.container {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+/* header kecil internal (boleh di-hide kalau sudah ada h2 di page) */
+.headerRow {
+  margin-bottom: 16px;
+}
+
+.heading {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #13253e;
+  margin: 0 0 4px;
+}
+
+/* layout 2 kolom: kiri besar, kanan sidebar */
+.agendaLayout {
+  display: grid;
+  grid-template-columns: minmax(0, 2.1fr) minmax(260px, 1fr);
+  gap: 24px;
+  align-items: flex-start;
+}
+
+/* ===================== */
+/*   FEATURED AGENDA     */
+/* ===================== */
+
+.mainColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.featured {
+  position: relative;
+  overflow: hidden;
+  border-radius: 24px;
+  min-height: 260px;
+  padding: 24px 26px;
+  color: #ffffff;
+  display: grid;
+  grid-template-columns: minmax(0, 2.3fr) minmax(220px, 0.9fr);
+  column-gap: 24px;
+  background: linear-gradient(
+    135deg,
+    #007ad9 0%,
+    #0051c2 45%,
+    #00368c 100%
+  );
+  box-shadow: 0 18px 40px rgba(7, 36, 86, 0.35);
+}
+
+.featuredOverlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top left, rgba(255, 255, 255, 0.16), transparent 55%);
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+.featuredContent {
+  position: relative;
+  z-index: 1;
+}
+
+.featuredMeta {
+  margin: 0 0 8px;
+  font-size: 0.85rem;
+  opacity: 0.92;
+}
+
+.featuredTitle {
+  font-size: 1.4rem;
+  margin: 0 0 10px;
+  font-weight: 700;
+}
+
+.featuredExcerpt {
+  margin: 0 0 14px;
+  font-size: 0.9rem;
+  max-width: 600px;
+}
+
+.featuredChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.chip,
+.chipOutline {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  background: rgba(255, 255, 255, 0.16);
+  color: #ffffff;
+}
+
+.chipOutline {
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  background: transparent;
+}
+
+.featuredButton {
+  display: inline-block;
+  margin-top: 2px;
+  padding: 8px 14px;
+  border-radius: 10px;
+  background: #ffffff;
+  color: #0045a5;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+/* RIGHT SIDE: countdown dummy */
+.featuredCountdown {
+  position: relative;
+  z-index: 1;
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+}
+
+.countdownLabel {
+  font-size: 0.8rem;
+  margin: 0 0 4px;
+  opacity: 0.9;
+  text-align: left;
+}
+
+.countdownGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.countBox {
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  padding: 6px 4px;
+  text-align: center;
+}
+
+.countBox span {
+  display: block;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.countBox small {
+  font-size: 0.7rem;
+  opacity: 0.85;
+}
+
+/* ===================== */
+/* LIST AGENDA LAINNYA   */
+/* ===================== */
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.card {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  background: #ffffff;
+  padding: 12px 14px;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(18, 61, 138, 0.06);
+}
+
+.cardLeft {
+  width: 64px;
+  min-width: 64px;
+  text-align: center;
+}
+
+.cardDay {
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: #0b76ff;
+}
+
+.cardMonth {
+  font-size: 0.75rem;
+  color: #567;
+}
+
+.cardBody {
+  flex: 1;
+}
+
+.cardTitle {
+  margin: 0 0 4px;
+  font-size: 0.95rem;
+  color: #032a6c;
+}
+
+.cardMeta {
+  margin: 0 0 6px;
+  color: #6b7789;
+  font-size: 0.82rem;
+}
+
+.cardLink {
+  text-decoration: none;
+  color: #0b76ff;
+  font-weight: 600;
+  font-size: 0.8rem;
+}
+
+/* EMPTY STATE UTAMA */
+.empty {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 20px;
+  text-align: center;
+  color: #6b7789;
+}
+
+/* ===================== */
+/*        SIDEBAR        */
+/* ===================== */
+
+.sidebar {
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 18px 18px 20px;
+  box-shadow: 0 10px 24px rgba(16, 42, 91, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.sidebarTitle {
+  margin: 0 0 4px;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #102545;
+}
+
+.sidebarText {
+  margin: 0 0 8px;
+  font-size: 0.85rem;
+  color: #6b7789;
+}
+
+/* mini calendar */
+.sidebarCalendar {
+  border-radius: 12px;
+  background: #f3f6fb;
+  padding: 10px 10px 12px;
+}
+
+.calendarHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.calendarMonth {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #102545;
+}
+
+.calendarNavBtn {
+  border: none;
+  background: transparent;
+  color: #0b76ff;
+  font-size: 1.1rem;
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.calendarNavBtn:hover {
+  background: rgba(11, 118, 255, 0.07);
+}
+
+.calendarDayRow {
+  display: flex;
+  justify-content: space-between;
+  gap: 4px;
+}
+
+.dayPill {
+  flex: 1;
+  border: none;
+  background: #ffffff;
+  border-radius: 999px;
+  padding: 6px 4px;
+  font-size: 0.7rem;
+  text-align: center;
+  color: #55657f;
+  cursor: default;
+  line-height: 1.1;
+}
+
+.dayPillActive {
+  background: #0b76ff;
+  color: #ffffff;
+}
+
+/* sidebar empty state */
+.sidebarEmpty {
+  border-radius: 14px;
+  background: #f3f6fb;
+  padding: 16px 12px;
+  text-align: center;
+}
+
+.emptyIcon {
+  width: 52px;
+  height: 40px;
+  margin: 0 auto 10px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #0b76ff, #00b0ff);
+  opacity: 0.2;
+}
+
+.emptyTitle {
+  margin: 0 0 4px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #102545;
+}
+
+.emptyText {
+  margin: 0;
+  font-size: 0.8rem;
+  color: #6b7789;
+}
+
+.sidebarLink {
+  margin-top: 4px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #0b76ff;
+  text-decoration: none;
+}
+
+/* ===================== */
+/*   RESPONSIVE          */
+/* ===================== */
+
+@media (max-width: 900px) {
+  .agendaLayout {
+    grid-template-columns: 1fr;
+  }
+
+  .featured {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 16px;
+  }
+
+  .featuredCountdown {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .countdownLabel {
+    margin-bottom: 0;
+    margin-right: 10px;
+  }
+
+  .countdownGrid {
+    max-width: 260px;
+  }
+
+  .sidebar {
+    max-width: 420px;
+    margin: 0 auto;
+  }
+
+  /* kalau judul besar sudah ada di page,
+     heading internal bisa disembunyikan di desktop dan hanya tampil di mobile */
+  .heading {
+    font-size: 1.2rem;
+  }
+}
+
+@media (min-width: 901px) {
+  .headerRow {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .featured {
+    padding: 18px 16px;
+    border-radius: 20px;
+  }
+
+  .featuredTitle {
+    font-size: 1.15rem;
+  }
+
+  .featuredExcerpt {
+    font-size: 0.85rem;
+  }
+
+  .card {
+    padding: 10px 12px;
+  }
+
+  .cardLeft {
+    width: 56px;
+    min-width: 56px;
+  }
+}
