@@ -1,0 +1,30 @@
+.swiperContainer {
+  width: 100%;
+  padding-bottom: 50px !important; /* Memberi ruang untuk titik-titik pagination */
+  position: relative;
+}
+
+.slide {
+  /* REVISI PENTING: 
+     Saya menghapus 'width: 100% !important'.
+     Ini wajib dihapus agar breakpoints slidesPerView: 2 bisa bekerja.
+  */
+  height: auto; 
+  display: flex;
+  justify-content: center;
+  align-items: stretch; /* Agar tinggi semua kartu sama rata */
+}
+
+/* Pastikan konten di dalam slide (NewsCard) memenuhi ruang slide yang tersedia */
+.slide > * {
+  width: 100%;
+}
+
+/* Styling warna navigasi (Opsional, agar seragam biru) */
+.swiperContainer :global(.swiper-pagination-bullet-active) {
+  background-color: #007bff;
+}
+.swiperContainer :global(.swiper-button-next),
+.swiperContainer :global(.swiper-button-prev) {
+  color: #007bff;
+}

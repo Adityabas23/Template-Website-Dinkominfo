@@ -1,0 +1,25 @@
+/* component/DraggableCarousel.module.css */
+
+/* Ini adalah trik agar autoplay-nya mulus seperti marquee
+  dan tidak berhenti saat di-hover.
+*/
+.swiperContainer :global(.swiper-wrapper) {
+  transition-timing-function: linear !important;
+  transition-delay: 0s !important;
+}
+
+/* Kunci #3: Paksa slide agar lebarnya 'auto' 
+  agar bisa mengikuti lebar kartu di dalamnya.
+*/
+.slide {
+  width: auto !important; 
+}
+
+/* Kunci #4: Tentukan lebar kartu Anda di sini.
+  Ini sama seperti style yang kita buat untuk Marquee
+  untuk mengembalikan ukuran kartu seperti grid aslinya.
+*/
+.slide > * {
+  width: 282px;
+  height: 100%; /* Pastikan tinggi kartu konsisten */
+}

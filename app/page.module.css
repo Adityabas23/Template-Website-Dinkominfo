@@ -549,6 +549,31 @@
   margin-right: auto;
 }
 
+/* 1. Wrapper untuk memberi jarak atas/bawah */
+.posterMarqueeSection {
+  padding: 40px 0;
+  /* background-color: #f8f9fa; */ /* (Bisa diaktifkan jika mau ada latar) */
+}
+
+.posterMarqueeSection {
+  padding: 40px 0;
+  /* Anda bisa beri warna latar berbeda jika mau */
+  /* background-color: #f8f9fa; */
+}
+
+.posterMarqueeSection :global(.swiper-slide) > * {
+  /* Hapus lebar paksa 282px */
+  width: auto !important; 
+  
+  /* Atur tinggi poster agar seragam */
+  height: 180px; /* <-- Sesuaikan tinggi poster ini */
+  
+  /* Style tambahan */
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  object-fit: cover;
+}
+
 /* =========================================
    LAYOUT EDUKASI (HIGHLIGHT + SIDEBAR)
    ========================================= */

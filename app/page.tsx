@@ -8,11 +8,14 @@ import HeroBanner from '@/app/component/HeroBanner';
 import Footer from '@/app/component/footer';
 import styles from './page.module.css';
 
+
 // data dipisah ke file terpisah
 import { newsData } from './data/newsData';
 import { infoData } from './data/infoData';
 import { edukasiData } from './data/edukasiData';
-import Marquee from '@/app/component/Marquee';
+import DraggableCarousel from './component/DraggableCarousel';
+import PosterCarousel from './component/PosterCarousel';
+import Agenda from './component/Agenda';
 
 // i18n
 import { useLang } from './i18n/LanguageContext';
@@ -36,6 +39,13 @@ export default function Home() {
   const highlightItem: EdukasiItem | null =
     edukasiData.length > 0 ? (edukasiData[0] as EdukasiItem) : null;
   const listItems: EdukasiItem[] = edukasiData.slice(1) as EdukasiItem[];
+  // tambahkan di bawah import (sebelum deklarasi Home)
+const agendaItems = [
+  { id: 1, title: 'Sosialisasi Keamanan Siber', date: '2025-12-01', excerpt: 'Sosialisasi tentang pentingnya keamanan siber.' },
+  { id: 2, title: 'Pelatihan Website Desa', date: '2025-12-05', excerpt: '' },
+  { id: 3, title: 'Rapat Koordinasi', date: '2026-01-10', excerpt: '' },
+];
+
 
   const filteredList = listItems.filter((item) => {
     const matchesTab =
@@ -52,7 +62,7 @@ export default function Home() {
     <main className={styles.mainContainer}>
       {/* BANNER / HERO */}
       <HeroBanner />
-
+    
       {/* BERITA TERBARU */}
       <section className={`${styles.contentSection} ${styles.infoSection}`}>
         <div className={styles.container}>
@@ -64,7 +74,7 @@ export default function Home() {
           </div>
 
           {/* Marquee dari Aldo */}
-          <Marquee duration="40s">
+          <DraggableCarousel autoplayDelay={3000}>
             {newsData.map((item) => (
               <NewsCard
                 key={item.title}
@@ -75,11 +85,35 @@ export default function Home() {
                 title={item.title}
               />
             ))}
-          </Marquee>
+          </DraggableCarousel>
         </div>
       </section>
 
       {/* Garis pemisah */}
+      <hr className={styles.pemisahPanel} />
+
+       <section className={styles.posterMarqueeSection}>
+        <PosterCarousel>
+          
+          {/* --- SET 1 (Gambar Asli) --- */}
+          <img src="/flayer2.jpg" alt="Poster TIPIKOR" />
+          <img src="/flayer1.jpg" alt="Poster Pengaduan" />
+          <img src="/flayer3.jpg" alt="Poster Say No" />
+
+          {/* --- SET 2 (DUPLIKAT - Copy Paste di sini) --- */}
+          {/* Ini WAJIB ada agar loop berjalan mulus tanpa berhenti */}
+          <img src="/flayer4.jpg" alt="Poster WASPADA" />
+          <img src="/flayer5.jpg" alt="Poster Gempur" />
+          <img src="/flayer6.png" alt="Poster Say No" />
+
+          {/* --- SET 3 (OPSIONAL - Tambahkan lagi agar makin aman) --- */}
+          <img src="/flayer7.png" alt="Poster TIPIKOR" />
+          <img src="/flayer8.jpg" alt="Poster Pengaduan" />
+          <img src="/flayer2.jpg" alt="Poster Say No" />
+
+        </PosterCarousel>
+      </section>
+
       <hr className={styles.pemisahPanel} />
 
       {/* INFORMASI */}
@@ -93,7 +127,7 @@ export default function Home() {
           </div>
 
           {/* Marquee dari Aldo */}
-          <Marquee duration="30s">
+          <DraggableCarousel autoplayDelay={3000}>
             {infoData.map((item) => (
               <NewsCard
                 key={item.title}
@@ -104,7 +138,7 @@ export default function Home() {
                 title={item.title}
               />
             ))}
-          </Marquee>
+          </DraggableCarousel>
         </div>
       </section>
 
@@ -239,9 +273,10 @@ export default function Home() {
               {t('home.section.agenda.all')}
             </Link>
           </div>
-          <div className={styles.sidebarCard}>
-            <p>{t('home.section.agenda.empty')}</p>
-          </div>
+
+          {/* Ganti placeholder dengan komponen Agenda */}
+          <Agenda items={agendaItems} />
+
         </div>
         <Footer />
       </section>
