@@ -163,9 +163,9 @@ export default function Agenda({ items }: { items?: AgendaItem[] }) {
 
             {/* KOLOM KANAN: sidebar agenda (seperti contoh) */}
             <aside className={styles.sidebar}>
-              <h3 className={styles.sidebarTitle}>Agenda Jawa Barat</h3>
+              <h3 className={styles.sidebarTitle}>Agenda Banyumas</h3>
               <p className={styles.sidebarText}>
-                Dapatkan informasi terkait semua kegiatan yang dilakukan di Jawa Barat.
+                Dapatkan informasi terkait semua kegiatan yang dilakukan di Banyumas.
               </p>
 
               <div className={styles.sidebarCalendar}>

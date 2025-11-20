@@ -12,38 +12,42 @@ import styles from './PosterCarousel.module.css';
 
 interface PosterProps {
   children: React.ReactNode;
-  headerHeight?: number; // kalau mau sesuaikan tinggi dengan header
+  headerHeight?: number; // opsional, kalau mau dorong ke bawah
 }
 
 const PosterCarousel: React.FC<PosterProps> = ({ children, headerHeight = 0 }) => {
   return (
     <div
       className={styles.carouselWrapper}
-      style={{ height: `calc(45vh - ${headerHeight}px)` }} // cukup tinggi agar gambar besar
+      style={headerHeight ? { marginTop: headerHeight } : undefined}
     >
       <Swiper
         modules={[Autoplay, Pagination, Navigation]}
-        slidesPerView={3}            // ← 3 gambar sekaligus
-        centeredSlides={true}        // ← yang aktif selalu di tengah
-        spaceBetween={24}
+        className={styles.swiperContainer}
         loop={true}
-        autoplay={{ delay: 3500, disableOnInteraction: false }}
+        centeredSlides={true}
         speed={700}
+        autoplay={{
+          delay: 3500,
+          disableOnInteraction: false,
+        }}
         pagination={{ clickable: true }}
         navigation={true}
-        className={styles.swiperContainer}
+        slidesPerView={3}
+        spaceBetween={24}
         breakpoints={{
-          // HP kecil: 1.3 slide biar tetap ada "bayangan" kiri/kanan
           0: {
-            slidesPerView: 1.3,
+            slidesPerView: 1.1,
             spaceBetween: 16,
           },
-          // Tablet: 2.3
+          640: {
+            slidesPerView: 1.5,
+            spaceBetween: 18,
+          },
           768: {
-            slidesPerView: 2.3,
+            slidesPerView: 2.1,
             spaceBetween: 20,
           },
-          // Desktop: 3 penuh
           1024: {
             slidesPerView: 3,
             spaceBetween: 24,

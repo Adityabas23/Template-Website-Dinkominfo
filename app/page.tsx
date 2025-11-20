@@ -8,6 +8,7 @@ import HeroBanner from '@/app/component/HeroBanner';
 import Footer from '@/app/component/footer';
 import styles from './page.module.css';
 import AccessibilitySidebar from '@/app/component/AccessibilitySidebar';
+import NewsSidebar from '@/app/component/sidebar/News/NewsSidebar';
 
 
 // data dipisah ke file terpisah
@@ -69,24 +70,34 @@ const agendaItems = [
         <div className={styles.container}>
           <div className={styles.sectionHeader}>
             <h2 className={styles.sectionTitle}>{t('home.section.news')}</h2>
-            <Link href="/arsip-berita" className={styles.viewAllLink}>
+            <Link href="/arsip-berita" className={styles.viewAllButton}>
               {t('home.section.news.all')}
             </Link>
           </div>
 
-          {/* Marquee dari Aldo */}
-          <DraggableCarousel autoplayDelay={3000}>
-            {newsData.map((item) => (
-              <NewsCard
-                key={item.title}
-                href={item.href}
-                imageUrl={item.imageUrl}
-                altText={item.altText}
-                date={item.date}
-                title={item.title}
-              />
-            ))}
-          </DraggableCarousel>
+          {/* 2 kolom: kiri swiper, kanan list */}
+          <div className={styles.newsLayout}>
+            {/* KIRI: Swiper / carousel */}
+            <div className={styles.newsMain}>
+              {/* Card besar sebagai background + shadow slider */}
+              <div className={styles.newsCarouselCard}>
+                <DraggableCarousel autoplayDelay={3000}>
+                  {newsData.map((item) => (
+                    <NewsCard
+                      key={item.title}
+                      href={item.href}
+                      imageUrl={item.imageUrl}
+                      altText={item.altText}
+                      date={item.date}
+                      title={item.title}
+                    />
+                  ))}
+                </DraggableCarousel>
+              </div>
+            </div>
+            {/* KANAN: list seperti contoh (TERBARU / TERPOPULER) */}
+            <NewsSidebar />
+          </div>
         </div>
       </section>
 
@@ -100,7 +111,7 @@ const agendaItems = [
           <img src="/flayer3.jpg" alt="Poster Say No" />
           <img src="/flayer4.jpg" alt="Poster WASPADA" />
           <img src="/flayer5.png" alt="Poster Gempur" />
-          <img src="/flayer6.png" alt="Poster Say No 2" />
+          <img src="/flayer9.png" alt="Poster Say No 2" />
           <img src="/flayer7.png" alt="Poster TIPIKOR 2" />
           <img src="/flayer8.png" alt="Poster Pengaduan 2" />
         </PosterCarousel>

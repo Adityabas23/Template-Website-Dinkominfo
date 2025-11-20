@@ -1,30 +1,102 @@
+.carouselWrapper {
+  width: 100%;
+}
+
+/* Container utama Swiper */
 .swiperContainer {
   width: 100%;
-  padding-bottom: 50px !important; /* Memberi ruang untuk titik-titik pagination */
+  padding-bottom: 50px; /* ruang untuk pagination dots */
   position: relative;
 }
 
-.slide {
-  /* REVISI PENTING: 
-     Saya menghapus 'width: 100% !important'.
-     Ini wajib dihapus agar breakpoints slidesPerView: 2 bisa bekerja.
-  */
-  height: auto; 
-  display: flex;
-  justify-content: center;
-  align-items: stretch; /* Agar tinggi semua kartu sama rata */
+/* Paksa swiper-wrapper & swiper-slide mengikuti tinggi konten */
+.swiperContainer :global(.swiper-wrapper) {
+  align-items: stretch;
 }
 
-/* Pastikan konten di dalam slide (NewsCard) memenuhi ruang slide yang tersedia */
+.swiperContainer :global(.swiper-slide) {
+  flex: 0 0 100% !important;
+  max-width: 100% !important;
+  height: auto !important;      /* <-- ini yang paling penting */
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+}
+
+/* Class tambahan kita sendiri (opsional, untuk padding dalam slide) */
+.slide {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+}
+
+/* Biar NewsCard memenuhi slide */
 .slide > * {
   width: 100%;
 }
 
-/* Styling warna navigasi (Opsional, agar seragam biru) */
+/* ===== Pagination dots ===== */
+.swiperContainer :global(.swiper-pagination-bullet) {
+  opacity: 0.4;
+}
+
 .swiperContainer :global(.swiper-pagination-bullet-active) {
+  opacity: 1;
   background-color: #007bff;
 }
+
+/* ===== Arrow modern (navigation) ===== */
+
+/* Tombol bulat glass */
 .swiperContainer :global(.swiper-button-next),
 .swiperContainer :global(.swiper-button-prev) {
-  color: #007bff;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  backdrop-filter: blur(8px);
+  background: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* hilangkan default icon */
+  color: transparent !important;
+}
+
+/* Icon panah */
+.swiperContainer :global(.swiper-button-next)::after,
+.swiperContainer :global(.swiper-button-prev)::after {
+  font-size: 30px;
+  font-weight: 800;
+  color: #3f9cff;
+}
+
+/* Next → */
+.swiperContainer :global(.swiper-button-next)::after {
+  content: "›";
+  margin: 0 13px 2 ;
+}
+
+/* Prev ← */
+.swiperContainer :global(.swiper-button-prev)::after {
+  content: "‹";
+  margin: 0 13px 2 ;
+}
+
+/* Jarak dari tepi (supaya tidak terlalu mepet gambar) */
+.swiperContainer :global(.swiper-button-next) {
+  right: 10px;
+}
+
+.swiperContainer :global(.swiper-button-prev) {
+  left: 10px;
+}
+
+/* Hover effect kecil */
+.swiperContainer :global(.swiper-button-next:hover),
+.swiperContainer :global(.swiper-button-prev:hover) {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.35);
 }

@@ -1,41 +1,57 @@
-/* 1. SETUP GLOBAL */
+/* =========================================
+   1. GLOBAL LAYOUT
+   ========================================= */
+
 .mainContainer {
   width: 100%;
   min-height: 100vh;
-  background-color: white;
+  background-color: #ffffff;
   font-family: 'Inter', sans-serif;
 }
 
-/* WRAPPER HERO – PEMEGANG BANTAL BIRU */
-.heroSection {
-  position: relative;
-  margin-top: -80px;     /* pindahkan dari .hero ke sini kalau mau */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  box-sizing: border-box;
 }
 
-/* BANTAL BIRU DI BELAKANG HERO (PERSIS SEPERTI BRI) */
+/* =========================================
+   2. HERO SECTION (BANTAL BIRU + KONTEN)
+   ========================================= */
+
+/* Wrapper hero, memegang background biru (bantal) */
+.heroSection {
+  position: relative;
+  margin-top: -80px;
+}
+
+/* Bantal biru di belakang hero (seperti BRI) */
 .heroSection::after {
   content: "";
   position: absolute;
-  width: 150%;           /* lebih lebar dari hero */
-  height: 100%;          /* tinggi mengikuti hero */
-  background: linear-gradient(to right, #007bff, #0056b3);   /* atau linear-gradient seperti BRI */
+  width: 150%;
+  height: 100%;
+  background: linear-gradient(to right, #007bff, #0056b3);
   border-bottom-right-radius: 190px;
   bottom: -10px;
   right: 0;
-  z-index: 0;            /* di belakang .hero */
+  z-index: 0;
 }
 
-/* 3. HERO SECTION (GAMBAR BACKGROUND) */
+/* Hero utama (gambar background) */
 .hero {
   position: relative;
   width: 100%;
   height: calc(100vh - 10px);
   border-bottom-right-radius: 200px;
   overflow: hidden;
-  background: rgb(255, 255, 255);
+  background: #ffffff;
   z-index: 1;
 }
 
+/* Background image hero */
 .heroBg {
   position: absolute;
   inset: 0;
@@ -48,7 +64,6 @@
   filter: blur(0px);
   transform: scale(1);
 
-  /* transisi dibuat lembut */
   transition:
     opacity 900ms cubic-bezier(0.25, 0.8, 0.25, 1),
     filter 900ms ease-out,
@@ -57,23 +72,22 @@
   will-change: opacity, filter, transform;
 }
 
-/* Saat transisi: blur tipis + zoom tipis, tidak terlalu gelap */
+/* State saat transisi hero background */
 .heroBgTransition {
   opacity: 0.85;
   filter: blur(10px);
   transform: scale(1.012);
 }
 
+/* Lapisan gelap di atas foto hero */
 .heroOverlay {
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  inset: 0;
   background: rgba(0, 0, 0, 0.5);
   z-index: 1;
 }
 
+/* Wrapper konten hero (judul, search, widget kanan) */
 .contentWrapper {
   position: relative;
   z-index: 10;
@@ -86,7 +100,10 @@
   justify-content: space-between;
 }
 
-/* 4. SIDEBAR SOSMED (KIRI) */
+/* =========================================
+   3. SIDEBAR SOSMED (KIRI HERO)
+   ========================================= */
+
 .socialSidebar {
   position: absolute;
   left: -11rem;
@@ -107,7 +124,7 @@
   cursor: pointer;
   align-items: center;
   justify-content: center;
-  color: white;
+  color: #ffffff;
   font-size: 1.2rem;
   transition: 0.3s;
 }
@@ -117,11 +134,14 @@
   transform: scale(1.1);
 }
 
-/* 5. KONTEN KIRI (JUDUL & SEARCH) */
+/* =========================================
+   4. KONTEN KIRI HERO (JUDUL, SUBTITLE, SEARCH, TAGS)
+   ========================================= */
+
 .leftContent {
   margin-left: 2rem;
   max-width: 600px;
-  color: white;
+  color: #ffffff;
 }
 
 .heroTitle {
@@ -137,6 +157,7 @@
   opacity: 0.9;
 }
 
+/* Search box di hero */
 .searchBox {
   background: rgba(255, 255, 255, 0.2);
   border: 1px solid rgba(255, 255, 255, 0.3);
@@ -152,7 +173,7 @@
   flex: 1;
   background: transparent;
   border: none;
-  color: white;
+  color: #ffffff;
   font-size: 1rem;
   outline: none;
 }
@@ -163,7 +184,7 @@
 
 .searchBox button {
   background: linear-gradient(to right, #007bff, #0056b3);
-  color: white;
+  color: #ffffff;
   border: none;
   padding: 12px 30px;
   border-radius: 15px;
@@ -172,12 +193,10 @@
 }
 
 .searchBox button:hover {
-  background: linear-gradient(to right, #2384eb);
+  background: linear-gradient(to right, #1184ff, #0056b3);
 }
 
-/* ============================
-   POPULAR TAGS WRAPPER
-============================ */
+/* Popular tags di bawah search */
 .popularTags {
   width: 100%;
   max-width: 100%;
@@ -191,7 +210,7 @@
   margin-bottom: 10px;
 }
 
-/* OUTER WRAPPER (STATIC) */
+/* Outer wrapper tags (glass) */
 .tagsOuter {
   position: relative;
   width: 100%;
@@ -199,7 +218,7 @@
   border-radius: 40px;
 }
 
-/* Glass edge kanan */
+/* Efek fade di sisi kanan tags */
 .tagsOuter::after {
   content: "";
   position: absolute;
@@ -208,10 +227,7 @@
   width: 35px;
   height: 100%;
   pointer-events: none;
-  border-top-right-radius: 40px;
-  border-bottom-right-radius: 40px;
-  border-top-left-radius: 40px;
-  border-bottom-left-radius: 40px;
+  border-radius: 40px;
   background: linear-gradient(
     to right,
     rgba(255, 255, 255, 0) 0%,
@@ -228,7 +244,7 @@
   opacity: 0;
 }
 
-/* SCROLL WRAPPER (Horizontal) */
+/* Scroll wrapper horizontal tags */
 .scrollWrapper {
   width: 100%;
   overflow-x: auto;
@@ -242,7 +258,7 @@
   display: none;
 }
 
-/* TAGS LIST */
+/* Daftar tags */
 .tagsList {
   position: relative;
   z-index: 1;
@@ -252,7 +268,7 @@
   align-items: center;
 }
 
-/* CHIP / TAG GLASS */
+/* Chip/tag glass */
 .tagsList a {
   flex: 0 0 auto;
   position: relative;
@@ -266,7 +282,7 @@
   border: 1px solid rgba(255, 255, 255, 0.3);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  color: #fff;
+  color: #ffffff;
   text-decoration: none;
   font-size: 0.85rem;
   font-weight: 500;
@@ -278,19 +294,22 @@
   transition: 0.18s ease;
 }
 
-/* 6. WIDGET KANAN (BERITA + JAM) */
+/* =========================================
+   5. WIDGET KANAN HERO (BERITA + JAM)
+   ========================================= */
+
 .rightWidget {
   width: 450px;
   background: rgba(0, 0, 0, 0.4);
   backdrop-filter: blur(10px);
   border-radius: 20px;
   padding: 1.5rem;
-  color: white;
+  color: #ffffff;
   border: 1px solid rgba(255, 255, 255, 0.1);
   margin-right: 4rem;
 }
 
-/* Header Widget */
+/* Header widget (tanggal, lokasi, cuaca) */
 .widgetHeader {
   display: flex;
   justify-content: space-between;
@@ -340,7 +359,7 @@
   line-height: 1;
 }
 
-/* Kartu Berita Dalam Widget */
+/* Kartu berita di widget kanan */
 .newsCard {
   margin-bottom: 1rem;
   border-radius: 15px;
@@ -416,12 +435,12 @@
   opacity: 0.7;
 }
 
-/* Tombol Footer Widget */
+/* Tombol "lihat lebih banyak" di widget kanan */
 .btnMoreNews {
   width: 100%;
   background: rgba(255, 255, 255, 0.15);
   border: 1px solid rgba(255, 255, 255, 0.2);
-  color: white;
+  color: #ffffff;
   padding: 12px;
   border-radius: 10px;
   cursor: pointer;
@@ -433,7 +452,10 @@
   background: rgba(255, 255, 255, 0.3);
 }
 
-/* 7. SIDEBAR AKSESIBILITAS (KANAN MENTOK) */
+/* =========================================
+   6. SIDEBAR AKSESIBILITAS (KANAN LAYAR)
+   ========================================= */
+
 .accessSidebar {
   position: fixed;
   right: 2rem;
@@ -451,11 +473,10 @@
   border-radius: 30%;
   border: none;
   background: linear-gradient(to right, #007bff, #0056b3);
-  color: white;
+  color: #ffffff;
   font-size: 1.2rem;
   cursor: pointer;
   display: flex;
-  justify-content: space-between;
   align-items: center;
   justify-content: center;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
@@ -466,21 +487,17 @@
   transform: scale(1.1);
 }
 
-/* =====================
-   SECTION / GRID BAWAH
-   ===================== */
+/* =========================================
+   7. SECTION UMUM (CONTENT SECTION)
+   ========================================= */
 
-/* Biar kompatibel:
-   - contentSection (camelCase) → dipakai di TS
-   - contentsection (lowercase) → definisi lama
-*/
 .contentSection,
 .contentsection {
   padding: 60px 0;
   background-color: #ffffff;
 }
 
-/* Info section (kalau butuh beda, bisa di-override nanti) */
+/* Warna background section info/agenda */
 .infoSection {
   background-color: #ffffff;
 }
@@ -489,14 +506,7 @@
   background-color: #f8f9fa;
 }
 
-.container {
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 24px;
-  box-sizing: border-box;
-}
-
+/* Grid berita & edukasi (jika dipakai) */
 .newsGrid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -515,7 +525,10 @@
   gap: 24px;
 }
 
-/* HEADER SECTION & LINK "LIHAT SEMUA" */
+/* =========================================
+   8. HEADER SECTION + BUTTON LIHAT SEMUA
+   ========================================= */
+
 .sectionHeader {
   display: flex;
   justify-content: space-between;
@@ -528,6 +541,7 @@
   font-weight: 700;
 }
 
+/* Link lama (jika masih dipakai di tempat lain) */
 .viewAllLink {
   font-size: 0.9rem;
   font-weight: 500;
@@ -539,76 +553,167 @@
   text-decoration: underline;
 }
 
-/* Garis pemisah antar panel */
+/* Tombol "Lihat Semua" versi button */
+.viewAllButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 18px;
+  border-radius: 8px;
+  background: #007bff;
+  color: #ffffff;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.viewAllButton::after {
+  content: "››";
+}
+
+.viewAllButton:hover {
+  background: linear-gradient(to right, #1184ff, #0056b3);
+  transform: translateY(-1px);
+}
+
+/* Garis pemisah antar panel (jika dibutuhkan) */
 .pemisahPanel {
   border: 0;
   border-top: 1px solid #e0e0e0;
-  margin: 2.5rem 0;
   width: 90%;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 4.5rem auto 2.5rem;
 }
 
 /* =========================================
-                POSTER CAROUSEL
+   9. BERITA SECTION – LAYOUT SWIPER + SIDEBAR
    ========================================= */
 
-/*/* 1. Wrapper section poster */
-.posterMarqueeSection {
-  padding: 40px 0;
-  /* background-color: #f8f9fa; */
+/* Wrapper 2 kolom: kiri = swiper, kanan = list (NewsSidebar) */
+.newsLayout {
+  display: flex;
+  gap: 32px;
+  align-items: flex-start;
 }
 
-/* 2. Row 3 poster di dalam 1 slide */
-/*.posterRow {
+.newsMain {
+  flex: 2;
+  min-width: 0;
+}
+
+.newsCarouselCard {
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 24px;
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.12);
+}
+
+/* Dipakai di komponen NewsSidebar.tsx → className={styles.newsSidebar} */
+.newsSidebar {
+  flex: 1;
+  min-width: 260px;
+
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 20px 24px;
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.12);
+
+  display: flex;
+  flex-direction: column;
+}
+
+/* Tabs TERBARU / TERPOPULER di sidebar berita */
+.newsTabs {
+  display: flex;
+  border-bottom: 1px solid #e5e7eb;
+  margin-bottom: 16px;
+}
+
+.newsTab {
+  flex: 1;
+  padding: 8px 0;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  background: none;
+  border: 5px solid transparent;
+  cursor: pointer;
+  color: #6b7280;
+  position: relative;
+}
+
+.newsTabActive {
+  color: #007b55;
+}
+
+.newsTabActive::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+  background: #007b55;
+}
+
+/* List item berita di sidebar */
+.newsList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  margin-top: 4px;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.newsListItem {
+  padding-bottom: 10px;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.newsListItem:last-child {
+  border-bottom: none;
+}
+
+.newsListLink {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.newsListTitle {
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1.4;
+  margin: 0 0 4px;
+  color: #111827;
+}
+
+.newsListMeta {
+  font-size: 0.78rem;
+  color: #9ca3af;
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 32px;
-  width: 100%;
-  max-width: 1100px;
-  margin: 0 auto;
-}*/
+  gap: 6px;
+}
 
-/* 3. Poster tengah (besar) */
-/*.posterMain {
-  flex: 0 0 40%;
-  max-width: 420px;
-  border-radius: 20px;
-  overflow: hidden;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
-}*/
-
-/* 4. Poster kiri & kanan (kecil) */
-/*.posterSide {
-  flex: 0 0 22%;
-  max-width: 260px;
-  opacity: 0.9;
-  transform: scale(0.92);
-  border-radius: 18px;
-  overflow: hidden;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.14);
-}*/
-
-/* 5. Gambar poster */
-/*.posterMain img,
-.posterSide img {
-  display: block;
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-}*/
+.newsListDot {
+  opacity: 0.6;
+}
 
 /* =========================================
-   LAYOUT EDUKASI (HIGHLIGHT + SIDEBAR)
+   10. EDUKASI SECTION (HIGHLIGHT + SIDEBAR)
    ========================================= */
+
 .edukasiLayout {
   display: flex;
   gap: 2.5rem;
   flex-wrap: wrap;
 }
 
-/* 1. Kolom Kiri (Highlight) */
+/* Kolom kiri: highlight edukasi */
 .edukasiHighlight {
   flex: 1.5;
   min-width: 300px;
@@ -644,7 +749,7 @@
 
 .highlightTag {
   background-color: #007bff;
-  color: white;
+  color: #ffffff;
   padding: 4px 10px;
   border-radius: 20px;
   font-size: 0.8rem;
@@ -654,11 +759,11 @@
 
 .highlightContent h3 {
   font-size: 1.5rem;
-  margin: 1rem 0 0 0;
+  margin: 1rem 0 0;
   line-height: 1.3;
 }
 
-/* 2. Kolom Kanan (Sidebar) */
+/* Kolom kanan: sidebar edukasi */
 .edukasiSidebar {
   flex: 1;
   min-width: 300px;
@@ -666,7 +771,7 @@
   flex-direction: column;
 }
 
-/* Search Bar */
+/* Search bar edukasi */
 .edukasiSearch {
   display: flex;
   margin-bottom: 1.5rem;
@@ -674,7 +779,7 @@
 
 .edukasiSearch input {
   flex: 1;
-  border: 1px solid #ccc;
+  border: 1px solid #cccccc;
   padding: 0.75rem 1rem;
   border-radius: 8px 0 0 8px;
   font-size: 0.9rem;
@@ -683,7 +788,7 @@
 
 .edukasiSearch button {
   background-color: #007bff;
-  color: white;
+  color: #ffffff;
   border: none;
   padding: 0 1.5rem;
   border-radius: 0 8px 8px 0;
@@ -696,10 +801,10 @@
   background-color: #0056b3;
 }
 
-/* Pilihan Tabs */
+/* Tabs edukasi */
 .edukasiTabs {
   display: flex;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #dddddd;
   margin-bottom: 1.5rem;
 }
 
@@ -710,27 +815,24 @@
   cursor: pointer;
   font-size: 1rem;
   font-weight: 600;
-  color: #666;
+  color: #666666;
   border-bottom: 3px solid transparent;
   margin-bottom: -2px;
   transition: all 0.2s ease;
 }
 
 .edukasiTabs button:hover {
-  color: #333;
+  color: #333333;
 }
 
-/* Aktif tab:
-   - dipakai kalau pakai className={styles.activeTab}
-   - juga support .edukasiTabs button.activeTab (versi Aldo)
-*/
+/* Tab aktif (bisa pakai class .activeTab langsung juga) */
 .edukasiTabs button.activeTab,
 .activeTab {
   color: #007bff;
   border-bottom-color: #007bff;
 }
 
-/* Daftar Konten */
+/* List item edukasi */
 .edukasiList {
   display: flex;
   flex-direction: column;
@@ -769,17 +871,20 @@
 .edukasiListItem h4 {
   font-size: 0.95rem;
   line-height: 1.4;
-  margin: 0 0 4px 0;
+  margin: 0 0 4px;
   font-weight: 600;
 }
 
 .edukasiListItem span {
   font-size: 0.8rem;
-  color: #666;
+  color: #666666;
   text-transform: capitalize;
 }
 
-/* ========= MODAL OVERLAY & CARD ========= */
+/* =========================================
+   11. MODAL, KONTAK, QUICK ACCESS, DLL
+   ========================================= */
+
 .modalOverlay {
   position: fixed;
   inset: 0;
@@ -915,7 +1020,7 @@
 .btnPrimary {
   border: none;
   background: #16a34a;
-  color: #fff;
+  color: #ffffff;
   border-radius: 999px;
   padding: 0.45rem 1.3rem;
   font-size: 0.9rem;
@@ -926,7 +1031,7 @@
 .btnGhost {
   border-radius: 999px;
   border: 1px solid #d1d5db;
-  background: #fff;
+  background: #ffffff;
   padding: 0.45rem 1.1rem;
   font-size: 0.9rem;
   cursor: pointer;
@@ -954,6 +1059,7 @@
   font-size: 1.2rem;
 }
 
+/* Info card dalam kontak */
 .infoCard {
   border-radius: 12px;
   background: #f3f4ff;
@@ -1001,12 +1107,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #fff;
+  color: #ffffff;
   font-size: 0.8rem;
   font-weight: 700;
 }
 
-/* Aksesibilitas modal */
+/* Toggle aksesibilitas */
 .accessToggleList {
   display: flex;
   flex-direction: column;
@@ -1020,7 +1126,20 @@
   gap: 0.5rem;
 }
 
-/* RESPONSIVE (Agar aman di laptop kecil) */
+/* =========================================
+   12. POSTER CAROUSEL SECTION
+   ========================================= */
+
+.posterMarqueeSection {
+  padding: 80px 0;
+  /* background-color: #f8f9fa; */
+}
+
+/* =========================================
+   13. RESPONSIVE BREAKPOINTS
+   ========================================= */
+
+/* Laptop kecil / 1366px */
 @media (max-width: 1366px) {
   .heroTitle {
     font-size: 1.8rem;
@@ -1057,6 +1176,7 @@
   }
 }
 
+/* Laptop / 1280px */
 @media (max-width: 1280px) {
   .heroTitle {
     font-size: 1.5rem;
@@ -1090,7 +1210,7 @@
   }
 }
 
-/* TABLET EDUKASI LAYOUT (biar stack rapi) */
+/* Tablet edukasi layout */
 @media (max-width: 1024px) {
   .edukasiLayout {
     flex-direction: column;
@@ -1107,9 +1227,18 @@
   .edukasiGrid {
     grid-template-columns: repeat(2, 1fr);
   }
+
+  /* Layout berita: sidebar turun ke bawah */
+  .newsLayout {
+    flex-direction: column;
+  }
+  .newsSidebar {
+    width: 100%;
+    min-width: 0;
+  }
 }
 
-/* MOBILE */
+/* Mobile umum */
 @media (max-width: 768px) {
   .hero {
     display: flex;
@@ -1181,7 +1310,6 @@
   .popularTags span {
     font-size: 1rem;
     font-weight: 600;
-    display: block;
     margin-bottom: 1rem;
   }
 
@@ -1206,7 +1334,7 @@
     justify-content: center;
     background: rgba(255, 255, 255, 0.2);
     border-radius: 50%;
-    color: white;
+    color: #ffffff;
     font-size: 1.3rem;
     backdrop-filter: blur(5px);
   }
@@ -1227,6 +1355,7 @@
   }
 }
 
+/* Mobile kecil 600px */
 @media (max-width: 600px) {
   .heroSection::after {
     border-bottom-right-radius: 90px;
@@ -1240,6 +1369,7 @@
   }
 }
 
+/* Mobile extra kecil 480px */
 @media (max-width: 480px) {
   .heroSection::after {
     border-bottom-right-radius: 65px;
@@ -1282,10 +1412,34 @@
     height: 42px;
     font-size: 1.1rem;
   }
-  
+    /* ==== BERITA TERBARU – MOBILE ==== */
+
+  /* layout jadi kolom (kalau belum) */
+  .newsLayout {
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .newsMain {
+    width: 100%;
+  }
+
+  .newsCarouselCard {
+    border-radius: 18px;
+    padding: 12px;
+    box-shadow: 0 14px 30px rgba(15, 23, 42, 0.18);
+  }
+
+  .newsSidebar {
+    width: 100%;
+    min-width: 0;
+    border-radius: 18px;
+    padding: 14px 16px;
+    box-shadow: 0 10px 26px rgba(15, 23, 42, 0.14);
+  }
 }
 
-/* RESPONSIVE TABLET KHUSUS HERO (versi kamu) */
+/* Tablet khusus hero (700–1024) */
 @media (min-width: 700px) and (max-width: 1024px) {
   .heroSection::after {
     border-bottom-right-radius: 110px;
@@ -1327,7 +1481,7 @@
     text-align: center;
     max-width: 700px;
     margin-left: 0;
-    color: #fff;
+    color: #ffffff;
   }
 
   .heroTitle {
@@ -1391,11 +1545,11 @@
     background: rgba(255, 255, 255, 0.22);
     backdrop-filter: blur(5px);
     font-size: 1.4rem;
-    color: #fff;
+    color: #ffffff;
   }
 }
 
-/* Animasi (kalau mau dipakai di tempat lain) */
+/* Animasi tag berjalan (jika pakai marquee manual) */
 @keyframes scrollTags {
   0% {
     transform: translateX(0%);
