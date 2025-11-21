@@ -14,9 +14,11 @@ import AccessibilitySidebar from '@/app/component/AccessibilitySidebar';
 import { newsData } from './data/newsData';
 import { infoData } from './data/infoData';
 import { edukasiData } from './data/edukasiData';
+import { agendaData } from './data/agendaData';
+
 import DraggableCarousel from './component/DraggableCarousel';
 import PosterCarousel from './component/PosterCarousel';
-import Agenda from './component/agenda/Agenda';
+import Agenda from './component/agenda/Agenda'; 
 
 // i18n
 import { useLang } from './i18n/LanguageContext';
@@ -41,11 +43,6 @@ export default function Home() {
     edukasiData.length > 0 ? (edukasiData[0] as EdukasiItem) : null;
   const listItems: EdukasiItem[] = edukasiData.slice(1) as EdukasiItem[];
   // tambahkan di bawah import (sebelum deklarasi Home)
-const agendaItems = [
-  { id: 1, title: 'Sosialisasi Keamanan Siber', date: '2025-12-01', excerpt: 'Sosialisasi tentang pentingnya keamanan siber.' },
-  { id: 2, title: 'Pelatihan Website Desa', date: '2025-12-05', excerpt: '' },
-  { id: 3, title: 'Rapat Koordinasi', date: '2026-01-10', excerpt: '' },
-];
 
 
   const filteredList = listItems.filter((item) => {
@@ -69,7 +66,7 @@ const agendaItems = [
         <div className={styles.container}>
           <div className={styles.sectionHeader}>
             <h2 className={styles.sectionTitle}>{t('home.section.news')}</h2>
-            <Link href="/arsip-berita" className={styles.viewAllLink}>
+            <Link href="/pages/konten/arsip-berita" className={styles.viewAllLink}>
               {t('home.section.news.all')}
             </Link>
           </div>
@@ -115,7 +112,7 @@ const agendaItems = [
         <div className={styles.container}>
           <div className={styles.sectionHeader}>
             <h2 className={styles.sectionTitle}>{t('home.section.info')}</h2>
-            <Link href="/arsip-informasi" className={styles.viewAllLink}>
+            <Link href="/pages/konten/arsip-informasi" className={styles.viewAllLink}>
               {t('home.section.info.all')}
             </Link>
           </div>
@@ -147,7 +144,7 @@ const agendaItems = [
             <h2 className={styles.sectionTitle}>
               {t('home.section.education')}
             </h2>
-            <Link href="/arsip-edukasi" className={styles.viewAllLink}>
+            <Link href="/pages/konten/arsip-edukasi" className={styles.viewAllLink}>
               {t('home.section.education.all')}
             </Link>
           </div>
@@ -266,12 +263,12 @@ const agendaItems = [
         <div className={styles.container}>
           <div className={styles.sectionHeader}>
             <h2 className={styles.sectionTitle}>{t('home.section.agenda')}</h2>
-            <Link href="/arsip-agenda" className={styles.viewAllLink}>
+            <Link href="/pages/konten/arsip-agenda" className={styles.viewAllLink}>
               Lihat Semua Agenda &gt;
             </Link>
           </div>
 
-          <Agenda items={agendaItems} />
+          <Agenda items={agendaData} />
         </div>
       </section>
       <AccessibilitySidebar />

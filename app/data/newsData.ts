@@ -6,6 +6,7 @@ export type NewsItem = {
   altText: string;
   date: string;
   title: string;
+  excerpt?: string;
 };
 
 export const newsData: NewsItem[] = [
