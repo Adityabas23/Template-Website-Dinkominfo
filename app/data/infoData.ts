@@ -6,6 +6,7 @@ export type InfoItem = {
   altText: string;
   date: string;
   title: string;
+  excerpt?: string;
 };
 
 export const infoData: InfoItem[] = [
