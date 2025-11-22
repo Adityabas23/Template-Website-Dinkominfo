@@ -11,6 +11,7 @@ export default function PengumumanPage() {
       title="PENGUMUMAN"
       breadcrumb="Beranda > Menu Publik > Pengumuman"
       description="Informasi pengumuman terbaru dari Dinas Kominfo Kabupaten Banyumas."
+      heroImage="/bannerpemkab.png"
     >
       <div className={styles.wrapper}>
         {/* Sidebar Menu Publik */}

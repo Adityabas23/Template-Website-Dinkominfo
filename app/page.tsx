@@ -67,7 +67,7 @@ export default function Home() {
         <div className={styles.container}>
           <div className={styles.sectionHeader}>
             <h2 className={styles.sectionTitle}>{t('home.section.news')}</h2>
-            <Link href="/pages/konten/arsip-berita" className={styles.viewAllLink}>
+            <Link href="/pages/konten/arsip-berita" className={styles.newsViewAllLink}>
               {t('home.section.news.all')}
             </Link>
           </div>
@@ -123,7 +123,7 @@ export default function Home() {
         <div className={styles.container}>
           <div className={styles.sectionHeader}>
             <h2 className={styles.sectionTitle}>{t('home.section.info')}</h2>
-            <Link href="/pages/konten/arsip-informasi" className={styles.viewAllLink}>
+            <Link href="/pages/konten/arsip-informasi" className={styles.newsViewAllLink}>
               {t('home.section.info.all')}
             </Link>
           </div>
@@ -155,7 +155,7 @@ export default function Home() {
             <h2 className={styles.sectionTitle}>
               {t('home.section.education')}
             </h2>
-            <Link href="/pages/konten/arsip-edukasi" className={styles.viewAllLink}>
+            <Link href="/pages/konten/arsip-edukasi" className={styles.newsViewAllLink}>
               {t('home.section.education.all')}
             </Link>
           </div>
@@ -274,7 +274,7 @@ export default function Home() {
         <div className={styles.container}>
           <div className={styles.sectionHeader}>
             <h2 className={styles.sectionTitle}>{t('home.section.agenda')}</h2>
-            <Link href="/pages/konten/arsip-agenda" className={styles.viewAllLink}>
+            <Link href="/pages/konten/arsip-agenda" className={styles.newsViewAllLink}>
               Lihat Semua Agenda &gt;
             </Link>
           </div>
