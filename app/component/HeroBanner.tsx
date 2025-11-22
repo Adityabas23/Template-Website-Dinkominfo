@@ -1,4 +1,4 @@
-// component/HeroBanner.tsx
+// app/component/HeroBanner.tsx
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
@@ -159,7 +159,7 @@ export default function HeroBanner() {
       .replace(':', '.');
 
   const formatDate = (date: Date, lang: Lang) => {
-  const locale = lang === 'id' ? 'id-ID' : 'en-US';
+    const locale = lang === 'id' ? 'id-ID' : 'en-US';
 
     const formatted = date.toLocaleDateString(locale, {
       weekday: 'long',
@@ -194,21 +194,38 @@ export default function HeroBanner() {
     };
   }, []);
 
-  const activeNews = newsData[activeNewsIndex];
+  const activeNews = newsData[activeNewsIndex] ?? null;
+
+  // helper untuk membuat link aman (internal ke /konten/arsip-berita atau external)
+  const getNewsLink = (item: any): { type: 'internal' | 'external' | 'none'; href?: string } => {
+    if (!item) return { type: 'none' };
+    // prioritas: slug/id -> internal route
+    if (item.slug || item.id) {
+      const slugOrId = item.slug || item.id;
+      return { type: 'internal', href: `/pages/konten/arsip-berita/${slugOrId}` };
+    }
+    // jika ada hrefExternal (atau legacy href) gunakan external
+    if (item.hrefExternal) return { type: 'external', href: item.hrefExternal };
+    if (item.href && typeof item.href === 'string' && item.href.startsWith('http')) {
+      return { type: 'external', href: item.href };
+    }
+    // tidak ada link
+    return { type: 'none' };
+  };
+
+  const linkInfo = getNewsLink(activeNews);
 
   return (
     <div className={styles.heroSection}>
       <section className={styles.hero}>
         {/* layer background slideshow (fade + blur) */}
         <div
-          className={`${styles.heroBg} ${
-            isTransitioningBg ? styles.heroBgTransition : ''
-          }`}
+          className={`${styles.heroBg} ${isTransitioningBg ? styles.heroBgTransition : ''}`}
           style={{ backgroundImage: `url(${bannerImages[bannerIndex]})` }}
         />
 
         {/* overlay gelap di atas background */}
-        <div className={styles.heroOverlay}></div>
+        <div className={styles.heroOverlay} />
 
         <div className={styles.contentWrapper}>
           {/* sidebar sosmed kiri */}
@@ -233,22 +250,14 @@ export default function HeroBanner() {
             <p className={styles.heroSubtitle}>{t('hero.subtitle')}</p>
 
             <div className={styles.searchBox}>
-              <input
-                type="text"
-                placeholder={currentPlaceholder}
-                className={styles.animatedPlaceholder}
-              />
+              <input type="text" placeholder={currentPlaceholder} className={styles.animatedPlaceholder} />
               <button>{lang === 'id' ? 'Cari' : 'Search'}</button>
             </div>
 
             <div className={styles.popularTags}>
               <span>{t('hero.popularTitle')}</span>
 
-              <div
-                className={`${styles.tagsOuter} ${
-                  isAtEnd ? styles.tagsOuterNoFade : ''
-                }`}
-              >
+              <div className={`${styles.tagsOuter} ${isAtEnd ? styles.tagsOuterNoFade : ''}`}>
                 <div className={styles.scrollWrapper} ref={tagsContainerRef}>
                   <div className={styles.tagsList}>
                     <a href="#">{t('hero.placeholder.perizinan')}</a>
@@ -278,51 +287,99 @@ export default function HeroBanner() {
               <div className={styles.widgetTimeInfo}>
                 <div className={styles.weather}>
                   <FaCloudSun />{' '}
-                  {weather
-                    ? showTemp
-                      ? `${weather.temperature}°C`
-                      : weather.description
-                    : 'Memuat...'}
+                  {weather ? (showTemp ? `${weather.temperature}°C` : weather.description) : 'Memuat...'}
                 </div>
                 <div className={styles.bigClock}>{formatTime(displayTime)}</div>
               </div>
             </div>
 
             {/* kartu berita yang berganti otomatis */}
-            <div
-              className={`${styles.newsCard} ${styles.group} ${
-                isNewsTransitioning ? styles.newsCardFading : ''
-              }`}
-            >
-              <Link href={activeNews.href} target="_blank">
-                <div className={styles.newsImageWrapper}>
-                  <Image
-                    src={activeNews.imageUrl}
-                    alt={activeNews.altText}
-                    width={400}
-                    height={250}
-                    className={styles.newsImage}
-                  />
-                  <div className={styles.newsOverlay}>
-                    <span className={styles.newsCategory}>PEMERINTAHAN</span>
-                    <h3 className={styles.newsTitle}>{activeNews.title}</h3>
-                    <div className={styles.newsMeta}>
-                      <span>
-                        <FaMapMarkerAlt /> Purwokerto
-                      </span>{' '}
-                      •{' '}
-                      <span>
-                        <FaCalendar /> {activeNews.date}
-                      </span>
+            <div className={`${styles.newsCard} ${styles.group} ${isNewsTransitioning ? styles.newsCardFading : ''}`}>
+              {/* Render berbeda tergantung ada link internal / external / none */}
+              {activeNews ? (
+                linkInfo.type === 'internal' && linkInfo.href ? (
+                  <Link href={linkInfo.href}>
+                    <div className={styles.newsImageWrapper}>
+                      {/* gunakan fallback alt */}
+                      <Image
+                        src={activeNews.imageUrl || '/placeholder.png'}
+                        alt={activeNews.altText || activeNews.title || ''}
+                        width={400}
+                        height={250}
+                        className={styles.newsImage}
+                      />
+                      <div className={styles.newsOverlay}>
+                        <span className={styles.newsCategory}>PEMERINTAHAN</span>
+                        <h3 className={styles.newsTitle}>{activeNews.title}</h3>
+                        <div className={styles.newsMeta}>
+                          <span>
+                            <FaMapMarkerAlt /> Purwokerto
+                          </span>{' '}
+                          •{' '}
+                          <span>
+                            <FaCalendar /> {activeNews.date}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </Link>
+                ) : linkInfo.type === 'external' && linkInfo.href ? (
+                  <a href={linkInfo.href} target="_blank" rel="noopener noreferrer">
+                    <div className={styles.newsImageWrapper}>
+                      <Image
+                        src={activeNews.imageUrl || '/placeholder.png'}
+                        alt={activeNews.altText || activeNews.title || ''}
+                        width={400}
+                        height={250}
+                        className={styles.newsImage}
+                      />
+                      <div className={styles.newsOverlay}>
+                        <span className={styles.newsCategory}>PEMERINTAHAN</span>
+                        <h3 className={styles.newsTitle}>{activeNews.title}</h3>
+                        <div className={styles.newsMeta}>
+                          <span>
+                            <FaMapMarkerAlt /> Purwokerto
+                          </span>{' '}
+                          •{' '}
+                          <span>
+                            <FaCalendar /> {activeNews.date}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+                ) : (
+                  <div>
+                    <div className={styles.newsImageWrapper}>
+                      <Image
+                        src={activeNews.imageUrl || '/placeholder.png'}
+                        alt={activeNews.altText || activeNews.title || ''}
+                        width={400}
+                        height={250}
+                        className={styles.newsImage}
+                      />
+                      <div className={styles.newsOverlay}>
+                        <span className={styles.newsCategory}>PEMERINTAHAN</span>
+                        <h3 className={styles.newsTitle}>{activeNews.title}</h3>
+                        <div className={styles.newsMeta}>
+                          <span>
+                            <FaMapMarkerAlt /> Purwokerto
+                          </span>{' '}
+                          •{' '}
+                          <span>
+                            <FaCalendar /> {activeNews.date}
+                          </span>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </Link>
+                )
+              ) : (
+                <div style={{ padding: 16 }}>Tidak ada berita saat ini.</div>
+              )}
             </div>
 
-            <button className={styles.btnMoreNews}>
-              {lang === 'id' ? 'Lihat Berita Lainnya' : 'View More News'}
-            </button>
+            <button className={styles.btnMoreNews}>{lang === 'id' ? 'Lihat Berita Lainnya' : 'View More News'}</button>
           </div>
         </div>
         <AccessibilitySidebar />

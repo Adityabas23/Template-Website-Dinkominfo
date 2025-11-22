@@ -10,7 +10,6 @@ import styles from './page.module.css';
 import AccessibilitySidebar from '@/app/component/AccessibilitySidebar';
 import NewsSidebar from '@/app/component/sidebar/News/NewsSidebar';
 
-
 // data dipisah ke file terpisah
 import { newsData } from './data/newsData';
 import { infoData } from './data/infoData';
@@ -19,16 +18,16 @@ import { agendaData } from './data/agendaData';
 
 import DraggableCarousel from './component/DraggableCarousel';
 import PosterCarousel from './component/PosterCarousel';
-import Agenda from './component/agenda/Agenda'; 
+import Agenda from './component/agenda/Agenda';
 
 // i18n
 import { useLang } from './i18n/LanguageContext';
 
 // --- TIPE DATA UNTUK EDUKASI ---
 type EdukasiItem = {
-  href: string;
+  href?: string;
   imageUrl: string;
-  altText: string;
+  altText?: string;
   title: string;
   type: string; // 'video' | 'artikel' | dll
 };
@@ -43,8 +42,6 @@ export default function Home() {
   const highlightItem: EdukasiItem | null =
     edukasiData.length > 0 ? (edukasiData[0] as EdukasiItem) : null;
   const listItems: EdukasiItem[] = edukasiData.slice(1) as EdukasiItem[];
-  // tambahkan di bawah import (sebelum deklarasi Home)
-
 
   const filteredList = listItems.filter((item) => {
     const matchesTab =
@@ -57,17 +54,42 @@ export default function Home() {
     return matchesTab && matchesSearch;
   });
 
+  // helper: buat link aman untuk news (kembalikan type + href)
+  const makeNewsLink = (item: any): { type: 'internal' | 'external' | 'none'; href?: string } => {
+    if (!item) return { type: 'none' };
+    if (item.slug || item.id) {
+      return { type: 'internal', href: `/pages/konten/arsip-berita/${item.slug || item.id}` };
+    }
+    if (item.href && typeof item.href === 'string' && item.href.startsWith('http')) {
+      return { type: 'external', href: item.href };
+    }
+    // fallback: ke listing arsip
+    return { type: 'internal', href: '/pages/konten/arsip-berita' };
+  };
+
+  // helper buat link info (sama logika)
+  const makeInfoLink = (item: any): { type: 'internal' | 'external' | 'none'; href?: string } => {
+    if (!item) return { type: 'none' };
+    if (item.slug || item.id) {
+      return { type: 'internal', href: `/pages/konten/arsip-informasi/${item.slug || item.id}` };
+    }
+    if (item.href && typeof item.href === 'string' && item.href.startsWith('http')) {
+      return { type: 'external', href: item.href };
+    }
+    return { type: 'internal', href: '/pages/konten/arsip-informasi' };
+  };
+
   return (
     <main className={styles.mainContainer}>
       {/* BANNER / HERO */}
       <HeroBanner />
-    
+
       {/* BERITA TERBARU */}
       <section className={`${styles.contentSection} ${styles.infoSection}`}>
         <div className={styles.container}>
           <div className={styles.sectionHeader}>
             <h2 className={styles.sectionTitle}>{t('home.section.news')}</h2>
-            <Link href="/pages/konten/arsip-berita" className={styles.viewAllLink}>
+            <Link href="/pages/konten/arsip-berita" className={styles.newsViewAllLink}>
               {t('home.section.news.all')}
             </Link>
           </div>
@@ -79,19 +101,30 @@ export default function Home() {
               {/* Card besar sebagai background + shadow slider */}
               <div className={styles.newsCarouselCard}>
                 <DraggableCarousel autoplayDelay={3000}>
-                  {newsData.map((item) => (
-                    <NewsCard
-                      key={item.title}
-                      href={item.href}
-                      imageUrl={item.imageUrl}
-                      altText={item.altText}
-                      date={item.date}
-                      title={item.title}
-                    />
-                  ))}
+                  {newsData.map((item) => {
+                    const linkInfo = makeNewsLink(item);
+
+                    // NOTE:
+                    // NewsCard sekarang sudah menangani klik (internal/external)
+                    // sehingga kita tidak perlu lagi membungkusnya dengan <a> yang menyebabkan nested anchors.
+
+                    return (
+                      <NewsCard
+                        key={item.slug || item.id || item.title}
+                        href={linkInfo.href}
+                        imageUrl={item.imageUrl}
+                        altText={item.altText || ''}
+                        date={item.date}
+                        title={item.title}
+                        // jika link external, biarkan NewsCard membuka di tab baru (default)
+                        openInNewTab={linkInfo.type === 'external'}
+                      />
+                    );
+                  })}
                 </DraggableCarousel>
               </div>
             </div>
+
             {/* KANAN: list seperti contoh (TERBARU / TERPOPULER) */}
             <NewsSidebar />
           </div>
@@ -101,7 +134,7 @@ export default function Home() {
       {/* Garis pemisah */}
       <hr className={styles.pemisahPanel} />
 
-       <section className={styles.posterMarqueeSection}>
+      <section className={styles.posterMarqueeSection}>
         <PosterCarousel>
           <img src="/flayer2.jpg" alt="Poster TIPIKOR" />
           <img src="/flayer1.jpg" alt="Poster Pengaduan" />
@@ -112,9 +145,8 @@ export default function Home() {
           <img src="/flayer7.png" alt="Poster TIPIKOR 2" />
           <img src="/flayer8.png" alt="Poster Pengaduan 2" />
         </PosterCarousel>
-       </section>
+      </section>
 
-      
       {/* Garis pemisah */}
       <hr className={styles.pemisahPanel} />
 
@@ -123,23 +155,27 @@ export default function Home() {
         <div className={styles.container}>
           <div className={styles.sectionHeader}>
             <h2 className={styles.sectionTitle}>{t('home.section.info')}</h2>
-            <Link href="/pages/konten/arsip-informasi" className={styles.viewAllLink}>
+            <Link href="/pages/konten/arsip-informasi" className={styles.newsViewAllLink}>
               {t('home.section.info.all')}
             </Link>
           </div>
 
           {/* Marquee dari Aldo */}
           <DraggableCarousel autoplayDelay={3000}>
-            {infoData.map((item) => (
-              <NewsCard
-                key={item.title}
-                href={item.href}
-                imageUrl={item.imageUrl}
-                altText={item.altText}
-                date={item.date}
-                title={item.title}
-              />
-            ))}
+            {infoData.map((item) => {
+              const linkInfo = makeInfoLink(item);
+              return (
+                <NewsCard
+                  key={(item as any).slug || (item as any).id || item.title}
+                  href={linkInfo.href}
+                  imageUrl={item.imageUrl}
+                  altText={item.altText || ''}
+                  date={item.date}
+                  title={item.title}
+                  openInNewTab={linkInfo.type === 'external'}
+                />
+              );
+            })}
           </DraggableCarousel>
         </div>
       </section>
@@ -155,7 +191,7 @@ export default function Home() {
             <h2 className={styles.sectionTitle}>
               {t('home.section.education')}
             </h2>
-            <Link href="/pages/konten/arsip-edukasi" className={styles.viewAllLink}>
+            <Link href="/pages/konten/arsip-edukasi" className={styles.newsViewAllLink}>
               {t('home.section.education.all')}
             </Link>
           </div>
@@ -179,22 +215,36 @@ export default function Home() {
               {/* 1. BAGIAN KIRI: HIGHLIGHT */}
               {highlightItem && (
                 <div className={styles.edukasiHighlight}>
-                  <a
-                    href={highlightItem.href}
-                    className={styles.highlightCard}
-                  >
-                    <img
-                      src={highlightItem.imageUrl}
-                      alt={highlightItem.altText}
-                      className={styles.highlightImage}
-                    />
-                    <div className={styles.highlightContent}>
-                      <span className={styles.highlightTag}>
-                        {highlightItem.type === 'video' ? 'Video' : 'Artikel'}
-                      </span>
-                      <h3>{highlightItem.title}</h3>
+                  {/* gunakan anchor internal jika href ada, atau fallback ke external */}
+                  {highlightItem.href ? (
+                    <a href={highlightItem.href} className={styles.highlightCard}>
+                      <img
+                        src={highlightItem.imageUrl}
+                        alt={highlightItem.altText || ''}
+                        className={styles.highlightImage}
+                      />
+                      <div className={styles.highlightContent}>
+                        <span className={styles.highlightTag}>
+                          {highlightItem.type === 'video' ? 'Video' : 'Artikel'}
+                        </span>
+                        <h3>{highlightItem.title}</h3>
+                      </div>
+                    </a>
+                  ) : (
+                    <div className={styles.highlightCard}>
+                      <img
+                        src={highlightItem.imageUrl}
+                        alt={highlightItem.altText || ''}
+                        className={styles.highlightImage}
+                      />
+                      <div className={styles.highlightContent}>
+                        <span className={styles.highlightTag}>
+                          {highlightItem.type === 'video' ? 'Video' : 'Artikel'}
+                        </span>
+                        <h3>{highlightItem.title}</h3>
+                      </div>
                     </div>
-                  </a>
+                  )}
                 </div>
               )}
 
@@ -240,7 +290,7 @@ export default function Home() {
                         href={item.href}
                         className={styles.edukasiListItem}
                       >
-                        <img src={item.imageUrl} alt={item.altText} />
+                        <img src={item.imageUrl} alt={item.altText || ''} />
                         <div>
                           <h4>{item.title}</h4>
                           <span>{item.type}</span>
@@ -274,7 +324,7 @@ export default function Home() {
         <div className={styles.container}>
           <div className={styles.sectionHeader}>
             <h2 className={styles.sectionTitle}>{t('home.section.agenda')}</h2>
-            <Link href="/pages/konten/arsip-agenda" className={styles.viewAllLink}>
+            <Link href="/pages/konten/arsip-agenda" className={styles.newsViewAllLink}>
               Lihat Semua Agenda &gt;
             </Link>
           </div>

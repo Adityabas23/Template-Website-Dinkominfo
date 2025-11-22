@@ -1,7 +1,13 @@
-// FILE: app/menu-publik/berita/page.tsx
+"use client";
+
 import PageLayout from "@/app/component/pagelayout";
 import SidebarMenuPublik from "../SidebarMenuPublik";
 import styles from "@/app/assets/css/menupublik.module.css";
+
+import DraggableCarousel from "@/app/component/DraggableCarousel";
+import NewsCard from "@/app/component/card/NewsCard";
+import NewsSidebar from "@/app/component/sidebar/News/NewsSidebar";
+import { newsData } from "@/app/data/newsData";
 
 export default function BeritaPage() {
   return (
@@ -14,47 +20,41 @@ export default function BeritaPage() {
         <SidebarMenuPublik active="berita" />
 
         <main className={styles.content}>
-          <h2 className={styles.sectionTitle}>
-            Peningkatan Pengelolaan Arsip Digital di Dinkominfo Banyumas
-          </h2>
+          {/* HEADER BERITA */}
+          <div className={styles.newsHeaderRow}>
+            <h2 className={styles.sectionTitle}>Berita Terbaru</h2>
 
-          <img
-            src="/images/berita/berita-header.jpg"
-            alt="Banner berita"
-            style={{ width: "100%", marginBottom: "1.5rem" }}
-          />
-
-          <div className={styles.textBlock}>
-            <p>
-              Berdasarkan hasil pemantauan pada dashboard Srikandi, tingkat
-              pemberkasan arsip digital menunjukkan peningkatan yang cukup
-              signifikan. Persentase pemberkasan untuk naskah masuk dan naskah
-              keluar sama-sama berada pada kisaran 79% dengan nilai minimum
-              75%, menggambarkan bahwa proses penataan dan perbaikan arsip
-              telah berjalan lebih teratur dan konsisten.
-            </p>
-
-            <p>
-              Peningkatan proses ini tidak terlepas dari pemanfaatan Lembar
-              Kerja Monitoring dan Warning (Morning) sebagai alat bantu dalam
-              proses pengawasan dan kontrol mutu arsip. Morning membantu
-              menentukan prioritas, memonitor progres pemberkasan, serta
-              memastikan setiap dokumen tercatat secara sistematis.
-            </p>
-
-            <p>
-              Dengan tampilan yang sederhana namun fungsional, Morning
-              memudahkan pegawai dalam melakukan pelacakan arsip sekaligus
-              meningkatkan akurasi dan ketepatan waktu dalam proses pembenahan
-              arsip di lingkungan Dinkominfo Kabupaten Banyumas.
-            </p>
+            <a
+              href="/pages/konten/arsip-berita"
+              className={styles.newsViewAllLink}
+            >
+              Lihat Semua Berita &gt;
+            </a>
           </div>
 
-          <img
-            src="/images/berita/berita-infografis.jpg"
-            alt="Infografis arsip"
-            style={{ width: "100%", marginTop: "1.5rem" }}
-          />
+          {/* LAYOUT 2 KOLOM: KIRI SLIDER, KANAN SIDEBAR */}
+          <div className={styles.newsLayout}>
+            {/* KIRI: CARD BESAR + CAROUSEL */}
+            <div className={styles.newsMain}>
+              <div className={styles.newsCarouselCard}>
+                <DraggableCarousel autoplayDelay={3000}>
+                  {newsData.map((item) => (
+                    <NewsCard
+                      key={item.title}
+                      href={item.href}
+                      imageUrl={item.imageUrl}
+                      altText={item.altText}
+                      date={item.date}
+                      title={item.title}
+                    />
+                  ))}
+                </DraggableCarousel>
+              </div>
+            </div>
+
+            {/* KANAN: TERBARU / TERPOPULER */}
+            <NewsSidebar />
+          </div>
         </main>
       </div>
     </PageLayout>
