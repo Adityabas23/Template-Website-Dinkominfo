@@ -70,7 +70,7 @@ const agendaItems = [
         <div className={styles.container}>
           <div className={styles.sectionHeader}>
             <h2 className={styles.sectionTitle}>{t('home.section.news')}</h2>
-            <Link href="/arsip-berita" className={styles.viewAllButton}>
+            <Link href="/pages/konten/arsip-berita" className={styles.newsViewAllLink}>
               {t('home.section.news.all')}
             </Link>
           </div>
@@ -126,7 +126,7 @@ const agendaItems = [
         <div className={styles.container}>
           <div className={styles.sectionHeader}>
             <h2 className={styles.sectionTitle}>{t('home.section.info')}</h2>
-            <Link href="/arsip-informasi" className={styles.viewAllLink}>
+            <Link href="/pages/konten/arsip-informasi" className={styles.viewAllLink}>
               {t('home.section.info.all')}
             </Link>
           </div>
@@ -158,7 +158,7 @@ const agendaItems = [
             <h2 className={styles.sectionTitle}>
               {t('home.section.education')}
             </h2>
-            <Link href="/arsip-edukasi" className={styles.viewAllLink}>
+            <Link href="/pages/konten/arsip-edukasi" className={styles.viewAllLink}>
               {t('home.section.education.all')}
             </Link>
           </div>
@@ -277,7 +277,7 @@ const agendaItems = [
         <div className={styles.container}>
           <div className={styles.sectionHeader}>
             <h2 className={styles.sectionTitle}>{t('home.section.agenda')}</h2>
-            <Link href="/arsip-agenda" className={styles.viewAllLink}>
+            <Link href="/pages/konten/arsip-agenda" className={styles.viewAllLink}>
               Lihat Semua Agenda &gt;
             </Link>
           </div>

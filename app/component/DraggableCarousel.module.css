@@ -1,29 +1,48 @@
+/* FILE: app/assets/css/DraggableCarousel.module.css */
+
+/* Bungkus luar di page (mis. di Berita) */
 .carouselWrapper {
   width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow: hidden; /* cegah overflow horizontal */
 }
 
 /* Container utama Swiper */
 .swiperContainer {
   width: 100%;
-  padding-bottom: 50px; /* ruang untuk pagination dots */
+  max-width: 100%;
   position: relative;
+  padding-bottom: 40px; /* ruang untuk pagination dots */
+  box-sizing: border-box;
 }
 
-/* Paksa swiper-wrapper & swiper-slide mengikuti tinggi konten */
+/* Paksa elemen .swiper dan isinya ikut lebar container */
+.swiperContainer :global(.swiper) {
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box;
+}
+
+/* Wrapper slide – biar tinggi mengikuti konten (NewsCard) */
 .swiperContainer :global(.swiper-wrapper) {
   align-items: stretch;
 }
 
+/* Setiap slide: full-width, tinggi ikut konten */
 .swiperContainer :global(.swiper-slide) {
   flex: 0 0 100% !important;
   max-width: 100% !important;
-  height: auto !important;      /* <-- ini yang paling penting */
+  width: 100% !important;
+  height: auto !important;
+
   display: flex;
   justify-content: center;
   align-items: stretch;
+  box-sizing: border-box;
 }
 
-/* Class tambahan kita sendiri (opsional, untuk padding dalam slide) */
+/* Class tambahan internal kita */
 .slide {
   width: 100%;
   display: flex;
@@ -36,39 +55,53 @@
   width: 100%;
 }
 
-/* ===== Pagination dots ===== */
+/* =============================== */
+/*          PAGINATION DOTS        */
+/* =============================== */
+
+.swiperContainer :global(.swiper-pagination) {
+  bottom: 8px !important;
+}
+
 .swiperContainer :global(.swiper-pagination-bullet) {
   opacity: 0.4;
+  background-color: #d1d5db;
+  width: 8px;
+  height: 8px;
 }
 
 .swiperContainer :global(.swiper-pagination-bullet-active) {
   opacity: 1;
   background-color: #007bff;
+  width: 14px;
+  border-radius: 999px;
 }
 
-/* ===== Arrow modern (navigation) ===== */
+/* =============================== */
+/*           NAVIGATION ARROW      */
+/* =============================== */
 
-/* Tombol bulat glass */
 .swiperContainer :global(.swiper-button-next),
 .swiperContainer :global(.swiper-button-prev) {
   width: 44px;
   height: 44px;
   border-radius: 50%;
   backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   background: rgba(255, 255, 255, 0.25);
   box-shadow: 0 6px 18px rgba(15, 23, 42, 0.25);
+
   display: flex;
   align-items: center;
   justify-content: center;
 
-  /* hilangkan default icon */
-  color: transparent !important;
+  color: transparent !important; /* hilangkan default icon */
 }
 
-/* Icon panah */
+/* Icon panah (custom) */
 .swiperContainer :global(.swiper-button-next)::after,
 .swiperContainer :global(.swiper-button-prev)::after {
-  font-size: 30px;
+  font-size: 28px;
   font-weight: 800;
   color: #3f9cff;
 }
@@ -76,27 +109,112 @@
 /* Next → */
 .swiperContainer :global(.swiper-button-next)::after {
   content: "›";
-  margin: 0 13px 2 ;
 }
 
 /* Prev ← */
 .swiperContainer :global(.swiper-button-prev)::after {
   content: "‹";
-  margin: 0 13px 2 ;
-}
-
-/* Jarak dari tepi (supaya tidak terlalu mepet gambar) */
-.swiperContainer :global(.swiper-button-next) {
-  right: 10px;
-}
-
-.swiperContainer :global(.swiper-button-prev) {
   left: 10px;
 }
 
-/* Hover effect kecil */
+/* Jarak dari tepi gambar */
+.swiperContainer :global(.swiper-button-next) {
+  right: 16px;
+}
+
+.swiperContainer :global(.swiper-button-prev) {
+  left: 16px;
+}
+
+/* Hover effect */
 .swiperContainer :global(.swiper-button-next:hover),
 .swiperContainer :global(.swiper-button-prev:hover) {
   transform: translateY(-1px);
   box-shadow: 0 10px 24px rgba(15, 23, 42, 0.35);
+}
+
+/* =============================== */
+/*           RESPONSIVE            */
+/* =============================== */
+
+/* Tablet / iPad */
+@media (max-width: 1024px) {
+  .swiperContainer {
+    padding-bottom: 32px;
+  }
+
+  .swiperContainer :global(.swiper-button-next),
+  .swiperContainer :global(.swiper-button-prev) {
+    width: 40px;
+    height: 40px;
+    display: none;
+  }
+
+  .swiperContainer :global(.swiper-button-next) {
+    right: 12px;
+  }
+
+  .swiperContainer :global(.swiper-button-prev) {
+    left: 12px;
+  }
+}
+
+/* Mobile umum */
+@media (max-width: 768px) {
+  .swiperContainer {
+    padding-bottom: 28px;
+  }
+
+  .swiperContainer :global(.swiper-button-next),
+  .swiperContainer :global(.swiper-button-prev) {
+    width: 34px;
+    height: 34px;
+    box-shadow: 0 4px 14px rgba(15, 23, 42, 0.35);
+    display: none;
+  }
+
+  .swiperContainer :global(.swiper-button-next)::after,
+  .swiperContainer :global(.swiper-button-prev)::after {
+    font-size: 22px;
+    display: none;
+  }
+
+  .swiperContainer :global(.swiper-button-next) {
+    right: 10px;
+    display: none;
+  }
+
+  .swiperContainer :global(.swiper-button-prev) {
+    left: 10px;
+    display: none;
+  }
+
+  .swiperContainer :global(.swiper-pagination-bullet) {
+    width: 7px;
+    height: 7px;
+  }
+
+  .swiperContainer :global(.swiper-pagination-bullet-active) {
+    width: 12px;
+  }
+}
+
+/* Mobile kecil (<= 480px) */
+@media (max-width: 480px) {
+  .swiperContainer {
+    padding-bottom: 24px;
+  }
+
+  /* Di layar sangat kecil, kalau perlu arrow bisa dikecilkan lagi
+     atau bahkan disembunyikan */
+  .swiperContainer :global(.swiper-button-next),
+  .swiperContainer :global(.swiper-button-prev) {
+    display: none;
+  }
+
+  .swiperContainer :global(.swiper-button-next)::after,
+  .swiperContainer :global(.swiper-button-prev)::after {
+    font-size: 20px;
+    display: none;
+  }
 }

@@ -143,37 +143,37 @@ const menuPublikItems: MegaItem[] = [
     titleKey: 'menuPublik.berita.title',
     descKey: 'menuPublik.berita.desc',
     icon: 'B',
-    href: '#',
+    href: '/pages/menu-publik/berita',
   },
   {
     titleKey: 'menuPublik.pelayanan.title',
     descKey: 'menuPublik.pelayanan.desc',
     icon: 'P',
-    href: '#',
+    href: '/pages/menu-publik/pelayanan',
   },
   {
     titleKey: 'menuPublik.pengumuman.title',
     descKey: 'menuPublik.pengumuman.desc',
     icon: 'P',
-    href: '#',
+    href: '/pages/menu-publik/pengumuman',
   },
   {
     titleKey: 'menuPublik.materiBimtek.title',
     descKey: 'menuPublik.materiBimtek.desc',
     icon: 'M',
-    href: '#',
+    href: '/pages/menu-publik/materi-bimtek',
   },
   {
     titleKey: 'menuPublik.galeri.title',
     descKey: 'menuPublik.galeri.desc',
     icon: 'G',
-    href: '#',
+    href: '/pages/menu-publik/galeri',
   },
   {
     titleKey: 'menuPublik.reformasi.title',
     descKey: 'menuPublik.reformasi.desc',
     icon: 'R',
-    href: '#',
+    href: '/pages/menu-publik/reformarsi-birokrasi',
   },
 ];
 
@@ -337,7 +337,7 @@ const Header = forwardRef<HTMLDivElement>((props, ref) => {
                 onMouseEnter={() => handleMegaEnter('menuPublik')}
               >
                 <Link
-                  href="#"
+                  href="/pages/menu-publik/berita"
                   onClick={handleMenuClick}
                   className={`${styles.navLink} ${
                     openMega === 'menuPublik' ? styles.navLinkActive : ''
@@ -401,7 +401,7 @@ const Header = forwardRef<HTMLDivElement>((props, ref) => {
         <Link href="/">{t('nav.home')}</Link>
         <Link href="/pages/profile">{t('nav.profile')}</Link>
         <Link href="/pages/PPID/sk-dip-dikecualikan">{t('nav.ppid')}</Link>
-        <Link href="#">{t('nav.publicMenu')}</Link>
+        <Link href="pages/menu-publik/berita">{t('nav.publicMenu')}</Link>
         <Link href="/pages/data-pegawai">{t('nav.staffData')}</Link>
         <Link href="/pages/download">{t('nav.download')}</Link>
         <Link href="/pages/FAQ">{t('nav.faq')}</Link>
