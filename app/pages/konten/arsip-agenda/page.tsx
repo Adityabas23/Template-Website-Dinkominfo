@@ -190,7 +190,7 @@ export default function ArsipAgendaPage(): React.ReactElement {
                         borderRadius: 8,
                         border: isSelected ? '2px solid #0c5fd6' : '1px solid #f0f3fb',
                         background: !cell.date ? 'transparent' : hasEvents ? (isSelected ? '#0c5fd6' : '#eef6ff') : (isToday ? '#fff3e0' : '#fff'),
-                        color: isSelected ? '#fff' : '#0b2540',
+                        color: isSelected ? '#000000ff' : '#0b2540',
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',

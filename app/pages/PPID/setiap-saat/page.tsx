@@ -20,7 +20,7 @@ export default function SetiapSaatPage() {
 
           <div className={styles.contentBox}>
             {/* TABEL INFORMASI SETIAP SAAT */}
-            <div style={{ overflowX: "auto", marginBottom: 20 }}>
+            <div className={styles.ppidTableWrapper}>
               <table className={styles.ppidTable}>
                 <thead>
                   <tr>

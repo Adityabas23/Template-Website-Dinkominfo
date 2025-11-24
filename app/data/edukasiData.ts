@@ -1,5 +1,7 @@
 // app/data/edukasiData.ts
 
+import { getYoutubeThumbnail } from '@/app/utils/youtube';
+
 export type EdukasiItem = {
   href: string;
   imageUrl: string;
@@ -10,10 +12,10 @@ export type EdukasiItem = {
 
 export const edukasiData: EdukasiItem[] = [
   {
-    href: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
-    imageUrl: 'https://placehold.co/600x400/000000/ffffff?text=Video+1',
+    href: 'https://youtu.be/uUZlCqRhKnM?si=6nVzu-nThY6GVg2c',
+    imageUrl: getYoutubeThumbnail('https://youtu.be/uUZlCqRhKnM?si=6nVzu-nThY6GVg2c'),
     altText: 'Video Edukasi 1',
-    title: 'Contoh Judul Video Edukasi tentang Keamanan Siber',
+    title: 'Sistem Informasi Manajemen Pengetahuan Banyumas (SIMPAN MAS)',
     type: 'video',
   },
   {
@@ -24,10 +26,18 @@ export const edukasiData: EdukasiItem[] = [
     type: 'image',
   },
   {
-    href: 'https://www.youtube.com/watch?v=another-video',
-    imageUrl: 'https://placehold.co/600x400/333333/ffffff?text=Video+2',
+    href: 'https://youtu.be/EzZi4yVKY88?si=fxdDwDCk-fsu_GSl',
+    imageUrl: getYoutubeThumbnail('https://youtu.be/EzZi4yVKY88?si=fxdDwDCk-fsu_GSl'),
     altText: 'Video Edukasi 2',
-    title: 'Tutorial Penggunaan Aplikasi Layanan Publik',
+    title: 'Pelantikan Dewan Saka Milenial masa bakti 2022 - 2024',
+    type: 'video',
+  },
+
+  {
+    href: 'https://youtu.be/IWYA1ERyaSw?si=X64Sgnbn2JhebMOU',
+    imageUrl: getYoutubeThumbnail('https://youtu.be/IWYA1ERyaSw?si=X64Sgnbn2JhebMOU'),
+    altText: 'Video Edukasi 3',
+    title: 'Tutorial Pembuatan Data Geospasial',
     type: 'video',
   },
 ];

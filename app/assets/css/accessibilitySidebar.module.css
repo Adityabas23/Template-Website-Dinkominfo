@@ -8,7 +8,7 @@
   flex-direction: column;
   gap: 0.75rem;
   z-index: 9999;
-  align-items: flex-end; 
+  align-items: flex-end;
 }
 
 /* Tombol dasar (lingkaran) */
@@ -18,7 +18,7 @@
   cursor: pointer;
 
   display: flex;
-  flex-direction: row-reverse;      /* icon di kanan, label di kiri */
+  flex-direction: row-reverse; /* icon di kanan, label di kiri */
   align-items: center;
   justify-content: flex-start;
 
@@ -41,9 +41,9 @@
 
 /* Saat melebar karena hover */
 .accessBtnExpanded {
-  width: 180px;                      /* nambah lebar ke kiri karena anchor di right: 2rem */
+  width: 180px;
   box-shadow: 0 10px 28px rgba(15, 23, 42, 0.45);
-  transform: translateX(-4px); 
+  transform: translateX(-4px);
   justify-content: space-between;
 }
 
@@ -58,13 +58,13 @@
 
 /* Label yang muncul saat melebar (di kiri) */
 .accessLabel {
-  display: none;    
+  display: none;
   white-space: nowrap;
   font-size: 0.9rem;
   font-weight: 600;
   opacity: 0;
-  transform: translateX(6px);        /* awalnya agak “nempel” ke icon */
-  padding: 0 0.75rem 0 1rem;         /* jarak antara label dan icon */
+  transform: translateX(6px); /* awalnya agak “nempel” ke icon */
+  padding: 0 0.75rem 0 1rem; /* jarak antara label dan icon */
   transition:
     opacity 0.18s ease,
     transform 0.18s ease;
@@ -84,20 +84,22 @@
   inset: 0;
   background: rgba(15, 23, 42, 0.55);
   display: flex;
-  align-items: center;
+  align-items: flex-start;      /* biar mulai dari atas */
   justify-content: center;
+  padding: 2rem 1rem;          /* kasih ruang supaya bisa scroll */
+  overflow-y: auto;
   z-index: 10000;
 }
 
 .modalShell {
   width: min(720px, 95vw);
-  /* max-height: 90vh; */
   background: #ffffff;
   border-radius: 18px;
   box-shadow: 0 20px 60px rgba(15, 23, 42, 0.35);
   display: flex;
   flex-direction: column;
-  overflow: hidden;                  /* clip border-radius header */
+  overflow: hidden;             /* clip border-radius header */
+  max-height: 92vh;             /* jangan lebih tinggi dari viewport */
 }
 
 .modalHeader {
@@ -138,7 +140,7 @@
 
 .modalBody {
   padding: 1.5rem 1.75rem 1.25rem;
-  overflow-y: visible;
+  overflow-y: auto;             /* konten di dalam bisa di-scroll */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -174,6 +176,11 @@
   width: 100%;
   max-width: 620px;
   text-align: left;
+  color: #000 !important;
+}
+
+.modalIntro p {
+  color: #000 !important;
 }
 
 .modalBlock {
@@ -353,7 +360,9 @@
   background: #f9fafb;
   text-decoration: none;
   color: inherit;
-  transition: transform 0.18s ease, box-shadow 0.18s ease,
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease,
     border-color 0.18s ease;
 }
 
@@ -361,6 +370,11 @@
   transform: translateY(-3px);
   box-shadow: 0 10px 25px rgba(15, 23, 42, 0.15);
   border-color: #0ea5e9;
+}
+
+.quickCard h4,
+.quickCard p {
+  color: #000 !important;
 }
 
 .quickIcon {
@@ -379,19 +393,224 @@
   color: #64748b;
 }
 
-/* Accessibility settings */
+/* ================== ACCESSIBILITY PANEL (UI BARU) ================== */
 
+/* pembungkus semua blok pengaturan */
+.accessPanel {
+  width: 100%;
+  max-width: 620px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  color: #0f172a;
+}
+
+/* kartu per kelompok pengaturan */
+.accessBlock {
+  background: #f9fafb;
+  border-radius: 14px;
+  padding: 0.75rem 0.9rem;
+  border: 1px solid #e5e7eb;
+}
+
+.accessBlockHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.4rem;
+}
+
+.accessBlockTitle {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+/* baris + / - */
+.stepRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-top: 0.35rem;
+}
+
+.circleBtn {
+  width: 38px;
+  height: 38px;
+  border-radius: 9999px;
+  border: none;
+  background: #e5e7eb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    background 0.15s ease,
+    transform 0.1s ease;
+}
+
+.circleBtn:hover {
+  background: #dbeafe;
+  transform: translateY(-1px);
+}
+
+.valueLabel {
+  min-width: 60px;
+  text-align: center;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #1f2933;
+}
+
+/* chip pilihan (kecil / sedang / besar, rata tulisan) */
+.chipRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.35rem;
+}
+
+.chipBtn,
+.chipBtnIcon {
+  border-radius: 9999px;
+  border: 1px solid #e2e8f0;
+  background: #f1f5f9;
+  padding: 0.3rem 0.9rem;
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease,
+    transform 0.1s ease;
+}
+
+.chipBtnIcon {
+  padding-inline: 0.7rem;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.chipBtn:hover,
+.chipBtnIcon:hover {
+  background: #e0f2fe;
+  transform: translateY(-1px);
+}
+
+.chipActive {
+  background: #e0edff;
+  border-color: #2563eb;
+  color: #1d4ed8;
+}
+
+/* baris toggle (Pertebal Huruf, Sorot Tautan, dll) */
+
+.toggleRow {
+  width: 100%;
+  margin-top: 0.3rem;
+  padding: 0.45rem 0.6rem;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  background: #f9fafb;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  font-size: 0.86rem;
+  cursor: pointer;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease,
+    transform 0.1s ease;
+}
+
+.toggleRow span:first-child {
+  text-align: left;
+}
+
+.toggleRow:hover {
+  background: #eef2ff;
+  transform: translateY(-1px);
+}
+
+.toggleRowActive {
+  border-color: #2563eb;
+  background: #e0edff;
+}
+
+/* switch di sisi kanan */
+.toggleSwitch {
+  width: 42px;
+  height: 22px;
+  border-radius: 9999px;
+  background: #e5e7eb;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding: 2px;
+  transition: background 0.15s ease;
+}
+
+.toggleKnob {
+  width: 18px;
+  height: 18px;
+  border-radius: 9999px;
+  background: #ffffff;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.3);
+  transform: translateX(0);
+  transition: transform 0.15s ease;
+}
+
+.toggleSwitchOn {
+  background: #2563eb;
+}
+
+.toggleSwitchOn .toggleKnob {
+  transform: translateX(18px);
+}
+
+/* teks bantuan & tombol reset */
+
+.helperText {
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
+  color: #64748b;
+}
+
+.resetBtn {
+  margin-top: 0.6rem;
+  width: 100%;
+  border-radius: 9999px;
+  padding: 0.55rem 1rem;
+  font-size: 0.86rem;
+  font-weight: 600;
+  border: 1px solid #2563eb;
+  background: #eff6ff;
+  color: #1d4ed8;
+  cursor: pointer;
+  transition:
+    background 0.15s ease,
+    transform 0.1s ease,
+    box-shadow 0.15s ease;
+}
+
+.resetBtn:hover {
+  background: #dbeafe;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px rgba(37, 99, 235, 0.25);
+}
+
+/* kalau masih ada pemanggilan .accessSettings lama, tetap aman */
 .accessSettings {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
+  color: #000 !important;
 }
 
-.toggleRow {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
+/* big contact */
 
 .bigContact {
   font-size: 1.05rem;
@@ -493,7 +712,7 @@
 
 /* Ikon kotak 4 */
 .mobileFabIcon {
-  font-size: 1.8rem;         
+  font-size: 1.8rem;
   display: block;
 }
 
@@ -519,7 +738,14 @@
   }
 
   .modalShell {
-    width: 96vw;
+    width: 100%;
+    max-width: 100%;
+    border-radius: 0;
+    max-height: none;
+  }
+
+  .modalBody {
+    max-height: none;
   }
 
   .surveyImage {
@@ -528,16 +754,17 @@
   }
 
   .modalIntro,
-  .modalActions {
+  .modalActions,
+  .accessPanel {
     max-width: 100%;
   }
 
   .desktopOnly {
-    display: none;      /* sembunyikan sidebar di HP */
+    display: none; /* sembunyikan sidebar di HP */
   }
 
   .mobileFabWrapper {
-    display: flex;      /* tampilkan FAB di HP */
+    display: flex; /* tampilkan FAB di HP */
   }
 }
 
@@ -554,10 +781,12 @@
     max-height: 60vh;
   }
   .modalIntro,
-  .modalActions {
+  .modalActions,
+  .accessPanel {
     max-width: 70%;
   }
 }
+
 @media (max-width: 1024px) and (min-width: 769px) {
   .accessBtnExpanded {
     width: 160px;

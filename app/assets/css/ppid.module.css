@@ -208,7 +208,7 @@
 .structureImageWrapper {
   border-radius: 16px;
   overflow: hidden;
-  background-color: #ffffff; /* opsional, biar gambar agak “naik” dari gradien */
+  background-color: #ffffff;
 }
 
 /* Gambar responsif */
@@ -514,7 +514,7 @@
 }
 
 /* =============================== */
-/*             LIST MISI            */
+/*             LIST MISI           */
 /* =============================== */
 
 .misiList {
@@ -582,18 +582,23 @@
 .skDipCardsRow {
   margin-top: 18px;
 
-  /* background gradasi biru di belakang kartu */
   padding: 22px 18px;
   border-radius: 20px;
   background: linear-gradient(135deg, #0b63d1 0%, #1976d2 50%, #2196f3 100%);
 
-  /* slider horizontal */
   display: flex;
   flex-wrap: nowrap;
   gap: 18px;
+
+  /* ini penting supaya scroll HANYA di dalam row */
   overflow-x: auto;
+  overflow-y: hidden;
   scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+
   scrollbar-width: thin; /* firefox */
+  box-sizing: border-box;
+  max-width: 100%;
 }
 
 /* scrollbar (chrome / edge / safari) */
@@ -724,6 +729,13 @@
 /*            TABEL PPID           */
 /* =============================== */
 
+/* Wrapper baru utk tabel supaya bisa scroll horizontal */
+.ppidTableWrapper {
+  width: 100%;
+  overflow-x: auto;       /* munculkan scroll kalau tabel lebih lebar */
+  -webkit-overflow-scrolling: touch;
+}
+
 .ppidTable {
   width: 100%;
   border-collapse: collapse;
@@ -732,7 +744,7 @@
 }
 
 .ppidTable thead th {
-  background-color: #f3f4f6; /* abu-abu muda seperti contoh */
+  background-color: #f3f4f6;
   font-weight: 600;
 }
 
@@ -751,6 +763,7 @@
 .ppidTable td:first-child {
   width: 40px;
 }
+
 /* =============================== */
 /*          BUTTON MEDIA           */
 /* =============================== */
@@ -775,19 +788,19 @@
 /* =============================== */
 .berkalaLink {
   text-decoration: none;
-  color: inherit;          /* ikut warna teks biasa */
+  color: inherit;
   transition: color 0.15s ease;
 }
 
 .berkalaLink:hover {
-  color: #0c75ff;          /* biru saat kursor di atas */
+  color: #0c75ff;
   text-decoration: underline;
 }
 
 
 
 /* =============================== */
-/*            RESPONSIVE            */
+/*            RESPONSIVE           */
 /* =============================== */
 
 @media (max-width: 992px) {
@@ -828,15 +841,55 @@
   .captchaBox {
     width: 100%;
   }
+
   .sopCardLabel {
     white-space: normal;
   }
+
+  /* ===== SK DIP – MODE MOBILE (LIST VERTIKAL) ===== */
   .skDipCardsRow {
-    padding-inline: 14px;
+    max-width: 100%;
+    width: 100%;
+    margin: 16px 12px 0;
+    padding: 16px 12px;
+    border-radius: 16px;
+
+    /* ubah dari slider ke list */
+    display: block;          /* bukan flex lagi */
+    overflow-x: visible;     /* tidak scroll horizontal di container */
+    white-space: normal;
   }
 
   .skDipCard {
-    flex: 0 0 240px;
-    max-width: 240px;
+    width: 100%;
+    max-width: 100%;
+    flex: none;
+    margin-bottom: 12px;     /* jarak antar card */
+  }
+
+  /* Biar wrapper “nempel” ke tepi layar dan muat penuh */
+  .ppidTableWrapper {
+    margin: 0 -12px 16px;   /* sedikit keluar dari padding konten */
+    padding: 0 8px;
+  }
+
+  /* Jadikan tabel sedikit lebih lebar dari layar supaya scroll enak */
+  .ppidTable {
+    font-size: 12px;
+  }
+
+  .ppidTable th,
+  .ppidTable td {
+    padding: 8px 6px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    margin: 0 12px 20px;
+  }
+
+  .profileCard {
+    margin: 0 12px;
   }
 }

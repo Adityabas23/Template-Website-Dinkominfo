@@ -78,6 +78,7 @@
   border-radius: 22px;
   padding: 16px 16px 18px;
   box-shadow: 0 12px 30px rgba(15, 76, 129, 0.35);
+  box-sizing: border-box;
 }
 
 /* SETIAP TAHUN DI DALAM PANEL */
@@ -86,6 +87,7 @@
   border-radius: 16px;
   padding: 12px 12px 14px;
   margin-bottom: 14px;
+  box-sizing: border-box;
 }
 
 .yearHeading {
@@ -95,7 +97,7 @@
   margin-bottom: 10px;
 }
 
-/* ====== SCROLL WRAPPER – sama konsepnya dengan tags ====== */
+/* ====== SCROLL WRAPPER (DESKTOP) ====== */
 .scrollWrapper {
   display: block;
   width: 100%;
@@ -127,7 +129,7 @@
   align-items: stretch;
 }
 
-/* KARTU FILE – 2 kartu per view + rata bawah */
+/* KARTU FILE – 2 kartu per view (desktop) */
 .fileCard {
   background-color: #ffffff;
   border-radius: 18px;
@@ -137,6 +139,7 @@
 
   display: flex;
   flex-direction: column;
+  box-sizing: border-box;
 
   /* 2 kartu dalam lebar panel */
   flex: 0 0 calc(50% - 7px);
@@ -254,23 +257,53 @@
   filter: brightness(1.05);
 }
 
-/* RESPONSIVE */
+/* ======================= */
+/*        RESPONSIVE       */
+/* ======================= */
+
 @media (max-width: 900px) {
+  /* layout jadi 1 kolom: panel kartu di atas, list link di bawah */
   .downloadLayout {
     grid-template-columns: 1fr;
   }
 
+  .cardsColumn {
+    order: 1;
+  }
+
+  .listColumn {
+    order: 2;
+    margin-top: 18px;
+  }
+
+  .wrapper {
+    padding: 0 12px;
+  }
+
   .filePanel {
-    padding: 12px;
+    padding: 12px 10px;
   }
 
   .yearColumn {
     padding: 10px;
   }
 
-  /* mobile: 1 kartu per swipe */
+  /* MOBILE: kartu vertikal, bukan slider
+     supaya TIDAK melebar & tidak bikin scroll horizontal page */
+  .scrollWrapper {
+    overflow-x: visible;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  .fileGrid {
+    flex-direction: column;
+  }
+
   .fileCard {
-    flex: 0 0 85%;
-    max-width: 85%;
+    flex: 1 1 auto;
+    max-width: 100%;
   }
 }
