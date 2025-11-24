@@ -15,6 +15,7 @@ export default function BeritaPage() {
       title="BERITA"
       breadcrumb="Beranda > Menu Publik > Berita"
       description="Informasi dan berita terkini Dinas Kominfo Kabupaten Banyumas."
+      heroImage="/berita1.jpg"
     >
       <div className={styles.wrapper}>
         <SidebarMenuPublik active="berita" />

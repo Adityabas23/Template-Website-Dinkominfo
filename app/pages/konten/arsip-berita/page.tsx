@@ -86,6 +86,7 @@ export default function ArsipBeritaPage(): React.ReactElement {
       title="Arsip Berita"
       breadcrumb="BERANDA > ARSIP BERITA"
       description="Kumpulan berita dan pengumuman Dinas Komunikasi dan Informatika Kabupaten Banyumas"
+      heroImage="/berita1.jpg"
     >
       <main style={wrapper}>
         <div style={twoCol}>
