@@ -58,9 +58,6 @@ export default function Agenda({ items }: { items?: AgendaItem[] }) {
         {/* heading internal — kalau di page sudah ada judul besar,
             bisa di-hide lewat CSS (lihat .heading di CSS) */}
         <div className={styles.headerRow}>
-          <h2 id="agenda-heading-inner" className={styles.heading}>
-            Agenda
-          </h2>
         </div>
 
         {agenda.length === 0 ? (
