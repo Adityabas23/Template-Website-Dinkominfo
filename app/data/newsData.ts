@@ -14,7 +14,7 @@ export const newsData: NewsItem[] = [
   {
     id: '54027',
     slug: 'dinkominfo-gandeng-kepala-pasar-gempur-rokok-ilegal-2025',
-    imageUrl: '/berita1.png', // pindahkan file image ke public/berita1.png
+    imageUrl: '/berita1.jpg', 
     altText: 'Kampanye Gempur Rokok Ilegal',
     date: '12 November 2025',
     title:
