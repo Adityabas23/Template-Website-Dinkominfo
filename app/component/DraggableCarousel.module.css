@@ -101,14 +101,17 @@
 /* Icon panah (custom) */
 .swiperContainer :global(.swiper-button-next)::after,
 .swiperContainer :global(.swiper-button-prev)::after {
-  font-size: 28px;
+  font-size: 38px;
   font-weight: 800;
-  color: #3f9cff;
+  color: #007bff;
+  padding-right: 11px;
+  padding-bottom: 2px;
 }
 
 /* Next → */
 .swiperContainer :global(.swiper-button-next)::after {
   content: "›";
+  
 }
 
 /* Prev ← */

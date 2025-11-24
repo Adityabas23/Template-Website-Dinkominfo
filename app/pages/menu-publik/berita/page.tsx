@@ -42,7 +42,7 @@ export default function BeritaPage() {
                   {newsData.map((item) => (
                     <NewsCard
                       key={item.title}
-                      href={item.href}
+                      href={item.slug}
                       imageUrl={item.imageUrl}
                       altText={item.altText}
                       date={item.date}
