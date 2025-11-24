@@ -71,7 +71,7 @@ export default function ArsipAgendaPage(): React.ReactElement {
 
   // styles (inline)
   const wrapper: React.CSSProperties = { maxWidth: 1200, margin: '28px auto', padding: '0 20px' };
-  const twoCol: React.CSSProperties = { display: 'flex', gap: 24, alignItems: 'flex-start', flexWrap: 'wrap' };
+  const twoCol: React.CSSProperties = { display: 'flex', gap: 24, alignItems: 'flex-start', flexWrap: 'nowrap' };
   const leftCol: React.CSSProperties = { flex: '1 1 720px', minWidth: 320 };
   const rightCol: React.CSSProperties = { width: 360, flex: '0 0 360px' };
   const heroStyle: React.CSSProperties = { borderRadius: 16, overflow: 'hidden', padding: 18, color: '#fff', background: 'linear-gradient(90deg,#0c5fd6,#144bb0)', boxShadow: '0 12px 40px rgba(12,95,214,0.12)', marginBottom: 18 };
